@@ -1,0 +1,1 @@
+config:x86:x86_32:generic:linux:gcc 4.6.1 (Ubuntu/Linaro 4.6.1-9ubuntu3):--enable-gpl --enable-version3 --enable-nonfree --enable-static --enable-postproc --enable-pthreads --enable-shared --enable-libfaac --enable-libtheora --enable-libx264 --enable-libxvid --enable-x11grab --enable-muxer=alsa --enable-demuxer=alsa --enable-avfilter --enable-libmp3lame --enable-shmgrab
