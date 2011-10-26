@@ -24,7 +24,7 @@
  */
 
 #include "libavutil/intreadwrite.h"
-#include "libavcore/imgutils.h"
+#include "libavutil/imgutils.h"
 
 #include "avcodec.h"
 #include "get_bits.h"
@@ -92,6 +92,7 @@ static av_cold int yop_decode_init(AVCodecContext *avctx)
 
     avctx->pix_fmt = PIX_FMT_PAL8;
 
+    avcodec_get_frame_defaults(&s->frame);
     s->num_pal_colors = avctx->extradata[0];
     s->first_color[0] = avctx->extradata[1];
     s->first_color[1] = avctx->extradata[2];
@@ -248,7 +249,7 @@ static int yop_decode_frame(AVCodecContext *avctx, void *data, int *data_size,
     return avpkt->size;
 }
 
-AVCodec yop_decoder = {
+AVCodec ff_yop_decoder = {
     "yop",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_YOP,

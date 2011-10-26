@@ -27,7 +27,7 @@
 * (http://dirac.sourceforge.net/specification.html).
 */
 
-#include "libavcore/imgutils.h"
+#include "libavutil/imgutils.h"
 #include "avcodec.h"
 #include "libdirac_libschro.h"
 #include "libschroedinger.h"
@@ -346,7 +346,7 @@ static void libschroedinger_flush(AVCodecContext *avccontext)
     p_schro_params->eos_signalled = 0;
 }
 
-AVCodec libschroedinger_decoder = {
+AVCodec ff_libschroedinger_decoder = {
     "libschroedinger",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_DIRAC,

@@ -1,0 +1,4 @@
+LIBAVUTIL_51 {
+        global: av_*; ff_*; avutil_*;
+        local: *;
+};

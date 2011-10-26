@@ -12,20 +12,19 @@ LIBS_OLD= 		-lavcodec -lavformat -lavdevice \
 			-lavutil -lswscale -lpostproc \
 			-lavfilter -Llibpostproc
 
-LIBS= 		/usr/local/lib/libavcodec.so \
-		/usr/local/lib/libavformat.so \
-		/usr/local/lib/libavdevice.so \
-		/usr/local/lib/libavutil.so \
-		/usr/local/lib/libswscale.so \
-		/usr/local/lib/libpostproc.so \
-		/usr/local/lib/libavfilter.so \
-		/usr/local/lib/libpostproc.so
+LIBS= 		/usr/local/lib/libavcodec.so.53 \
+		/usr/local/lib/libavformat.so.53 \
+		/usr/local/lib/libavdevice.so.53 \
+		/usr/local/lib/libavutil.so.51 \
+		/usr/local/lib/libswscale.so.2 \
+		/usr/local/lib/libpostproc.so.51 \
+		/usr/local/lib/libavfilter.so.2
 
 ALL: libffmpeg.so
 
 libffmpeg.so: $(INCLUDES) $(SOURCES)
 	$(CC) $(INCLUDES) $(SOURCES) \
-	-D__STDC_CONSTANT_MACROS -fpic -shared $(LIBS) -g \
+	-D__STDC_CONSTANT_MACROS -I./deps/ffmpeg -shared $(LIBS) -g \
 	-o libffmpeg.so
 	
 clean:

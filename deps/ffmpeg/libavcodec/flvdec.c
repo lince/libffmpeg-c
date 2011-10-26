@@ -20,7 +20,7 @@
 #include "mpegvideo.h"
 #include "h263.h"
 #include "flv.h"
-#include "libavcore/imgutils.h"
+#include "libavutil/imgutils.h"
 
 void ff_flv2_decode_ac_esc(GetBitContext *gb, int *level, int *run, int *last){
     int is11 = get_bits1(gb);
@@ -88,10 +88,10 @@ int ff_flv_decode_picture_header(MpegEncContext *s)
     s->width = width;
     s->height = height;
 
-    s->pict_type = FF_I_TYPE + get_bits(&s->gb, 2);
-    s->dropable= s->pict_type > FF_P_TYPE;
+    s->pict_type = AV_PICTURE_TYPE_I + get_bits(&s->gb, 2);
+    s->dropable= s->pict_type > AV_PICTURE_TYPE_P;
     if (s->dropable)
-        s->pict_type = FF_P_TYPE;
+        s->pict_type = AV_PICTURE_TYPE_P;
 
     skip_bits1(&s->gb); /* deblocking flag */
     s->chroma_qscale= s->qscale = get_bits(&s->gb, 5);
@@ -109,7 +109,7 @@ int ff_flv_decode_picture_header(MpegEncContext *s)
 
     if(s->avctx->debug & FF_DEBUG_PICT_INFO){
         av_log(s->avctx, AV_LOG_DEBUG, "%c esc_type:%d, qp:%d num:%d\n",
-               s->dropable ? 'D' : av_get_pict_type_char(s->pict_type), s->h263_flv-1, s->qscale, s->picture_number);
+               s->dropable ? 'D' : av_get_picture_type_char(s->pict_type), s->h263_flv-1, s->qscale, s->picture_number);
     }
 
     s->y_dc_scale_table=
@@ -118,7 +118,7 @@ int ff_flv_decode_picture_header(MpegEncContext *s)
     return 0;
 }
 
-AVCodec flv_decoder = {
+AVCodec ff_flv_decoder = {
     "flv",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_FLV1,

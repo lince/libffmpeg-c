@@ -63,7 +63,7 @@ avs_decode_frame(AVCodecContext * avctx,
         return -1;
     }
     p->reference = 1;
-    p->pict_type = FF_P_TYPE;
+    p->pict_type = AV_PICTURE_TYPE_P;
     p->key_frame = 0;
 
     out = avs->picture.data[0];
@@ -93,7 +93,7 @@ avs_decode_frame(AVCodecContext * avctx,
 
     switch (sub_type) {
     case AVS_I_FRAME:
-        p->pict_type = FF_I_TYPE;
+        p->pict_type = AV_PICTURE_TYPE_I;
         p->key_frame = 1;
     case AVS_P_FRAME_3X3:
         vect_w = 3;
@@ -117,7 +117,7 @@ avs_decode_frame(AVCodecContext * avctx,
     table = buf + (256 * vect_w * vect_h);
     if (sub_type != AVS_I_FRAME) {
         int map_size = ((318 / vect_w + 7) / 8) * (198 / vect_h);
-        init_get_bits(&change_map, table, map_size);
+        init_get_bits(&change_map, table, map_size * 8);
         table += map_size;
     }
 
@@ -146,11 +146,13 @@ avs_decode_frame(AVCodecContext * avctx,
 
 static av_cold int avs_decode_init(AVCodecContext * avctx)
 {
+    AvsContext *const avs = avctx->priv_data;
     avctx->pix_fmt = PIX_FMT_PAL8;
+    avcodec_get_frame_defaults(&avs->picture);
     return 0;
 }
 
-AVCodec avs_decoder = {
+AVCodec ff_avs_decoder = {
     "avs",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_AVS,

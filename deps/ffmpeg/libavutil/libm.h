@@ -25,7 +25,7 @@
 #define AVUTIL_LIBM_H
 
 #include <math.h>
-#include "../config.h"
+#include "config.h"
 #include "attributes.h"
 
 #if !HAVE_EXP2
@@ -85,6 +85,13 @@ static av_always_inline av_const float roundf(float x)
     return (x > 0) ? floor(x + 0.5) : ceil(x - 0.5);
 }
 #endif /* HAVE_ROUNDF */
+
+#if !HAVE_TRUNC
+static av_always_inline av_const double trunc(double x)
+{
+    return (x > 0) ? floor(x) : ceil(x);
+}
+#endif /* HAVE_TRUNC */
 
 #if !HAVE_TRUNCF
 static av_always_inline av_const float truncf(float x)

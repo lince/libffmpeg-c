@@ -61,6 +61,7 @@ static av_cold int escape124_decode_init(AVCodecContext *avctx)
 {
     Escape124Context *s = avctx->priv_data;
 
+    avcodec_get_frame_defaults(&s->frame);
     avctx->pix_fmt = PIX_FMT_RGB555;
 
     s->num_superblocks = ((unsigned)avctx->width / 8) *
@@ -214,7 +215,8 @@ static int escape124_decode_frame(AVCodecContext *avctx,
     uint16_t* old_frame_data, *new_frame_data;
     unsigned old_stride, new_stride;
 
-    AVFrame new_frame = { { 0 } };
+    AVFrame new_frame;
+    avcodec_get_frame_defaults(&new_frame);
 
     init_get_bits(&gb, buf, buf_size * 8);
 
@@ -363,7 +365,7 @@ static int escape124_decode_frame(AVCodecContext *avctx,
 }
 
 
-AVCodec escape124_decoder = {
+AVCodec ff_escape124_decoder = {
     "escape124",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_ESCAPE124,

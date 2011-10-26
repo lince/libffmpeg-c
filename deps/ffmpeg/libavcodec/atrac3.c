@@ -74,8 +74,8 @@ typedef struct {
     int               gcBlkSwitch;
     gain_block        gainBlock[2];
 
-    DECLARE_ALIGNED(16, float, spectrum)[1024];
-    DECLARE_ALIGNED(16, float, IMDCT_buf)[1024];
+    DECLARE_ALIGNED(32, float, spectrum)[1024];
+    DECLARE_ALIGNED(32, float, IMDCT_buf)[1024];
 
     float             delayBuf1[46]; ///<qmf delay buffers
     float             delayBuf2[46];
@@ -122,7 +122,7 @@ typedef struct {
     FFTContext          mdct_ctx;
 } ATRAC3Context;
 
-static DECLARE_ALIGNED(16, float,mdct_window)[512];
+static DECLARE_ALIGNED(32, float, mdct_window)[512];
 static VLC              spectral_coeff_tab[7];
 static float            gain_tab1[16];
 static float            gain_tab2[31];
@@ -146,7 +146,7 @@ static void IMLT(ATRAC3Context *q, float *pInput, float *pOutput, int odd_band)
         /**
         * Reverse the odd bands before IMDCT, this is an effect of the QMF transform
         * or it gives better compression to do it this way.
-        * FIXME: It should be possible to handle this in ff_imdct_calc
+        * FIXME: It should be possible to handle this in imdct_calc
         * for that to happen a modification of the prerotation step of
         * all SIMD code and C code is needed.
         * Or fix the functions before so they generate a pre reversed spectrum.
@@ -156,10 +156,10 @@ static void IMLT(ATRAC3Context *q, float *pInput, float *pOutput, int odd_band)
             FFSWAP(float, pInput[i], pInput[255-i]);
     }
 
-    ff_imdct_calc(&q->mdct_ctx,pOutput,pInput);
+    q->mdct_ctx.imdct_calc(&q->mdct_ctx,pOutput,pInput);
 
     /* Perform windowing on the output. */
-    dsp.vector_fmul(pOutput,mdct_window,512);
+    dsp.vector_fmul(pOutput, pOutput, mdct_window, 512);
 
 }
 
@@ -186,7 +186,7 @@ static int decode_bytes(const uint8_t* inbuffer, uint8_t* out, int bytes){
         obuf[i] = c ^ buf[i];
 
     if (off)
-        av_log(NULL,AV_LOG_DEBUG,"Offset of %d not handled, post sample on ffmpeg-dev.\n",off);
+        av_log_ask_for_sample(NULL, "Offset of %d not handled.\n", off);
 
     return off;
 }
@@ -327,7 +327,7 @@ static int decodeSpectrum (GetBitContext *gb, float *pOut)
             readQuantSpectralCoeffs (gb, subband_vlc_index[cnt], codingMode, mantissas, subbWidth);
 
             /* Decode the scale factor for this subband. */
-            SF = sf_table[SF_idxs[cnt]] * iMaxQuant[subband_vlc_index[cnt]];
+            SF = ff_atrac_sf_table[SF_idxs[cnt]] * iMaxQuant[subband_vlc_index[cnt]];
 
             /* Inverse quantize the coefficients. */
             for (pIn=mantissas ; first<last; first++, pIn++)
@@ -400,7 +400,7 @@ static int decodeTonalComponents (GetBitContext *gb, tonal_component *pComponent
                 coded_values = coded_values_per_component + 1;
                 coded_values = FFMIN(max_coded_values,coded_values);
 
-                scalefactor = sf_table[sfIndx] * iMaxQuant[quant_step_index];
+                scalefactor = ff_atrac_sf_table[sfIndx] * iMaxQuant[quant_step_index];
 
                 readQuantSpectralCoeffs(gb, quant_step_index, coding_mode, mantissa, coded_values);
 
@@ -1014,12 +1014,12 @@ static av_cold int atrac3_decode_init(AVCodecContext *avctx)
         return AVERROR(ENOMEM);
     }
 
-    avctx->sample_fmt = SAMPLE_FMT_S16;
+    avctx->sample_fmt = AV_SAMPLE_FMT_S16;
     return 0;
 }
 
 
-AVCodec atrac3_decoder =
+AVCodec ff_atrac3_decoder =
 {
     .name = "atrac3",
     .type = AVMEDIA_TYPE_AUDIO,

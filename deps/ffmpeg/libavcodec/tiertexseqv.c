@@ -180,6 +180,7 @@ static av_cold int seqvideo_decode_init(AVCodecContext *avctx)
     seq->avctx = avctx;
     avctx->pix_fmt = PIX_FMT_PAL8;
 
+    avcodec_get_frame_defaults(&seq->frame);
     seq->frame.data[0] = NULL;
 
     return 0;
@@ -219,7 +220,7 @@ static av_cold int seqvideo_decode_end(AVCodecContext *avctx)
     return 0;
 }
 
-AVCodec tiertexseqvideo_decoder = {
+AVCodec ff_tiertexseqvideo_decoder = {
     "tiertexseqvideo",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_TIERTEXSEQVIDEO,

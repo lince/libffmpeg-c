@@ -1,3 +1,13 @@
+/*
+ * libffmpeg.h
+ *
+ *  Created on: Sep 29, 2011
+ *      Author: caioviel
+ */
+
+#define FFMpeg_SUCCESS 		0
+#define FFMpeg_ERROR 	   -1
+
 #ifndef LIBFFMPEG_H
 #define LIBFFMPEG_H
 
@@ -5,140 +15,262 @@
 
 extern "C" {
 
-void FFMpeg_init();
-
-void FFMpeg_reset();
-
-void FFMpeg_stop();
-
-void FFMpeg_relase();
+/* Main methods */
+int FFMpeg_init(int verboseLvl);
 
 int FFMpeg_transcode();
 
-void FFMpeg_setFormat (char* arg);
+void FFMpeg_reset();
 
-void FFMpeg_setOverrideString (char* arg);
+int FFMpeg_getErrorNumber();
 
-void FFMpeg_setMeThreshold (int arg);
+void FFMpeg_getErrorStr(char* retValue);
 
-void FFMpeg_setVerbose(int verboseLevel);
+void FFMpeg_stop();
 
-void FFMpeg_setFramerate(char* arg);
+/* General Options Methods */
+int FFMpeg_setFormat (char* arg);
 
-void FFMpeg_setAudioBitrate(char* arg);
+int FFMpeg_setInputFile(const char* filename);
 
-void FFMpeg_setVideoBitrate(char* arg);
+int FFMpeg_setOverwriteFile(int boolean);
 
-void FFMpeg_setFrameCrop(int top, int bottom, int left, int right);
+//TODO: Revisar essas chamadas de map
+int FFMpeg_setMap(char* arg);
 
-void FFMpeg_setFrameSize(char* arg);
+int FFMpeg_setMapMedata(char* arg);
 
-void FFMpeg_setFrameSize1(int width, int height);
+int FFMpeg_setMapChapters(char* arg);
+
+int FFMpeg_setRecordingTime1(const char* arg);
+
+int FFMpeg_setRecordingTime2(long int time);
+
+int FFMpeg_setLimiteSize(unsigned long int maxBytesSize);
+
+int FFMpeg_setStartTime1(char* time);
+
+int FFMpeg_setStartTime2(unsigned long int time);
+
+int FFMpeg_setInputTSOffset1(char* time);
+
+int FFMpeg_setInputTSOffset2(unsigned long int time);
+
+int FFMpeg_setInputTSScale(const char* arg);
+
+int FFMpeg_setRecordingTimestamp1(char* time);
+
+int FFMpeg_setRecordingTimestamp2(unsigned long int time);
+
+int FFMpeg_setMetadata1(char* arg);
+
+int FFMpeg_setMetadata2(char* key, char* value);
+
+int FFMpeg_setDataFramesToRecord(int value);
+
+int FFMpeg_setDoBenchMark(int boolean);
+
+int FFMpeg_setTimeLimit(long int time);
+
+int FFMpeg_setDoPacketDump(int boolean);
+
+int FFMpeg_setDoHexDump(int boolean);
+
+int FFMpeg_setReadAtNativeRate(int boolean);
+
+int FFMpeg_setLoopInput(int boolean);
+
+int FFMpeg_setLoopOutputNumber(int value);
+
+int FFMpeg_setVerbose(int verboseLevel);
+
+int FFMpeg_setTarget(char* arg);
+
+int FFMpeg_setThreadCount(int number);
+
+int FFMpeg_setVideoSyncMethod(int number);
+
+int FFMpeg_setAudioSyncMethod(int number);
+
+int FFMpeg_setAudioDriftThreshould(float number);
+
+int FFMpeg_setCopyTimestamp(int boolean);
+
+int FFMpeg_setCopyTimeBase(int boolean);
+
+int FFMpeg_setShortestInput(int boolean);
+
+int FFMpeg_setDTSDeltaThreshould(float boolean);
+
+int FFMpeg_setProgramId(int number);
+
+int FFMpeg_setCopyInitialNonKeyframes(int boolean);
+
+/* Video Options Methods */
+
+int FFMpeg_setVideoBitrate(char* arg);
+
+int FFMPeg_setVideoMaxFrames(int number);
+
+int FFMpeg_setFramerate(char* arg);
+
+//TODO: by a integer number.
+//int FFMpeg_setFramerate2(int framerate);
+
+int FFMpeg_setFrameSize1(char* arg);
+
+int FFMpeg_setFrameSize2(int width, int height);
+
+int FFMpeg_setAspectRatio(char* arg);
+
+int FFMpeg_setPixelFormat(char* arg);
+
+int FFMPeg_setBitsPerRawSample(int number);
+
+//TODO: verificar a possibilidade de voltar utilizando os filtros
+//int FFMpeg_setFrameCrop(int top, int bottom, int left, int right);
+//int FFMpeg_setFramePad(int top, int bottom, int left, int right);
+
+int FFMpeg_setIntraOnly(int boolean);
+
+int FFMpeg_setDisableVideo(int boolean);
+
+int FFMpeg_setVideoDiscard(int boolean);
+
+int FFMpeg_setVideoQScale(float qscale);
+
+int FFMpeg_setVideoRCOverrideString (char* arg);
+
+int FFMpeg_setVideoCodec(char* arg);
+
+int FFMpeg_setMeThreshold (int number);
+
+int FFMpeg_setVideoSameQuality(int boolean);
+
+int FFMpeg_setPassNumber(int number);
+
+int FFMPeg_setPassLogFile(char* arg);
+
+int FFMpeg_setDoDeinterlace(int boolean);
+
+int FFMpeg_setDoPSNR(int boolean);
+
+int FFMpeg_setVideoCodingStatusFile1 ();
+
+int FFMpeg_setVideoCodingStatusFile2 (char* arg);
+
+int FFMpeg_setVideoFilters(char* arg);
+
+int FFMpeg_setInterMatrix(char* arg);
+
+int FFMpeg_setIntraMatrix(char* arg);
+
+int FFMpeg_setTopFieldFirst(char* arg);
+
+int FFMpeg_setIntraDCPrecision(int number);
+
+int FFMpeg_setVideoTag(char* arg);
+
+int FFMpeg_newVideoStream();
+
+int FFMpeg_setVideoLanguage(char* arg);
+
+int FFMpeg_setQPHistogram(int boolean);
+
+int FFMpeg_setForceFPS(int boolean);
+
+// streamIndex:value
+int FFMpeg_setStreamId1(char* arg);
+
+int FFMpeg_setStreamId2(int streamIndex, int value);
+
+int FFMpeg_setForceKeyFrame(char* arg);
+
+/* Audio Options Methods */
+
+int FFMpeg_setAudioBitrate(char* arg);
+
+int FFMPeg_setAudioMaxFrames(int number);
+
+int FFMpeg_setAudioQScale(float number);
+
+int FFMpeg_setAudioRate(int arate);
+
+int FFMpeg_setAudioChannels(int achannel);
+
+int FFMpeg_setDisableAudio(int boolean);
+
+int FFMpeg_setAudioCodec(char* arg);
+
+int FFMpeg_setAudioTag(char* arg);
+
+//change audio volume (256=normal)
+int FFMpeg_setAudioVolume(int volume);
+
+int FFMpeg_newAudioStream();
+
+int FFMpeg_setAudioLanguage(char* arg);
+
+int FFMpeg_setAudioSampleFormat(char* arg);
+
+/* Subtitle Options Methods */
+
+int FFMpeg_setDisableSubtitle(int boolean);
+
+int FFMpeg_setSubtitleCodec(char* arg);
+
+int FFMpeg_newSubtitleStream();
+
+int FFMpeg_setSubtitleLanguage(char* arg);
+
+int FFMpeg_setSubtitleTag(char* arg);
+
+/* Grab Options Methods */
+
+int FFMpeg_setVideoChannel(int vchannel);
+
+int FFMpeg_setVideoStandard(char* arg);
+
+int FFMpeg_setInputSync(int boolean);
+
+/* Muxer Options Methods */
+
+int FFMpeg_setMuxerMaxDelay(float number);
+
+int FFMpeg_setMuxerMaxPreload(float number);
+
+int FFMpeg_setVideoBitstreamFilter(char* arg);
+
+int FFMpeg_setAudioBitstreamFilter(char* arg);
+
+int FFMpeg_setSubtitleBitstreamFilter(char* arg);
+
+int FFMpeg_setAudioPreset(char* arg);
+
+int FFMpeg_setVideoPreset(char* arg);
+
+int FFMpeg_setSubtitlePreset(char* arg);
+
+int FFMpeg_setFilePreset(char* arg);
+
+/* Data Options Methods */
+
+int FFMpeg_setDataCodec(char* arg);
 
 int FFMpeg_setPadColor(char* arg);
 
-int FFMpeg_setFramePad(int top, int bottom, int left, int right);
+/* Others Options Methods */
 
-void FFMpeg_setFramePixelFormat(char* arg);
+int FFMpeg_setOther(char* opt, char* arg);
 
-void FFMpeg_setFrameAspectRatio(char* arg);
+int FFMpeg_setOutputFile(char* filename);
 
-void FFMpeg_setMetadata(char* arg);
 
-void FFMpeg_setMetadata1(char* key, char* value);
+//void* FFMpeg_getCurrentFrameFromInput(int input);
 
-void FFMpeg_setQScale(float qscale);
+//void FFMpeg_enableGrabVideoFrame(int bool);
 
-void FFMpeg_setTopFieldFirst(int topFiledFirst);
 
-void FFMpeg_setThreadCount(int number);
-
-void FFMpeg_setAudioSampleFormat(char* arg);
-
-void FFMpeg_setAudioRate(int arate);
-
-void FFMpeg_setAudioChannels(int achannel);
-
-void FFMpeg_setVideoChannel(int vchannel);
-
-void FFMpeg_setVideoStandard(char* arg);
-
-void FFMpeg_setAudioCodec(char* arg);
-
-void FFMpeg_setAudioTag(char* arg);
-
-void FFMpeg_setVideoTag(char* arg);
-
-void FFMpeg_setVideoCodec(char* arg);
-
-void FFMpeg_setSubtitleCodec(char* arg);
-
-void FFMpeg_setSubtitleTag(char* arg);
-
-void FFMpeg_setMap(char* arg);
-
-void FFMpeg_setMapMetaData(char* arg);
-
-void FFMpeg_setInputTSScale(char* arg);
-
-void FFMpeg_setRecordingTime(char* time);
-
-void FFMpeg_setStartTime(char* time);
-
-void FFMpeg_setRecTimestamp(char* time);
-
-void FFMpeg_setInputTSOffset(char* time);
-
-void FFMpeg_setInputFile(char* filename);
-
-void FFMpeg_newAudioStream();
-
-void FFMpeg_newVideoStream();
-
-void FFMpeg_newSubtitleStream();
-
-void FFMpeg_setOutputFile(char* filename);
-
-void FFMpeg_setPass(int number);
-
-void FFMpeg_setInterMatrix(char* arg);
-
-void FFMpeg_setIntraMatrix(char* arg);
-
-//void FFMpeg_setTarget(char* arg);
-
-void FFMpeg_setVStatsFile(char* arg);
-
-void FFMpeg_setVStats();
-
-void FFMpeg_setVideoBsf(char* arg);
-
-void FFMpeg_setAudioBsf(char* arg);
-
-void FFMpeg_setSubtitleBsf(char* arg);
-
-void FFMpeg_setAudioPreset(char* arg);
-
-void FFMpeg_setVideoPreset(char* arg);
-
-void FFMpeg_setSubtitlePreset(char* arg);
-
-void FFMpeg_setEnableVideo(int enableVideo);
-
-void FFMpeg_setEnableAudio(int enableAudio);
-
-void FFMpeg_setEnableSubtitle(int enableSubtitle);
-
-void FFMpeg_setOther(char* opt, char* arg);
-
-void* FFMpeg_getCurrentFrameFromInput(int input);
-
-void FFMpeg_enableGrabVideoFrame(int boolean);
-
-void FFMPeg_setFileOverwrite(int boolean);
-
-/* arg format is "output-stream-index:streamid-value". */
-void FFMpeg_setStreamId(char* arg);
 
 }
 
