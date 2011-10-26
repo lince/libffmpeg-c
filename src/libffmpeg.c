@@ -1827,10 +1827,11 @@ static int output_packet(AVInputStream *ist, int ist_index,
                                     enc->frame_size = fifo_bytes / (osize * enc->channels);
                                 } else { /* pad */
                                     int frame_bytes = enc->frame_size*osize*enc->channels;
-                                    if (allocated_audio_buf_size < frame_bytes)
+                                    if (allocated_audio_buf_size < frame_bytes) {
                                     	sprintf(error_str, "Allocated audio buffer is too small");
                                     	FFMpeg_reset(__LINE__);
                                     	return FFMpeg_ERROR;
+                                    }
                                     generate_silence(audio_buf+fifo_bytes, enc->sample_fmt, frame_bytes - fifo_bytes);
                                 }
 
@@ -3842,6 +3843,7 @@ int FFMpeg_setOverwriteFile(int boolean) {
 }
 
 int FFMpeg_setMap(char* arg) {
+	printf("FFMpeg_setMap() -> %s\n", arg);
     AVStreamMap *m;
     char *p;
 
