@@ -20,11 +20,11 @@ int FFMpeg_init(int verboseLvl);
 
 int FFMpeg_transcode();
 
-void FFMpeg_reset();
+void FFMpeg_reset(int line);
 
 int FFMpeg_getErrorNumber();
 
-void FFMpeg_getErrorStr(char* retValue);
+char* FFMpeg_getErrorStr();
 
 void FFMpeg_stop();
 

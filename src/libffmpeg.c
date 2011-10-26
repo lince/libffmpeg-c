@@ -531,14 +531,14 @@ static void *grow_array(void *array, int elem_size, int *size, int new_size)
 {
     if (new_size >= INT_MAX / elem_size) {
 		sprintf(error_str, "Array too big.\n");
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
     }
     if (*size < new_size) {
         uint8_t *tmp = av_realloc(array, new_size*elem_size);
         if (!tmp) {
     		sprintf(error_str, "Could not alloc buffer.\n");
-    		FFMpeg_reset();
+    		FFMpeg_reset(__LINE__);
     		return FFMpeg_ERROR;
         }
         memset(tmp + *size*elem_size, 0, (new_size-*size) * elem_size);
@@ -630,7 +630,7 @@ static AVOutputStream *new_output_stream(AVFormatContext *oc, int file_idx)
         av_mallocz(sizeof(AVOutputStream));
     if (!ost) {
 		sprintf(error_str, "Could not alloc output stream\n");
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
     }
     ost->file_index = file_idx;
@@ -666,7 +666,7 @@ static int read_ffserver_streams(AVFormatContext *s, const char *filename)
         st->codec = avcodec_alloc_context();
         if (!st->codec) {
             sprint_error(error_str, filename, AVERROR(ENOMEM));
-    		FFMpeg_reset();
+    		FFMpeg_reset(__LINE__);
         }
         avcodec_copy_context(st->codec, ic->streams[i]->codec);
         s->streams[i] = st;
@@ -732,7 +732,7 @@ static int write_frame(AVFormatContext *s, AVPacket *pkt, AVCodecContext *avctx,
     ret= av_interleaved_write_frame(s, pkt);
     if(ret < 0){
 		sprint_error(error_str, "av_interleaved_write_frame()", ret);
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
     }
     return FFMpeg_SUCCESS;
@@ -770,7 +770,7 @@ need_realloc:
 
     if(audio_out_size > INT_MAX || audio_buf_size > INT_MAX){
 		sprintf(error_str, "Buffer sizes too large\n");
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
     }
 
@@ -778,7 +778,7 @@ need_realloc:
     av_fast_malloc(&audio_out, &allocated_audio_out_size, audio_out_size);
     if (!audio_buf || !audio_out){
 		sprintf(error_str, "Out of memory in do_audio_out\n");
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
     }
 
@@ -819,7 +819,7 @@ need_realloc:
             	sprintf(error_str, "Can not resample %d channels @ %d Hz to %d channels @ %d Hz\n",
                         dec->channels, dec->sample_rate,
                         enc->channels, enc->sample_rate);
-        		FFMpeg_reset();
+        		FFMpeg_reset(__LINE__);
         		return FFMpeg_ERROR;
             }
         }
@@ -837,7 +837,7 @@ need_realloc:
                 av_get_sample_fmt_name(dec->sample_fmt),
                 av_get_sample_fmt_name(enc->sample_fmt));
 
-    		FFMpeg_reset();
+    		FFMpeg_reset(__LINE__);
     		return FFMpeg_ERROR;
         }
         ost->reformat_pair=MAKE_SFMT_PAIR(enc->sample_fmt,dec->sample_fmt);
@@ -921,7 +921,7 @@ need_realloc:
         /* output resampled raw samples */
         if (av_fifo_realloc2(ost->fifo, av_fifo_size(ost->fifo) + size_out) < 0) {
     		sprintf(error_str, "av_fifo_realloc2() failed\n");
-    		FFMpeg_reset();
+    		FFMpeg_reset(__LINE__);
     		return FFMpeg_ERROR;
         }
         av_fifo_generic_write(ost->fifo, buftmp, size_out, NULL);
@@ -940,7 +940,7 @@ need_realloc:
                                        (short *)audio_buf);
             if (ret < 0) {
         		sprintf(error_str, "Audio encoding failed\n");
-        		FFMpeg_reset();
+        		FFMpeg_reset(__LINE__);
         		return FFMpeg_ERROR;
             }
             audio_size += ret;
@@ -968,7 +968,7 @@ need_realloc:
 
         if(size_out > audio_out_size){
     		sprintf(error_str, "Internal error, buffer size too small\n");
-    		FFMpeg_reset();
+    		FFMpeg_reset(__LINE__);
     		return FFMpeg_ERROR;
         }
 
@@ -977,7 +977,7 @@ need_realloc:
                                    (short *)buftmp);
         if (ret < 0) {
     		sprintf(error_str, "Audio encoding failed\n");
-    		FFMpeg_reset();
+    		FFMpeg_reset(__LINE__);
     		return FFMpeg_ERROR;
         }
         audio_size += ret;
@@ -1076,7 +1076,7 @@ static int do_subtitle_out(AVFormatContext *s,
                                                     subtitle_out_max_size, sub);
         if (subtitle_out_size < 0) {
     		sprintf(error_str, "Subtitle encoding failed\n");
-    		FFMpeg_reset();
+    		FFMpeg_reset(__LINE__);
     		return FFMpeg_ERROR;
         }
 
@@ -1184,7 +1184,7 @@ static int do_video_out(AVFormatContext *s,
                                     enc->width, enc->height)) {
 
             		sprintf(error_str, "Cannot allocate temp picture, check pix fmt\n");
-            		FFMpeg_reset();
+            		FFMpeg_reset(__LINE__);
             		return FFMpeg_ERROR;
                 }
             }
@@ -1195,7 +1195,7 @@ static int do_video_out(AVFormatContext *s,
                                                    ost->sws_flags, NULL, NULL, NULL);
             if (ost->img_resample_ctx == NULL) {
         		sprintf(error_str, "Cannot get resampling context\n");
-        		FFMpeg_reset();
+        		FFMpeg_reset(__LINE__);
         		return FFMpeg_ERROR;
             }
         }
@@ -1256,7 +1256,7 @@ static int do_video_out(AVFormatContext *s,
                                        &big_picture);
             if (ret < 0) {
         		sprintf(error_str, "Video encoding failed\n");
-        		FFMpeg_reset();
+        		FFMpeg_reset(__LINE__);
         		return FFMpeg_ERROR;
             }
 
@@ -1305,7 +1305,7 @@ static int do_video_stats(AVFormatContext *os, AVOutputStream *ost,
         vstats_file = fopen(vstats_filename, "w");
         if (!vstats_file) {
             sprintf(error_str, "Could not create the file %s", vstats_filename);
-            FFMpeg_reset();
+            FFMpeg_reset(__LINE__);
             return FFMpeg_ERROR;
         }
     }
@@ -1829,7 +1829,7 @@ static int output_packet(AVInputStream *ist, int ist_index,
                                     int frame_bytes = enc->frame_size*osize*enc->channels;
                                     if (allocated_audio_buf_size < frame_bytes)
                                     	sprintf(error_str, "Allocated audio buffer is too small");
-                                    	FFMpeg_reset();
+                                    	FFMpeg_reset(__LINE__);
                                     	return FFMpeg_ERROR;
                                     generate_silence(audio_buf+fifo_bytes, enc->sample_fmt, frame_bytes - fifo_bytes);
                                 }
@@ -1844,7 +1844,7 @@ static int output_packet(AVInputStream *ist, int ist_index,
                             }
                             if (ret < 0) {
                                	sprintf(error_str, "Audio encoding failed\n");
-                                FFMpeg_reset();
+                                FFMpeg_reset(__LINE__);
                                 return FFMpeg_ERROR;
                             }
                             audio_size += ret;
@@ -1854,7 +1854,7 @@ static int output_packet(AVInputStream *ist, int ist_index,
                             ret = avcodec_encode_video(enc, bit_buffer, bit_buffer_size, NULL);
                             if (ret < 0) {
                                	sprintf(error_str, "Video encoding failed\n");
-                                FFMpeg_reset();
+                                FFMpeg_reset(__LINE__);
                                 return FFMpeg_ERROR;
                             }
                             video_size += ret;
@@ -1951,7 +1951,7 @@ static int parse_forced_key_frames(char *kf, AVOutputStream *ost,
     if (!ost->forced_kf_pts) {
         av_log(NULL, AV_LOG_FATAL, "Could not allocate forced key frames array.\n");
        	sprintf(error_str, "Could not allocate forced key frames array.\n");
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
     }
     for (i = 0; i < n; i++) {
@@ -2002,6 +2002,7 @@ static int transcode(AVFormatContext **output_files,
         nb_ostreams += os->nb_streams;
     }
     if (nb_stream_maps > 0 && nb_stream_maps != nb_ostreams) {
+    	printf("%d, %d", nb_stream_maps, nb_ostreams);
         fprintf(stderr, "Number of stream maps must match number of output streams\n");
         ret = AVERROR(EINVAL);
         goto fail;
@@ -2083,10 +2084,10 @@ static int transcode(AVFormatContext **output_files,
                 if (input_streams[ost->source_index].st->codec->codec_type != ost->st->codec->codec_type) {
                     int i= ost->file_index;
                     av_dump_format(output_files[i], i, output_files[i]->filename, 1);
-                    fprintf(error_str, "Codec type mismatch for mapping #%d.%d -> #%d.%d\n",
+                    sprintf(error_str, "Codec type mismatch for mapping #%d.%d -> #%d.%d\n",
                         stream_maps[n].file_index, stream_maps[n].stream_index,
                         ost->file_index, ost->index);
-                    FFMpeg_reset();
+                    FFMpeg_reset(__LINE__);
                     return FFMpeg_ERROR;
                 }
 
@@ -2135,7 +2136,7 @@ static int transcode(AVFormatContext **output_files,
                         av_dump_format(output_files[i], i, output_files[i]->filename, 1);
                         fprintf(error_str, "Could not find input stream matching output stream #%d.%d\n",
                                 ost->file_index, ost->index);
-                        FFMpeg_reset();
+                        FFMpeg_reset(__LINE__);
                         return FFMpeg_ERROR;
                     }
                 }
@@ -2201,7 +2202,7 @@ static int transcode(AVFormatContext **output_files,
             case AVMEDIA_TYPE_AUDIO:
                 if(audio_volume != 256) {
                    	sprintf(error_str, "-acodec copy and -vol are incompatible (frames are not decoded)\n");
-                    FFMpeg_reset();
+                    FFMpeg_reset(__LINE__);
                     return FFMpeg_ERROR;
                 }
                 codec->channel_layout = icodec->channel_layout;
@@ -2273,7 +2274,7 @@ static int transcode(AVFormatContext **output_files,
 
                 if (ost->st->codec->pix_fmt == PIX_FMT_NONE) {
                    	sprintf(error_str, "Video pixel format is unknown, stream cannot be encoded\n");
-                    FFMpeg_reset();
+                    FFMpeg_reset(__LINE__);
                     return FFMpeg_ERROR;
                 }
 
@@ -2336,7 +2337,7 @@ static int transcode(AVFormatContext **output_files,
                     f = fopen(logfilename, "wb");
                     if (!f) {
                     	sprintf(error_str, "Cannot write log file '%s' for pass-1 encoding: %s\n", logfilename, strerror(errno));
-                        FFMpeg_reset();
+                        FFMpeg_reset(__LINE__);
                         return FFMpeg_ERROR;
                     }
                     ost->logfile = f;
@@ -2345,7 +2346,7 @@ static int transcode(AVFormatContext **output_files,
                     size_t logbuffer_size;
                     if (read_file(logfilename, &logbuffer, &logbuffer_size) < 0) {
                      	sprintf(error_str, "Video pixel format is unknown, stream cannot be encoded\n");
-                        FFMpeg_reset();
+                        FFMpeg_reset(__LINE__);
                         return FFMpeg_ERROR;
                     }
                     codec->stats_in = logbuffer;
@@ -2860,7 +2861,7 @@ static int parse_meta_type(char *arg, char *type, int *index, char **endptr)
             break;
         default:
         	sprintf(error_str, "Invalid metadata type %c.\n", *arg);
-            FFMpeg_reset();
+            FFMpeg_reset(__LINE__);
             return FFMpeg_ERROR;
             break;
         }
@@ -2881,12 +2882,13 @@ static enum CodecID find_codec_or_die(const char *name, int type, int encoder, i
         avcodec_find_decoder_by_name(name);
     if(!codec) {
     	sprintf(error_str, "Unknown %s '%s'\n", codec_string, name);
-        FFMpeg_reset();
+    	printf(error_str);
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
     }
     if(codec->type != type) {
     	sprintf(error_str, "Invalid %s type '%s'\n", codec_string, name);
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
     }
     if( (codec->capabilities & CODEC_CAP_EXPERIMENTAL) &&
@@ -2901,7 +2903,7 @@ static enum CodecID find_codec_or_die(const char *name, int type, int encoder, i
             fprintf(stderr, "Or use the non experimental %s '%s'.\n",
                     codec_string, codec->name);
     	sprintf(error_str, "No Experimental Codec habilited!");
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
     }
     return codec->id;
@@ -2962,7 +2964,7 @@ static void new_video_stream(AVFormatContext *oc, int file_idx)
     st = av_new_stream(oc, oc->nb_streams < nb_streamid_map ? streamid_map[oc->nb_streams] : 0);
     if (!st) {
         sprintf(error_str, "Could not alloc stream.");
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         error_number = FFMpeg_ERROR;
     }
     ost = new_output_stream(oc, file_idx);
@@ -3040,7 +3042,7 @@ static void new_video_stream(AVFormatContext *oc, int file_idx)
             int e=sscanf(p, "%d,%d,%d", &start, &end, &q);
             if(e!=3){
                 fprintf(stderr, "error parsing rc_override.");
-                FFMpeg_reset();
+                FFMpeg_reset(__LINE__);
                 error_number = FFMpeg_ERROR;
             }
             video_enc->rc_override=
@@ -3105,7 +3107,7 @@ static void new_audio_stream(AVFormatContext *oc, int file_idx)
     st = av_new_stream(oc, oc->nb_streams < nb_streamid_map ? streamid_map[oc->nb_streams] : 0);
     if (!st) {
         sprintf(error_str, "Could not alloc stream\n");
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         error_number = FFMpeg_ERROR;
     }
     ost = new_output_stream(oc, file_idx);
@@ -3178,14 +3180,14 @@ static int new_data_stream(AVFormatContext *oc, int file_idx)
     st = av_new_stream(oc, oc->nb_streams < nb_streamid_map ? streamid_map[oc->nb_streams] : 0);
     if (!st) {
 		sprintf(error_str, "Could not alloc stream\n");
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
     }
     new_output_stream(oc, file_idx);
     data_enc = st->codec;
     if (!data_stream_copy) {
 		sprintf(error_str, "Data stream encoding not supported yet (only streamcopy)\n");
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
     }
     avcodec_get_context_defaults3(st->codec, codec);
@@ -3221,7 +3223,7 @@ static void new_subtitle_stream(AVFormatContext *oc, int file_idx)
     st = av_new_stream(oc, oc->nb_streams < nb_streamid_map ? streamid_map[oc->nb_streams] : 0);
     if (!st) {
         sprintf(error_str, "Could not alloc stream.");
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         error_number = FFMpeg_ERROR;
     }
     ost = new_output_stream(oc, file_idx);
@@ -3316,7 +3318,7 @@ static void parse_matrix_coeffs(uint16_t *dest, const char *str)
         p = strchr(p, ',');
         if(!p) {
             sprintf(error_str, "Syntax error in matrix \"%s\" at coeff %d.", str, i);
-            FFMpeg_reset();
+            FFMpeg_reset(__LINE__);
             error_number = FFMpeg_ERROR;
         }
         p++;
@@ -3358,20 +3360,20 @@ int FFMpeg_transcode(){
 	/* file converter / grab */
 	if (nb_output_files <= 0) {
 		sprintf(error_str, "At least one output file must be specified\n");
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
 	}
 
 	if (nb_input_files == 0) {
 		sprintf(error_str, "At least one input file must be specified\n");
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
 	}
 
 	ti = getutime();
 	if (transcode(output_files, nb_output_files, input_files, nb_input_files,
 			stream_maps, nb_stream_maps) < 0) {
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
 	}
 
@@ -3384,7 +3386,8 @@ int FFMpeg_transcode(){
 	return FFMpeg_SUCCESS;
 }
 
-void FFMpeg_reset() {
+void FFMpeg_reset(int line) {
+	printf("\n\n\tFFMpeg_reset was called in line %d!\n\n", line);
     int i;
 
     /* close files */
@@ -3393,7 +3396,9 @@ void FFMpeg_reset() {
         if (!(s->oformat->flags & AVFMT_NOFILE) && s->pb)
             avio_close(s->pb);
         avformat_free_context(s);
-        av_free(output_streams_for_file[i]);
+        //if (output_streams_for_file[i] != NULL)
+        //av_free(output_streams_for_file[i]);
+        //output_streams_for_file[i] = NULL;
     }
     nb_output_files = 0;
 
@@ -3590,11 +3595,10 @@ int FFMpeg_getErrorNumber() {
 	return error_number;
 }
 
-void FFMpeg_getErrorStr(char* retValue) {
-	if (retValue == NULL) {
-		retValue = (char*) malloc(255);
-	}
+char* FFMpeg_getErrorStr() {
+	char* retValue = (char*) malloc(255);
 	strcpy(retValue, error_str);
+	return retValue;
 }
 
 void FFMpeg_stop() {
@@ -3607,6 +3611,7 @@ int FFMpeg_setFormat (char* arg) {
 }
 
 int FFMpeg_setInputFile(const char* filename) {
+	printf ("Executando FFMpeg_setInputFile com %s\n", filename);
 	AVFormatContext *ic;
 	AVFormatParameters params, *ap = &params;
 	AVInputFormat *file_iformat = NULL;
@@ -3616,7 +3621,7 @@ int FFMpeg_setInputFile(const char* filename) {
 	if (last_asked_format) {
 		if (!(file_iformat = av_find_input_format(last_asked_format))) {
 			sprintf(error_str, "Unknown input format: '%s'\n", last_asked_format);
-			FFMpeg_reset();
+			FFMpeg_reset(__LINE__);
 			return FFMpeg_ERROR;
 		}
 		last_asked_format = NULL;
@@ -3632,7 +3637,7 @@ int FFMpeg_setInputFile(const char* filename) {
 	ic = avformat_alloc_context();
 	if (!ic) {
 		sprint_error(error_str, filename, AVERROR(ENOMEM));
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
 	}
 
@@ -3672,7 +3677,7 @@ int FFMpeg_setInputFile(const char* filename) {
 	}
 	if (err < 0) {
 		sprint_error(error_str, filename, err);
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
 	}
 	if(opt_programid) {
@@ -3694,7 +3699,7 @@ int FFMpeg_setInputFile(const char* filename) {
 		}
 		if(!found){
 			sprintf(error_str, "Specified program id not found\n");
-			FFMpeg_reset();
+			FFMpeg_reset(__LINE__);
 			return FFMpeg_ERROR;
 		}
 		opt_programid=0;
@@ -3708,7 +3713,7 @@ int FFMpeg_setInputFile(const char* filename) {
 	if (ret < 0 && verbose >= 0) {
 		sprintf(error_str, "%s: could not find codec parameters\n", filename);
 		av_close_input_file(ic);
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
 	}
 
@@ -3954,7 +3959,7 @@ int FFMpeg_setInputTSScale(const char* arg) {
     scale= strtod(p, &p);
 
     if(stream >= MAX_STREAMS) {
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         sprintf(error_str, "Error trying to create more streams then the maximum allowed.");
         return FFMpeg_ERROR;
     }
@@ -3981,7 +3986,7 @@ int FFMpeg_setMetadata1(char* arg) {
 
     if(!mid){
         sprintf(error_str, "Missing = on FFMpeg_setMetadata1 arg.");
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
     }
     *mid++= 0;
@@ -3994,7 +3999,7 @@ int FFMpeg_setMetadata1(char* arg) {
 int FFMpeg_setMetadata2(char* key, char* value) {
 	if (key == NULL || value == NULL) {
         sprintf(error_str, "Some of the FFMpeg_setMetadata2 method arguments have NULL values.");
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
 	}
     av_dict_set(&metadata, key, value, 0);
@@ -4100,7 +4105,7 @@ int FFMpeg_setTarget(char* arg) {
 
 	if(norm == UNKNOWN) {
 		sprintf(error_str, "Could not determine norm (PAL/NTSC/NTSC-Film) for target.");
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
 	}
 
@@ -4274,7 +4279,7 @@ int FFMPeg_setVideoMaxFrames(int number) {
 int FFMpeg_setFramerate(char* arg) {
     if (av_parse_video_rate(&frame_rate, arg) < 0) {
         sprintf(error_str, "Incorrect value for %s: %s\n", "frame rate", arg);
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
     }
     return FFMpeg_SUCCESS;
@@ -4497,7 +4502,7 @@ int FFMpeg_newVideoStream() {
 
     if (nb_output_files <= 0) {
         sprintf(error_str, "At least one output file must be specified.");
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
     }
     oc = output_files[file_idx];
@@ -4534,7 +4539,7 @@ int FFMpeg_setStreamId1(char* arg) {
         sprintf(error_str,
                 "Invalid value '%s' for option '%s', required syntax is 'index:value'\n",
                 arg, "FFMpeg_setStreamId1");
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
     }
     *p++ = '\0';
@@ -4551,7 +4556,7 @@ int FFMpeg_setStreamId2(int streamIndex, int value) {
 	if (streamIndex < 0 || value < 0) {
         sprintf(error_str,
                 "Invalid values for option FFMpeg_setStreamId2.");
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
 	}
 
@@ -4593,7 +4598,7 @@ int FFMpeg_setAudioRate(int arate) {
 	if (arate < 0) {
         sprintf(error_str,
                 "Invalid values for audio rate");
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
 	}
     audio_sample_rate = arate;
@@ -4604,7 +4609,7 @@ int FFMpeg_setAudioChannels(int achannel) {
 	if (achannel < 0) {
         sprintf(error_str,
                 "Invalid values for audio audio channel.");
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
 	}
 	audio_channels = achannel;
@@ -4655,7 +4660,7 @@ int FFMpeg_newAudioStream() {
 
     if (nb_output_files <= 0) {
         sprintf(error_str, "At least one output file must be specified.");
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
     }
     oc = output_files[file_idx];
@@ -4708,7 +4713,7 @@ int FFMpeg_newSubtitleStream() {
 
     if (nb_output_files <= 0) {
         sprintf(error_str, "At least one output file must be specified.");
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
     }
     oc = output_files[file_idx];
@@ -4739,7 +4744,7 @@ int FFMpeg_setVideoChannel(int vchannel) {
 	if (vchannel < 0) {
         sprintf(error_str,
                 "Invalid values for audio audio channel.");
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
 	}
 	video_channel = vchannel;
@@ -4772,7 +4777,7 @@ int FFMpeg_setVideoBitstreamFilter(char* arg) {
 
     if(!bsfc){
         sprintf(error_str, "Unknown bitstream filter %s.", arg);
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
     }
 
@@ -4792,7 +4797,7 @@ int FFMpeg_setAudioBitstreamFilter(char* arg) {
 
     if(!bsfc){
         sprintf(error_str, "Unknown bitstream filter %s.", arg);
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
     }
 
@@ -4812,7 +4817,7 @@ int FFMpeg_setSubtitleBitstreamFilter(char* arg) {
 
     if(!bsfc){
         sprintf(error_str, "Unknown bitstream filter %s.", arg);
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
     }
 
@@ -4833,7 +4838,7 @@ int FFMpeg_setAudioPreset(char* arg) {
 
 	if (!(f = get_preset_file(filename, sizeof(filename), arg, 0, codec_name))) {
 		sprintf(error_str, "File for preset '%s' not found.", arg);
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
 	}
 
@@ -4844,7 +4849,7 @@ int FFMpeg_setAudioPreset(char* arg) {
 		e|= sscanf(line, "%999[^=]=%999[^\n]\n", tmp, tmp2) - 2;
 		if(e){
 			sprintf(error_str, "%s: Invalid syntax: '%s'\n", filename, line);
-			FFMpeg_reset();
+			FFMpeg_reset(__LINE__);
 			return FFMpeg_ERROR;
 		}
 		if ( !strcmp(tmp, "acodec") ) {
@@ -4857,7 +4862,7 @@ int FFMpeg_setAudioPreset(char* arg) {
 			FFMpeg_setDataCodec(tmp2);
 		} else if(opt_default(tmp, tmp2) < 0){
 			sprintf(error_str, "%s: Invalid option or argument: '%s', parsed as '%s' = '%s'\n", filename, line, tmp, tmp2);
-			FFMpeg_reset();
+			FFMpeg_reset(__LINE__);
 			return FFMpeg_ERROR;
 		}
 	}
@@ -4872,7 +4877,7 @@ int FFMpeg_setVideoPreset(char* arg) {
 
 	if (!(f = get_preset_file(filename, sizeof(filename), arg, 0, codec_name))) {
 		sprintf(error_str, "File for preset '%s' not found.", arg);
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
 	}
 
@@ -4883,7 +4888,7 @@ int FFMpeg_setVideoPreset(char* arg) {
 		e|= sscanf(line, "%999[^=]=%999[^\n]\n", tmp, tmp2) - 2;
 		if(e){
 			sprintf(error_str, "%s: Invalid syntax: '%s'\n", filename, line);
-			FFMpeg_reset();
+			FFMpeg_reset(__LINE__);
 			return FFMpeg_ERROR;
 		}
 		if ( !strcmp(tmp, "acodec") ) {
@@ -4896,7 +4901,7 @@ int FFMpeg_setVideoPreset(char* arg) {
 			FFMpeg_setDataCodec(tmp2);
 		} else if(opt_default(tmp, tmp2) < 0){
 			sprintf(error_str, "%s: Invalid option or argument: '%s', parsed as '%s' = '%s'\n", filename, line, tmp, tmp2);
-			FFMpeg_reset();
+			FFMpeg_reset(__LINE__);
 			return FFMpeg_ERROR;
 		}
 	}
@@ -4912,7 +4917,7 @@ int FFMpeg_setSubtitlePreset(char* arg) {
 
 	if (!(f = get_preset_file(filename, sizeof(filename), arg, 0, codec_name))) {
 		sprintf(error_str, "File for preset '%s' not found.", arg);
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
 	}
 
@@ -4923,7 +4928,7 @@ int FFMpeg_setSubtitlePreset(char* arg) {
 		e|= sscanf(line, "%999[^=]=%999[^\n]\n", tmp, tmp2) - 2;
 		if(e){
 			sprintf(error_str, "%s: Invalid syntax: '%s'\n", filename, line);
-			FFMpeg_reset();
+			FFMpeg_reset(__LINE__);
 			return FFMpeg_ERROR;
 		}
 		if ( !strcmp(tmp, "acodec") ) {
@@ -4936,7 +4941,7 @@ int FFMpeg_setSubtitlePreset(char* arg) {
 			FFMpeg_setDataCodec(tmp2);
 		} else if(opt_default(tmp, tmp2) < 0){
 			sprintf(error_str, "%s: Invalid option or argument: '%s', parsed as '%s' = '%s'\n", filename, line, tmp, tmp2);
-			FFMpeg_reset();
+			FFMpeg_reset(__LINE__);
 			return FFMpeg_ERROR;
 		}
 	}
@@ -4951,7 +4956,7 @@ int FFMpeg_setFilePreset(char* arg) {
 
 	if (!(f = get_preset_file(filename, sizeof(filename), arg, 1, codec_name))) {
 		sprintf(error_str, "File for preset '%s' not found.", arg);
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
 	}
 
@@ -4962,7 +4967,7 @@ int FFMpeg_setFilePreset(char* arg) {
 		e|= sscanf(line, "%999[^=]=%999[^\n]\n", tmp, tmp2) - 2;
 		if(e){
 			sprintf(error_str, "%s: Invalid syntax: '%s'\n", filename, line);
-			FFMpeg_reset();
+			FFMpeg_reset(__LINE__);
 			return FFMpeg_ERROR;
 		}
 		if ( !strcmp(tmp, "acodec") ) {
@@ -4975,7 +4980,7 @@ int FFMpeg_setFilePreset(char* arg) {
 			FFMpeg_setDataCodec(tmp2);
 		} else if(opt_default(tmp, tmp2) < 0){
 			sprintf(error_str, "%s: Invalid option or argument: '%s', parsed as '%s' = '%s'\n", filename, line, tmp, tmp2);
-			FFMpeg_reset();
+			FFMpeg_reset(__LINE__);
 			return FFMpeg_ERROR;
 		}
 	}
@@ -5012,7 +5017,7 @@ int FFMpeg_setOutputFile(char* filename) {
 
 	if(nb_output_files >= FF_ARRAY_ELEMS(output_files)){
 		sprintf(error_str, "Too many output files\n");
-		FFMpeg_reset();
+		FFMpeg_reset(__LINE__);
 		return FFMpeg_ERROR;
 	}
 
@@ -5023,7 +5028,7 @@ int FFMpeg_setOutputFile(char* filename) {
 	last_asked_format = NULL;
 	if (!oc) {
         sprint_error(error_str, filename, err);
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
 	}
 	file_oformat= oc->oformat;
@@ -5035,7 +5040,7 @@ int FFMpeg_setOutputFile(char* filename) {
 		int err = read_ffserver_streams(oc, filename);
 		if (err < 0) {
 			sprint_error(error_str, filename, err);
-	        FFMpeg_reset();
+	        FFMpeg_reset(__LINE__);
 	        return FFMpeg_ERROR;
 		}
 	} else {
@@ -5085,7 +5090,7 @@ int FFMpeg_setOutputFile(char* filename) {
 	if (oc->oformat->flags & AVFMT_NEEDNUMBER) {
         if (!av_filename_number_test(oc->filename)) {
         	sprint_error(error_str, oc->filename, AVERROR(EINVAL));
-            FFMpeg_reset();
+            FFMpeg_reset(__LINE__);
             return FFMpeg_ERROR;
         }
 	}
@@ -5102,13 +5107,13 @@ int FFMpeg_setOutputFile(char* filename) {
 					fflush(stderr);
 					if (!read_yesno()) {
 						sprintf(error_str, "Not overwriting - exiting\n");
-				        FFMpeg_reset();
+				        FFMpeg_reset(__LINE__);
 				        return FFMpeg_ERROR;
 					}
 				}
 				else {
 					sprintf(error_str,"File '%s' already exists. Exiting.\n", filename);
-			        FFMpeg_reset();
+			        FFMpeg_reset(__LINE__);
 			        return FFMpeg_ERROR;
 				}
 			}
@@ -5117,7 +5122,7 @@ int FFMpeg_setOutputFile(char* filename) {
 		/* open the file */
 		if ((err = avio_open(&oc->pb, filename, AVIO_FLAG_WRITE)) < 0) {
 			sprint_error(error_str, filename, err);
-	        FFMpeg_reset();
+	        FFMpeg_reset(__LINE__);
 	        return FFMpeg_ERROR;
 		}
 	}
@@ -5126,7 +5131,7 @@ int FFMpeg_setOutputFile(char* filename) {
 	if (av_set_parameters(oc, ap) < 0) {
 		sprintf(error_str, "%s: Invalid encoding parameters\n",
 				oc->filename);
-        FFMpeg_reset();
+        FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
 	}
 
