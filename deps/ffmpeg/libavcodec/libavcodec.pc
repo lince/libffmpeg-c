@@ -10,5 +10,5 @@ Requires:
 Requires.private: libavutil = 51.9.1
 Conflicts:
 Libs: -L${libdir} -lavcodec 
-Libs.private: -ldl -lX11 -lXext -lXfixes -lasound -lxvidcore -lx264 -lvorbisenc -lvorbis -logg -ltheoraenc -ltheoradec -logg -lrtmp -lz -lgnutls -lopenjpeg -lmp3lame -lfreetype -lfaac -lm -pthread -lz
+Libs.private: -ldl -lX11 -lXext -lXfixes -lasound -lxvidcore -lx264 -ltheoraenc -ltheoradec -logg -lopenjpeg -lmp3lame -lfreetype -lfaac -lm -pthread -lz
 Cflags: -I${includedir}
