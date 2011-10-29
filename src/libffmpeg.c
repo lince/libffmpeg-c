@@ -3445,14 +3445,17 @@ void FFMpeg_reset(int line) {
     av_free(video_language);
     video_codec_name = NULL;
     video_language = NULL;
+
     av_free(audio_codec_name);
     av_free(audio_language);
     audio_language = NULL;
     audio_codec_name = NULL;
+
     av_free(subtitle_codec_name);
     av_free(subtitle_language);
     subtitle_codec_name = NULL;
     subtitle_language = NULL;
+
     av_free(data_codec_name);
     data_codec_name = NULL;
 
@@ -3468,9 +3471,9 @@ void FFMpeg_reset(int line) {
     av_free(audio_out);
     audio_out = NULL;
 
-    allocated_audio_buf_size= allocated_audio_out_size= 0;
-    av_free(samples);
-    samples = NULL;
+    allocated_audio_buf_size = allocated_audio_out_size = 0;
+    //av_free(samples);
+    //samples = NULL;
 
     if (last_asked_format != NULL) {
     	av_free(last_asked_format);
