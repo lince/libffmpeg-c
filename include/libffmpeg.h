@@ -265,6 +265,8 @@ int FFMpeg_setOther(char* opt, char* arg);
 
 int FFMpeg_setOutputFile(char* filename);
 
+double FFMpeg_getTime();
+
 
 //void* FFMpeg_getCurrentFrameFromInput(int input);
 

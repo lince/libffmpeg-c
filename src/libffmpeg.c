@@ -257,6 +257,8 @@ static AVBitStreamFilterContext *video_bitstream_filters=NULL;
 static AVBitStreamFilterContext *audio_bitstream_filters=NULL;
 static AVBitStreamFilterContext *subtitle_bitstream_filters=NULL;
 
+static double currentTime;
+
 #define DEFAULT_PASS_LOGFILENAME_PREFIX "ffmpeg2pass"
 
 struct AVInputStream;
@@ -1346,6 +1348,11 @@ static void print_report(AVFormatContext **output_files,
     int64_t pts = INT64_MAX;
     static int64_t last_time = -1;
     static int qp_histogram[52];
+
+    //libffmpeg.c HACK
+    currentTime=  (double) (av_rescale_q(ost_table[0]->st->pts.val,
+    		ost_table[0]->st->time_base, AV_TIME_BASE_Q));
+    currentTime /=(AV_TIME_BASE);
 
     if (!is_last_report) {
         int64_t cur_time;
@@ -3595,6 +3602,8 @@ void FFMpeg_reset(int line) {
         //exit (255);
     }
     received_sigterm = 0;
+
+    currentTime = 0.0;
 }
 
 int FFMpeg_getErrorNumber() {
@@ -5160,4 +5169,8 @@ int FFMpeg_setOutputFile(char* filename) {
 	uninit_opts();
 	init_opts();
 	return FFMpeg_SUCCESS;
+}
+
+double FFMpeg_getTime() {
+	return currentTime;
 }
