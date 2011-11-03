@@ -115,6 +115,18 @@ typedef struct AVChapterMap {
 #define MAX_FILES 100
 #define MAX_STREAMS 1024    /* arbitrary sanity check value */
 
+static char message[3000];
+
+void (*cb_logger)(int lvl, char* message) = NULL;
+
+void logger(int lvl, char* messagem) {
+	if (cb_logger == NULL) {
+		fprintf(stderr, "<FFMpeg LOGGER> - %s\n", messagem);
+	} else {
+		(*cb_logger)(lvl, messagem);
+	}
+}
+
 static const char *last_asked_format = NULL;
 static int64_t input_files_ts_offset[MAX_FILES];
 static double *input_files_ts_scale[MAX_FILES] = {NULL};
@@ -628,8 +640,10 @@ static AVOutputStream *new_output_stream(AVFormatContext *oc, int file_idx)
                    sizeof(*output_streams_for_file[file_idx]),
                    &nb_output_streams_for_file[file_idx],
                    oc->nb_streams);
+
     ost = output_streams_for_file[file_idx][idx] =
         av_mallocz(sizeof(AVOutputStream));
+
     if (!ost) {
 		sprintf(error_str, "Could not alloc output stream\n");
 		FFMpeg_reset(__LINE__);
@@ -719,12 +733,13 @@ static int write_frame(AVFormatContext *s, AVPacket *pkt, AVCodecContext *avctx,
             av_free_packet(pkt);
             new_pkt.destruct= av_destruct_packet;
         } else if(a<0){
-        	//TODO: Implementar estrutura de log
-            fprintf(stderr, "%s failed for stream %d, codec %s",
+            sprintf(message, "%s failed for stream %d, codec %s",
                     bsfc->filter->name, pkt->stream_index,
                     avctx->codec ? avctx->codec->name : "copy");
-            print_error("", a);
-            //TODO: Logger
+            logger(LOGGER_WARNING, message);
+            //TODO: Verificar oq é isso;
+            //print_error("", a);
+
         }
         *pkt= new_pkt;
 
@@ -911,7 +926,7 @@ need_realloc:
         int ostride[6]= {osize};
         int len= size_out/istride[0];
         if (av_audio_convert(ost->reformat_ctx, obuf, ostride, ibuf, istride, len)<0) {
-            printf("av_audio_convert() failed\n");
+            logger(LOGGER_WARNING, "Av_audio_convert() failed.");
             return 0;
         }
         buftmp = audio_buf;
@@ -1900,7 +1915,8 @@ static void print_sdp(AVFormatContext **avc, int n)
     char sdp[2048];
 
     av_sdp_create(avc, n, sdp, sizeof(sdp));
-    printf("SDP:\n%s\n", sdp);
+    sprintf(message,"SDP:\n%s\n", sdp);
+    logger(LOGGER_INFO, message);
     fflush(stdout);
 }
 
@@ -2010,8 +2026,8 @@ static int transcode(AVFormatContext **output_files,
         nb_ostreams += os->nb_streams;
     }
     if (nb_stream_maps > 0 && nb_stream_maps != nb_ostreams) {
-    	printf("%d, %d", nb_stream_maps, nb_ostreams);
-        fprintf(stderr, "Number of stream maps must match number of output streams\n");
+    	sprintf(message, "Number of stream maps (%d) must match number of output streams (%d).", nb_stream_maps, nb_ostreams);
+        logger(LOGGER_ERROR, message);
         ret = AVERROR(EINVAL);
         goto fail;
     }
@@ -2083,6 +2099,8 @@ static int transcode(AVFormatContext **output_files,
         for(i=0;i<os->nb_streams;i++,n++) {
             int found;
             ost = ost_table[n] = output_streams_for_file[k][i];
+            //TODO: Remover print
+            //fprintf (stderr, "\n\nValor de ost que foi pego de output_stream_for_file: %d\n\n", ost);
             ost->st = os->streams[i];
             if (nb_stream_maps > 0) {
                 ost->source_index = input_files[stream_maps[n].file_index].ist_index +
@@ -2751,12 +2769,19 @@ static int transcode(AVFormatContext **output_files,
         }
 
         /* finish if recording time exhausted */
+        //int ptsCmp = pkt.pts != AV_NOPTS_VALUE;
+        //sprintf(message, "(pkt.pts != AV_NOPTS_VALUE) = %d", ptsCmp);
+        //logger(LOGGER_INFO, message);
+
         if (recording_time != INT64_MAX &&
             (pkt.pts != AV_NOPTS_VALUE ?
                 av_compare_ts(pkt.pts, ist->st->time_base, recording_time + start_time, (AVRational){1, 1000000})
                     :
                 av_compare_ts(ist->pts, AV_TIME_BASE_Q, recording_time + start_time, (AVRational){1, 1000000})
             )>= 0) {
+        	//TODO: Remove print
+        	sprintf(message, "Estamos aqui, dentro do if do recording time: recording_time: %d", recording_time);
+        	logger(LOGGER_DEBUG, message);
             ist->is_past_recording_time = 1;
             goto discard_packet;
         }
@@ -2764,11 +2789,13 @@ static int transcode(AVFormatContext **output_files,
         //fprintf(stderr,"read #%d.%d size=%d\n", ist->file_index, ist->st->index, pkt.size);
         if (output_packet(ist, ist_index, ost_table, nb_ostreams, &pkt) < 0) {
 
-            if (verbose >= 0)
-                fprintf(stderr, "Error while decoding stream #%d.%d\n",
+            if (verbose >= 0)   {
+                sprintf(message, "Error while decoding stream #%d.%d\n",
                         ist->file_index, ist->st->index);
-            /*if (exit_on_error)*/
-               //TODO: Logger
+
+                logger(LOGGER_WARNING, message);
+            }
+
             av_free_packet(&pkt);
             goto redo;
         }
@@ -2890,7 +2917,6 @@ static enum CodecID find_codec_or_die(const char *name, int type, int encoder, i
         avcodec_find_decoder_by_name(name);
     if(!codec) {
     	sprintf(error_str, "Unknown %s '%s'\n", codec_string, name);
-    	printf(error_str);
         FFMpeg_reset(__LINE__);
         return FFMpeg_ERROR;
     }
@@ -3388,15 +3414,17 @@ int FFMpeg_transcode(){
 	ti = getutime() - ti;
 	if (do_benchmark) {
 		int maxrss = getmaxrss() / 1024;
-		printf("bench: utime=%0.3fs maxrss=%ikB\n", ti / 1000000.0, maxrss);
+		sprintf(message, "bench: utime=%0.3fs maxrss=%ikB\n", ti / 1000000.0, maxrss);
+		logger(LOGGER_INFO, message);
 	}
 
 	return FFMpeg_SUCCESS;
 }
 
 void FFMpeg_reset(int line) {
-	printf("\n\n\tFFMpeg_reset was called in line %d: - %s\n\n", line, error_str);
-    int i;
+	sprintf(message, "FFMpeg_reset was called in line %d: - %s\n", line, error_str);
+	logger(LOGGER_DEBUG, message);
+    int i, j;
 
     /* close files */
     for(i=0;i<nb_output_files;i++) {
@@ -3404,9 +3432,16 @@ void FFMpeg_reset(int line) {
         if (!(s->oformat->flags & AVFMT_NOFILE) && s->pb)
             avio_close(s->pb);
         avformat_free_context(s);
-        //if (output_streams_for_file[i] != NULL)
-        //av_free(output_streams_for_file[i]);
-        //output_streams_for_file[i] = NULL;
+        if (output_streams_for_file != NULL) {
+        	if (output_streams_for_file[i] != NULL) {
+        		for (j = 0; j < nb_output_streams_for_file[i]; j++) {
+        			output_streams_for_file[i][j] = NULL;
+        		}
+        		av_free(output_streams_for_file[i]);
+        		output_streams_for_file[i] = NULL;
+        	}
+        }
+        nb_output_streams_for_file[i] = 0;
     }
     nb_output_files = 0;
 
@@ -3626,7 +3661,8 @@ int FFMpeg_setFormat (char* arg) {
 }
 
 int FFMpeg_setInputFile(const char* filename) {
-	printf ("Executando FFMpeg_setInputFile com %s\n", filename);
+	sprintf (message, "FFMpeg_setInputFile( %s ).", filename);
+	logger(LOGGER_DEBUG, message);
 	AVFormatContext *ic;
 	AVFormatParameters params, *ap = &params;
 	AVInputFormat *file_iformat = NULL;
@@ -3849,7 +3885,8 @@ int FFMpeg_setInputFile(const char* filename) {
 	uninit_opts();
 	init_opts();
 
-	printf ("Finalizando FFMpeg_setInputFile com %s - número de imput files %d\n", filename, nb_input_files);
+	sprintf (message, "End of FFMpeg_setInputFile( %s ) - nb_input_files = %d.", filename, nb_input_files);
+	logger(LOGGER_DEBUG, message);
 	return FFMpeg_SUCCESS;
 }
 
@@ -3859,7 +3896,8 @@ int FFMpeg_setOverwriteFile(int boolean) {
 }
 
 int FFMpeg_setMap(char* arg) {
-	printf("FFMpeg_setMap() -> %s\n", arg);
+	sprintf(message, "FFMpeg_setMap( %s ).", arg);
+	logger(LOGGER_DEBUG, message);
     AVStreamMap *m;
     char *p;
 
@@ -3927,8 +3965,10 @@ int FFMpeg_setMapChapters(char* arg) {
 }
 
 
-int FFMpeg_setRecordingTime1(const char* arg) {
-    recording_time = parse_time_or_die("FFMpeg_setRecordingTime1", arg, 1);
+int FFMpeg_setRecordingTime1(const char* time) {
+	sprintf(message, "FFMpeg_setRecordingTime1( %s ).", time);
+	logger(LOGGER_DEBUG, message);
+    recording_time = parse_time_or_die("FFMpeg_setRecordingTime1", time, 1);
     return error_number;
 }
 
@@ -3947,6 +3987,8 @@ int FFMpeg_setLimiteSize(unsigned long int maxBytesSize) {
 }
 
 int FFMpeg_setStartTime1(char* time) {
+	sprintf(message, "FFMpeg_setStartTime1( %s ).", time);
+	logger(LOGGER_DEBUG, message);
 	start_time = parse_time_or_die("FFMpeg_setStartTime", time, 1);
 	return error_number;
 }
@@ -4116,9 +4158,10 @@ int FFMpeg_setTarget(char* arg) {
 				}
 			}
 		}
-		if(verbose > 0 && norm != UNKNOWN)
+		if(verbose > 0 && norm != UNKNOWN) {
 			//TODO: logger para isso
 			fprintf(stderr, "Assuming %s for target.\n", norm == PAL ? "PAL" : "NTSC");
+		}
 	}
 
 	if(norm == UNKNOWN) {
@@ -4224,9 +4267,10 @@ int FFMpeg_setThreadCount(int number) {
 	}
     thread_count = number;
 #if !HAVE_THREADS
-    if (verbose >= 0)
-    	//TODO: Logger para warning
+    if (verbose >= 0) {
+    	//TODO: Logger para warning {
         fprintf(stderr, "Warning: not compiled with thread support, using thread emulation\n");
+    }
 #endif
     return FFMpeg_SUCCESS;
 }
@@ -5119,29 +5163,19 @@ int FFMpeg_setOutputFile(char* filename) {
 				(strchr(filename, ':') == NULL ||
 						filename[1] == ':' ||
 						av_strstart(filename, "file:", NULL))) {
+
 			if (avio_check(filename, 0) == 0) {
-				if (!using_stdin) {
-					printf("File '%s' already exists. Overwrite ? [y/N] ", filename);
-					fflush(stderr);
-					if (!read_yesno()) {
-						sprintf(error_str, "Not overwriting - exiting\n");
-				        FFMpeg_reset(__LINE__);
-				        return FFMpeg_ERROR;
-					}
-				}
-				else {
-					sprintf(error_str,"File '%s' already exists. Exiting.\n", filename);
-			        FFMpeg_reset(__LINE__);
-			        return FFMpeg_ERROR;
-				}
+				sprintf(error_str,"File '%s' already exists.", filename);
+				FFMpeg_reset(__LINE__);
+				return FFMpeg_ERROR;
 			}
 		}
 
 		/* open the file */
 		if ((err = avio_open(&oc->pb, filename, AVIO_FLAG_WRITE)) < 0) {
 			sprint_error(error_str, filename, err);
-	        FFMpeg_reset(__LINE__);
-	        return FFMpeg_ERROR;
+			FFMpeg_reset(__LINE__);
+			return FFMpeg_ERROR;
 		}
 	}
 
@@ -5173,4 +5207,10 @@ int FFMpeg_setOutputFile(char* filename) {
 
 double FFMpeg_getTime() {
 	return currentTime;
+}
+
+int FFMpeg_registerLoggerCallBack(
+		void (*cb_logger)(int lvl, char* message)) {
+
+	cb_logger = cb_logger;
 }

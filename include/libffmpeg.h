@@ -5,11 +5,16 @@
  *      Author: caioviel
  */
 
+#ifndef LIBFFMPEG_H
+#define LIBFFMPEG_H
+
 #define FFMpeg_SUCCESS 		0
 #define FFMpeg_ERROR 	   -1
 
-#ifndef LIBFFMPEG_H
-#define LIBFFMPEG_H
+#define LOGGER_ERROR 		3
+#define LOGGER_WARNING  	2
+#define LOGGER_INFO 		1
+#define LOGGER_DEBUG 		0
 
 #ifdef __cplusplus
 
@@ -266,6 +271,9 @@ int FFMpeg_setOther(char* opt, char* arg);
 int FFMpeg_setOutputFile(char* filename);
 
 double FFMpeg_getTime();
+
+int FFMpeg_registerLoggerCallBack(
+		void (*cb_logger)(int lvl, char* message));
 
 
 //void* FFMpeg_getCurrentFrameFromInput(int input);
