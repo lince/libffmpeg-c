@@ -3382,8 +3382,8 @@ int FFMpeg_init(int verboseLvl) {
 
     init_opts();
 
-    if(verbose>=0)
-        show_banner();
+    /*if(verbose>=0)
+        show_banner();*/
 
     return FFMpeg_SUCCESS;
 }
