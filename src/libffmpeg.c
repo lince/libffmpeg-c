@@ -2769,9 +2769,9 @@ static int transcode(AVFormatContext **output_files,
         }
 
         /* finish if recording time exhausted */
-        //int ptsCmp = pkt.pts != AV_NOPTS_VALUE;
-        //sprintf(message, "(pkt.pts != AV_NOPTS_VALUE) = %d", ptsCmp);
-        //logger(LOGGER_INFO, message);
+        /*int ptsCmp = pkt.pts != AV_NOPTS_VALUE;
+        sprintf(message, "(pkt.pts != AV_NOPTS_VALUE) = %d", ptsCmp);
+        logger(LOGGER_INFO, message);*/
 
         if (recording_time != INT64_MAX &&
             (pkt.pts != AV_NOPTS_VALUE ?

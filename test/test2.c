@@ -16,9 +16,10 @@ int main() {
 	FFMpeg_setVideoPreset("baseline");
 	FFMpeg_setOther("crf", "24");
 	FFMpeg_setFrameSize2(400, 300);
-	FFMpeg_setStartTime2(40);
-	FFMpeg_setRecordingTime2(10);
+	FFMpeg_setStartTime1("10");
+	FFMpeg_setRecordingTime1("10");
 	FFMpeg_setFormat("mp4");
+	FFMpeg_setOverwriteFile(1);
 	FFMpeg_setOutputFile("saida1.mp4");
 	FFMpeg_transcode();
 }
