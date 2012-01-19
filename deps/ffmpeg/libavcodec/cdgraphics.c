@@ -367,7 +367,7 @@ static av_cold int cdg_decode_end(AVCodecContext *avctx)
     return 0;
 }
 
-AVCodec cdgraphics_decoder = {
+AVCodec ff_cdgraphics_decoder = {
     "cdgraphics",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_CDGRAPHICS,
@@ -377,6 +377,5 @@ AVCodec cdgraphics_decoder = {
     cdg_decode_end,
     cdg_decode_frame,
     CODEC_CAP_DR1,
-    .max_lowres = 5,
     .long_name = NULL_IF_CONFIG_SMALL("CD Graphics video"),
 };

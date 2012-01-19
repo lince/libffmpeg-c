@@ -26,12 +26,16 @@
 
 #define MAX_URL_SIZE 4096
 
+#ifdef DEBUG
+#    define hex_dump_debug(class, buf, size) av_hex_dump_log(class, AV_LOG_DEBUG, buf, size)
+#else
+#    define hex_dump_debug(class, buf, size)
+#endif
+
 typedef struct AVCodecTag {
     enum CodecID id;
     unsigned int tag;
 } AVCodecTag;
-
-void ff_dynarray_add(intptr_t **tab_ptr, int *nb_ptr, intptr_t elem);
 
 #ifdef __GNUC__
 #define dynarray_add(tab, nb_ptr, elem)\
@@ -39,19 +43,16 @@ do {\
     __typeof__(tab) _tab = (tab);\
     __typeof__(elem) _elem = (elem);\
     (void)sizeof(**_tab == _elem); /* check that types are compatible */\
-    ff_dynarray_add((intptr_t **)_tab, nb_ptr, (intptr_t)_elem);\
+    av_dynarray_add(_tab, nb_ptr, _elem);\
 } while(0)
 #else
 #define dynarray_add(tab, nb_ptr, elem)\
 do {\
-    ff_dynarray_add((intptr_t **)(tab), nb_ptr, (intptr_t)(elem));\
+    av_dynarray_add((tab), nb_ptr, (elem));\
 } while(0)
 #endif
 
-time_t mktimegm(struct tm *tm);
 struct tm *brktimegm(time_t secs, struct tm *tm);
-const char *small_strptime(const char *p, const char *fmt,
-                           struct tm *dt);
 
 char *ff_data_to_hex(char *buf, const uint8_t *src, int size, int lowercase);
 
@@ -81,37 +82,6 @@ void ff_read_frame_flush(AVFormatContext *s);
 
 /** Get the current time since NTP epoch in microseconds. */
 uint64_t ff_ntp_time(void);
-
-/**
- * Probe a bytestream to determine the input format. Each time a probe returns
- * with a score that is too low, the probe buffer size is increased and another
- * attempt is made. When the maximum probe size is reached, the input format
- * with the highest score is returned.
- *
- * @param pb the bytestream to probe, it may be closed and opened again
- * @param fmt the input format is put here
- * @param filename the filename of the stream
- * @param logctx the log context
- * @param offset the offset within the bytestream to probe from
- * @param max_probe_size the maximum probe buffer size (zero for default)
- * @return 0 in case of success, a negative value corresponding to an
- * AVERROR code otherwise
- */
-int ff_probe_input_buffer(ByteIOContext **pb, AVInputFormat **fmt,
-                          const char *filename, void *logctx,
-                          unsigned int offset, unsigned int max_probe_size);
-
-#if LIBAVFORMAT_VERSION_MAJOR < 53
-/**
- * @deprecated use av_url_split() instead
- */
-void ff_url_split(char *proto, int proto_size,
-                  char *authorization, int authorization_size,
-                  char *hostname, int hostname_size,
-                  int *port_ptr,
-                  char *path, int path_size,
-                  const char *url);
-#endif
 
 /**
  * Assemble a URL string from components. This is the reverse operation
@@ -152,10 +122,12 @@ int ff_url_join(char *str, int size, const char *proto,
  * @param dest_type the destination address type, may be NULL
  * @param port the destination port of the media stream, 0 if unknown
  * @param ttl the time to live of the stream, 0 if not multicast
+ * @param fmt the AVFormatContext, which might contain options modifying
+ *            the generated SDP
  */
 void ff_sdp_write_media(char *buff, int size, AVCodecContext *c,
                         const char *dest_addr, const char *dest_type,
-                        int port, int ttl);
+                        int port, int ttl, AVFormatContext *fmt);
 
 /**
  * Write a packet to another muxer than the one the user originally
@@ -179,20 +151,20 @@ int ff_get_v_length(uint64_t val);
 /**
  * Put val using a variable number of bytes.
  */
-void ff_put_v(ByteIOContext *bc, uint64_t val);
+void ff_put_v(AVIOContext *bc, uint64_t val);
 
 /**
- * Read a whole line of text from ByteIOContext. Stop reading after reaching
- * either a \n, a \0 or EOF. The returned string is always \0 terminated,
+ * Read a whole line of text from AVIOContext. Stop reading after reaching
+ * either a \\n, a \\0 or EOF. The returned string is always \\0-terminated,
  * and may be truncated if the buffer is too small.
  *
- * @param s the read-only ByteIOContext
+ * @param s the read-only AVIOContext
  * @param buf buffer to store the read line
  * @param maxlen size of the buffer
  * @return the length of the string written in the buffer, not including the
- *         final \0
+ *         final \\0
  */
-int ff_get_line(ByteIOContext *s, char *buf, int maxlen);
+int ff_get_line(AVIOContext *s, char *buf, int maxlen);
 
 #define SPACE_CHARS " \t\r\n"
 
@@ -219,5 +191,59 @@ typedef void (*ff_parse_key_val_cb)(void *context, const char *key,
  */
 void ff_parse_key_value(const char *str, ff_parse_key_val_cb callback_get_buf,
                         void *context);
+
+/**
+ * Find stream index based on format-specific stream ID
+ * @return stream index, or < 0 on error
+ */
+int ff_find_stream_index(AVFormatContext *s, int id);
+
+/**
+ * Internal version of av_index_search_timestamp
+ */
+int ff_index_search_timestamp(const AVIndexEntry *entries, int nb_entries,
+                              int64_t wanted_timestamp, int flags);
+
+/**
+ * Internal version of av_add_index_entry
+ */
+int ff_add_index_entry(AVIndexEntry **index_entries,
+                       int *nb_index_entries,
+                       unsigned int *index_entries_allocated_size,
+                       int64_t pos, int64_t timestamp, int size, int distance, int flags);
+
+/**
+ * Add a new chapter.
+ *
+ * @param s media file handle
+ * @param id unique ID for this chapter
+ * @param start chapter start time in time_base units
+ * @param end chapter end time in time_base units
+ * @param title chapter title
+ *
+ * @return AVChapter or NULL on error
+ */
+AVChapter *ff_new_chapter(AVFormatContext *s, int id, AVRational time_base,
+                          int64_t start, int64_t end, const char *title);
+
+/**
+ * Ensure the index uses less memory than the maximum specified in
+ * AVFormatContext.max_index_size by discarding entries if it grows
+ * too large.
+ */
+void ff_reduce_index(AVFormatContext *s, int stream_index);
+
+/*
+ * Convert a relative url into an absolute url, given a base url.
+ *
+ * @param buf the buffer where output absolute url is written
+ * @param size the size of buf
+ * @param base the base url, may be equal to buf.
+ * @param rel the new url, which is interpreted relative to base
+ */
+void ff_make_absolute_url(char *buf, int size, const char *base,
+                          const char *rel);
+
+enum CodecID ff_guess_image2_codec(const char *filename);
 
 #endif /* AVFORMAT_INTERNAL_H */

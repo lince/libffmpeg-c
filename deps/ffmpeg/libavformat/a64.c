@@ -57,7 +57,7 @@ static int a64_write_header(struct AVFormatContext *s)
         return AVERROR(EINVAL);
         break;
     }
-    put_buffer(s->pb, header, 2);
+    avio_write(s->pb, header, 2);
     c->prev_pkt.size = 0;
     c->prev_frame_count = 0;
     return 0;
@@ -86,7 +86,7 @@ static int a64_write_packet(struct AVFormatContext *s, AVPacket *pkt)
              * the data for colram from/to ram first and waste too much time. If we interleave and send the
              * charset beforehand, we assemble a new charset chunk by chunk, write current screen data to
              * screen-ram to be displayed and decode the colram directly to colram-location $d800 during
-             * the overscan, while reading directly from source
+             * the overscan, while reading directly from source.
              * This is the only way so far, to achieve 25fps on c64 */
             if(avctx->extradata) {
                 /* fetch values from extradata */
@@ -96,33 +96,35 @@ static int a64_write_packet(struct AVFormatContext *s, AVPacket *pkt)
                 frame_size   = AV_RB32(avctx->extradata + 12);
 
                 /* TODO: sanity checks? */
-            }
-            else {
+            } else {
                 av_log(avctx, AV_LOG_ERROR, "extradata not set\n");
                 return AVERROR(EINVAL);
             }
+
             ch_chunksize=charset_size/lifetime;
             /* TODO: check if charset/size is % lifetime, but maybe check in codec */
+
             if(pkt->data) num_frames = lifetime;
             else num_frames = c->prev_frame_count;
+
             for(i = 0; i < num_frames; i++) {
                 if(pkt->data) {
                     /* if available, put newest charset chunk into buffer */
-                    put_buffer(s->pb, pkt->data + ch_chunksize * i, ch_chunksize);
-                }
-                else {
+                    avio_write(s->pb, pkt->data + ch_chunksize * i, ch_chunksize);
+                } else {
                     /* a bit ugly, but is there an alternative to put many zeros? */
-                    for(j = 0; j < ch_chunksize; j++) put_byte(s->pb, 0);
+                    for(j = 0; j < ch_chunksize; j++) avio_w8(s->pb, 0);
                 }
+
                 if(c->prev_pkt.data) {
                     /* put frame (screen + colram) from last packet into buffer */
-                    put_buffer(s->pb, c->prev_pkt.data + charset_size + frame_size * i, frame_size);
-                }
-                else {
+                    avio_write(s->pb, c->prev_pkt.data + charset_size + frame_size * i, frame_size);
+                } else {
                     /* a bit ugly, but is there an alternative to put many zeros? */
-                    for(j = 0; j < frame_size; j++) put_byte(s->pb, 0);
+                    for(j = 0; j < frame_size; j++) avio_w8(s->pb, 0);
                 }
             }
+
             /* backup current packet for next turn */
             if(pkt->data) {
                 /* no backup packet yet? create one! */
@@ -136,17 +138,18 @@ static int a64_write_packet(struct AVFormatContext *s, AVPacket *pkt)
                     return AVERROR(ENOMEM);
                 }
             }
+
             c->prev_frame_count = frame_count;
             break;
         }
         default:
             /* Write things as is. Nice for self-contained frames from non-multicolor modes or if played
              * directly from ram and not from a streaming device (rrnet/mmc) */
-            if(pkt) put_buffer(s->pb, pkt->data, pkt->size);
+            if(pkt) avio_write(s->pb, pkt->data, pkt->size);
         break;
     }
 
-    put_flush_packet(s->pb);
+    avio_flush(s->pb);
     return 0;
 }
 
@@ -161,7 +164,7 @@ static int a64_write_trailer(struct AVFormatContext *s)
     return 0;
 }
 
-AVOutputFormat a64_muxer = {
+AVOutputFormat ff_a64_muxer = {
     .name = "a64",
     .long_name = NULL_IF_CONFIG_SMALL("a64 - video for Commodore 64"),
     .mime_type = NULL,

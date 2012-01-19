@@ -266,6 +266,8 @@ static int qdm2_parse_packet(AVFormatContext *s, PayloadContext *qdm,
              * to the decoder that it is OK to initialize. */
             st->codec->codec_id = CODEC_ID_QDM2;
         }
+        if (st->codec->codec_id == CODEC_ID_NONE)
+            return AVERROR(EAGAIN);
 
         /* subpackets */
         while (end - p >= 4) {
@@ -306,11 +308,10 @@ static void qdm2_extradata_free(PayloadContext *qdm)
 }
 
 RTPDynamicProtocolHandler ff_qdm2_dynamic_handler = {
-    "X-QDM",
-    CODEC_TYPE_AUDIO,
-    CODEC_ID_NONE,
-    NULL,
-    qdm2_extradata_new,
-    qdm2_extradata_free,
-    qdm2_parse_packet,
+    .enc_name         = "X-QDM",
+    .codec_type       = AVMEDIA_TYPE_AUDIO,
+    .codec_id         = CODEC_ID_NONE,
+    .alloc            = qdm2_extradata_new,
+    .free             = qdm2_extradata_free,
+    .parse_packet     = qdm2_parse_packet,
 };

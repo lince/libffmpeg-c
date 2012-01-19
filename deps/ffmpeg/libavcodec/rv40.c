@@ -24,7 +24,7 @@
  * RV40 decoder
  */
 
-#include "libavcore/imgutils.h"
+#include "libavutil/imgutils.h"
 
 #include "avcodec.h"
 #include "dsputil.h"
@@ -231,8 +231,11 @@ static int rv40_decode_mb_info(RV34DecContext *r)
     int blocks[RV34_MB_TYPES] = {0};
     int count = 0;
 
-    if(!r->s.mb_skip_run)
+    if(!r->s.mb_skip_run) {
         r->s.mb_skip_run = svq3_get_ue_golomb(gb) + 1;
+        if(r->s.mb_skip_run > (unsigned)s->mb_num)
+            return -1;
+    }
 
     if(--r->s.mb_skip_run)
          return RV34_MB_SKIP;
@@ -253,7 +256,7 @@ static int rv40_decode_mb_info(RV34DecContext *r)
             prev_type = i;
         }
     }
-    if(s->pict_type == FF_P_TYPE){
+    if(s->pict_type == AV_PICTURE_TYPE_P){
         prev_type = block_num_to_ptype_vlc_num[prev_type];
         q = get_vlc2(gb, ptype_vlc[prev_type].table, PTYPE_VLC_BITS, 1);
         if(q < PBTYPE_ESCAPE)
@@ -668,7 +671,7 @@ static av_cold int rv40_decode_init(AVCodecContext *avctx)
     return 0;
 }
 
-AVCodec rv40_decoder = {
+AVCodec ff_rv40_decoder = {
     "rv40",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_RV40,

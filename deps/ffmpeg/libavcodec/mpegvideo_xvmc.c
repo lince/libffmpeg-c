@@ -110,9 +110,9 @@ int ff_xvmc_field_start(MpegEncContext *s, AVCodecContext *avctx)
     render->p_past_surface    = NULL;
 
     switch(s->pict_type) {
-        case  FF_I_TYPE:
+        case  AV_PICTURE_TYPE_I:
             return 0; // no prediction from other frames
-        case  FF_B_TYPE:
+        case  AV_PICTURE_TYPE_B:
             next = (struct xvmc_pix_fmt*)s->next_picture.data[2];
             if (!next)
                 return -1;
@@ -120,7 +120,7 @@ int ff_xvmc_field_start(MpegEncContext *s, AVCodecContext *avctx)
                 return -1;
             render->p_future_surface = next->p_surface;
             // no return here, going to set forward prediction
-        case  FF_P_TYPE:
+        case  AV_PICTURE_TYPE_P:
             last = (struct xvmc_pix_fmt*)s->last_picture.data[2];
             if (!last)
                 last = render; // predict second field from the first
@@ -301,7 +301,7 @@ void ff_xvmc_decode_mb(MpegEncContext *s)
     for (i = 0; i < blocks_per_mb; i++) {
         if (s->block_last_index[i] >= 0) {
             // I do not have unsigned_intra MOCO to test, hope it is OK.
-            if (s->mb_intra && (render->idct || (!render->idct && !render->unsigned_intra)))
+            if (s->mb_intra && (render->idct || !render->unsigned_intra))
                 *s->pblocks[i][0] -= 1 << 10;
             if (!render->idct) {
                 s->dsp.idct(*s->pblocks[i]);

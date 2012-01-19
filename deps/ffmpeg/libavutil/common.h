@@ -47,6 +47,8 @@
 #define RSHIFT(a,b) ((a) > 0 ? ((a) + ((1<<(b))>>1))>>(b) : ((a) + ((1<<(b))>>1)-1)>>(b))
 /* assume b>0 */
 #define ROUNDED_DIV(a,b) (((a)>0 ? (a) + ((b)>>1) : (a) - ((b)>>1))/(b))
+#define FFUDIV(a,b) (((a)>0 ?(a):(a)-(b)+1) / (b))
+#define FFUMOD(a,b) ((a)-(b)*FFUDIV(a,b))
 #define FFABS(a) ((a) >= 0 ? (a) : (-(a)))
 #define FFSIGN(a) ((a) > 0 ? 1 : -1)
 
@@ -64,7 +66,7 @@ extern const uint8_t ff_log2_tab[256];
 
 extern const uint8_t av_reverse[256];
 
-static inline av_const int av_log2_c(unsigned int v)
+static av_always_inline av_const int av_log2_c(unsigned int v)
 {
     int n = 0;
     if (v & 0xffff0000) {
@@ -80,7 +82,7 @@ static inline av_const int av_log2_c(unsigned int v)
     return n;
 }
 
-static inline av_const int av_log2_16bit_c(unsigned int v)
+static av_always_inline av_const int av_log2_16bit_c(unsigned int v)
 {
     int n = 0;
     if (v & 0xff00) {
@@ -107,7 +109,7 @@ static inline av_const int av_log2_16bit_c(unsigned int v)
  * @param amax maximum value of the clip range
  * @return clipped value
  */
-static inline av_const int av_clip_c(int a, int amin, int amax)
+static av_always_inline av_const int av_clip_c(int a, int amin, int amax)
 {
     if      (a < amin) return amin;
     else if (a > amax) return amax;
@@ -119,7 +121,7 @@ static inline av_const int av_clip_c(int a, int amin, int amax)
  * @param a value to clip
  * @return clipped value
  */
-static inline av_const uint8_t av_clip_uint8_c(int a)
+static av_always_inline av_const uint8_t av_clip_uint8_c(int a)
 {
     if (a&(~0xFF)) return (-a)>>31;
     else           return a;
@@ -130,7 +132,7 @@ static inline av_const uint8_t av_clip_uint8_c(int a)
  * @param a value to clip
  * @return clipped value
  */
-static inline av_const int8_t av_clip_int8_c(int a)
+static av_always_inline av_const int8_t av_clip_int8_c(int a)
 {
     if ((a+0x80) & ~0xFF) return (a>>31) ^ 0x7F;
     else                  return a;
@@ -141,7 +143,7 @@ static inline av_const int8_t av_clip_int8_c(int a)
  * @param a value to clip
  * @return clipped value
  */
-static inline av_const uint16_t av_clip_uint16_c(int a)
+static av_always_inline av_const uint16_t av_clip_uint16_c(int a)
 {
     if (a&(~0xFFFF)) return (-a)>>31;
     else             return a;
@@ -152,7 +154,7 @@ static inline av_const uint16_t av_clip_uint16_c(int a)
  * @param a value to clip
  * @return clipped value
  */
-static inline av_const int16_t av_clip_int16_c(int a)
+static av_always_inline av_const int16_t av_clip_int16_c(int a)
 {
     if ((a+0x8000) & ~0xFFFF) return (a>>31) ^ 0x7FFF;
     else                      return a;
@@ -163,10 +165,22 @@ static inline av_const int16_t av_clip_int16_c(int a)
  * @param a value to clip
  * @return clipped value
  */
-static inline av_const int32_t av_clipl_int32_c(int64_t a)
+static av_always_inline av_const int32_t av_clipl_int32_c(int64_t a)
 {
     if ((a+0x80000000u) & ~UINT64_C(0xFFFFFFFF)) return (a>>63) ^ 0x7FFFFFFF;
     else                                         return a;
+}
+
+/**
+ * Clip a signed integer to an unsigned power of two range.
+ * @param  a value to clip
+ * @param  p bit position to clip at
+ * @return clipped value
+ */
+static av_always_inline av_const unsigned av_clip_uintp2_c(int a, int p)
+{
+    if (a & ~((1<<p) - 1)) return -a >> 31 & ((1<<p) - 1);
+    else                   return  a;
 }
 
 /**
@@ -176,7 +190,7 @@ static inline av_const int32_t av_clipl_int32_c(int64_t a)
  * @param amax maximum value of the clip range
  * @return clipped value
  */
-static inline av_const float av_clipf_c(float a, float amin, float amax)
+static av_always_inline av_const float av_clipf_c(float a, float amin, float amax)
 {
     if      (a < amin) return amin;
     else if (a > amax) return amax;
@@ -187,7 +201,7 @@ static inline av_const float av_clipf_c(float a, float amin, float amax)
  * @param x value used to compute ceil(log2(x))
  * @return computed ceiling of log2(x)
  */
-static inline av_const int av_ceil_log2_c(int x)
+static av_always_inline av_const int av_ceil_log2_c(int x)
 {
     return av_log2((x - 1) << 1);
 }
@@ -197,7 +211,7 @@ static inline av_const int av_ceil_log2_c(int x)
  * @param x value to count bits of
  * @return the number of bits set to one in x
  */
-static inline av_const int av_popcount_c(uint32_t x)
+static av_always_inline av_const int av_popcount_c(uint32_t x)
 {
     x -= (x >> 1) & 0x55555555;
     x = (x & 0x33333333) + ((x >> 2) & 0x33333333);
@@ -361,6 +375,9 @@ static inline av_const int av_popcount_c(uint32_t x)
 #endif
 #ifndef av_clipl_int32
 #   define av_clipl_int32   av_clipl_int32_c
+#endif
+#ifndef av_clip_uintp2
+#   define av_clip_uintp2   av_clip_uintp2_c
 #endif
 #ifndef av_clipf
 #   define av_clipf         av_clipf_c

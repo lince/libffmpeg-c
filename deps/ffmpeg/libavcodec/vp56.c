@@ -337,7 +337,7 @@ static void vp56_mc(VP56Context *s, int b, int plane, uint8_t *src,
 
     if (x<0 || x+12>=s->plane_width[plane] ||
         y<0 || y+12>=s->plane_height[plane]) {
-        ff_emulated_edge_mc(s->edge_emu_buffer,
+        s->dsp.emulated_edge_mc(s->edge_emu_buffer,
                             src + s->block_offset[b] + (dy-2)*stride + (dx-2),
                             stride, 12, 12, x, y,
                             s->plane_width[plane],
@@ -399,6 +399,8 @@ static void vp56_decode_mb(VP56Context *s, int row, int col, int is_alpha)
 
     frame_current = s->framep[VP56_FRAME_CURRENT];
     frame_ref = s->framep[ref_frame];
+    if (mb_type != VP56_MB_INTRA && !frame_ref->data[0])
+        return;
 
     ab = 6*is_alpha;
     b_max = 6 - 2*is_alpha;
@@ -511,6 +513,16 @@ int ff_vp56_decode_frame(AVCodecContext *avctx, void *data, int *data_size,
         if (!res)
             return -1;
 
+        if (res == 2) {
+            int i;
+            for (i = 0; i < 4; i++) {
+                if (s->frames[i].data[0])
+                    avctx->release_buffer(avctx, &s->frames[i]);
+            }
+            if (is_alpha)
+                return -1;
+        }
+
         if (!is_alpha) {
             p->reference = 1;
             if (avctx->get_buffer(avctx, p) < 0) {
@@ -526,18 +538,19 @@ int ff_vp56_decode_frame(AVCodecContext *avctx, void *data, int *data_size,
         }
 
         if (p->key_frame) {
-            p->pict_type = FF_I_TYPE;
+            p->pict_type = AV_PICTURE_TYPE_I;
             s->default_models_init(s);
             for (block=0; block<s->mb_height*s->mb_width; block++)
                 s->macroblocks[block].type = VP56_MB_INTRA;
         } else {
-            p->pict_type = FF_P_TYPE;
+            p->pict_type = AV_PICTURE_TYPE_P;
             vp56_parse_mb_type_models(s);
             s->parse_vector_models(s);
             s->mb_type = VP56_MB_INTER_NOVEC_PF;
         }
 
-        s->parse_coeff_models(s);
+        if (s->parse_coeff_models(s))
+            goto next;
 
         memset(s->prev_dc, 0, sizeof(s->prev_dc));
         s->prev_dc[1][VP56_FRAME_CURRENT] = 128;
@@ -601,6 +614,7 @@ int ff_vp56_decode_frame(AVCodecContext *avctx, void *data, int *data_size,
             }
         }
 
+    next:
         if (p->key_frame || golden_frame) {
             if (s->framep[VP56_FRAME_GOLDEN]->data[0] &&
                 s->framep[VP56_FRAME_GOLDEN] != s->framep[VP56_FRAME_GOLDEN2])
@@ -653,8 +667,10 @@ av_cold void ff_vp56_init(AVCodecContext *avctx, int flip, int has_alpha)
     ff_vp56dsp_init(&s->vp56dsp, avctx->codec->id);
     ff_init_scantable(s->dsp.idct_permutation, &s->scantable,ff_zigzag_direct);
 
-    for (i=0; i<4; i++)
+    for (i=0; i<4; i++) {
         s->framep[i] = &s->frames[i];
+        avcodec_get_frame_defaults(&s->frames[i]);
+    }
     s->framep[VP56_FRAME_UNUSED] = s->framep[VP56_FRAME_GOLDEN];
     s->framep[VP56_FRAME_UNUSED2] = s->framep[VP56_FRAME_GOLDEN2];
     s->edge_emu_buffer_alloc = NULL;

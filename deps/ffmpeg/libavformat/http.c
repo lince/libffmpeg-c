@@ -28,7 +28,8 @@
 #include "http.h"
 #include "os_support.h"
 #include "httpauth.h"
-#include "libavcodec/opt.h"
+#include "url.h"
+#include "libavutil/opt.h"
 
 /* XXX: POST protocol is not completely implemented because ffmpeg uses
    only a subset of it. */
@@ -53,11 +54,14 @@ typedef struct {
 
 #define OFFSET(x) offsetof(HTTPContext, x)
 static const AVOption options[] = {
-{"chunksize", "use chunked transfer-encoding for posts, -1 disables it, 0 enables it", OFFSET(chunksize), FF_OPT_TYPE_INT64, 0, -1, 0 }, /* Default to 0, for chunked POSTs */
+{"chunksize", "use chunked transfer-encoding for posts, -1 disables it, 0 enables it", OFFSET(chunksize), FF_OPT_TYPE_INT64, {.dbl = 0}, -1, 0 }, /* Default to 0, for chunked POSTs */
 {NULL}
 };
 static const AVClass httpcontext_class = {
-    "HTTP", av_default_item_name, options, LIBAVUTIL_VERSION_INT
+    .class_name     = "HTTP",
+    .item_name      = av_default_item_name,
+    .option         = options,
+    .version        = LIBAVUTIL_VERSION_INT,
 };
 
 static int http_connect(URLContext *h, const char *path, const char *hoststr,
@@ -69,7 +73,7 @@ void ff_http_set_headers(URLContext *h, const char *headers)
     int len = strlen(headers);
 
     if (len && strcmp("\r\n", headers + len - 2))
-        av_log(NULL, AV_LOG_ERROR, "No trailing CRLF found in HTTP header.\n");
+        av_log(h, AV_LOG_ERROR, "No trailing CRLF found in HTTP header.\n");
 
     av_strlcpy(s->headers, headers, sizeof(s->headers));
 }
@@ -123,7 +127,7 @@ static int http_open_cnx(URLContext *h)
         port = 80;
 
     ff_url_join(buf, sizeof(buf), "tcp", NULL, hostname, port, NULL);
-    err = url_open(&hd, buf, URL_RDWR);
+    err = ffurl_open(&hd, buf, AVIO_FLAG_READ_WRITE);
     if (err < 0)
         goto fail;
 
@@ -133,14 +137,15 @@ static int http_open_cnx(URLContext *h)
         goto fail;
     if (s->http_code == 401) {
         if (cur_auth_type == HTTP_AUTH_NONE && s->auth_state.auth_type != HTTP_AUTH_NONE) {
-            url_close(hd);
+            ffurl_close(hd);
             goto redo;
         } else
             goto fail;
     }
-    if ((s->http_code == 302 || s->http_code == 303) && location_changed == 1) {
+    if ((s->http_code == 301 || s->http_code == 302 || s->http_code == 303 || s->http_code == 307)
+        && location_changed == 1) {
         /* url moved, get next */
-        url_close(hd);
+        ffurl_close(hd);
         if (redirects++ >= MAX_REDIRECTS)
             return AVERROR(EIO);
         location_changed = 0;
@@ -149,7 +154,7 @@ static int http_open_cnx(URLContext *h)
     return 0;
  fail:
     if (hd)
-        url_close(hd);
+        ffurl_close(hd);
     s->hd = NULL;
     return AVERROR(EIO);
 }
@@ -169,7 +174,7 @@ static int http_getc(HTTPContext *s)
 {
     int len;
     if (s->buf_ptr >= s->buf_end) {
-        len = url_read(s->hd, s->buffer, BUFFER_SIZE);
+        len = ffurl_read(s->hd, s->buffer, BUFFER_SIZE);
         if (len < 0) {
             return AVERROR(EIO);
         } else if (len == 0) {
@@ -224,13 +229,13 @@ static int process_line(URLContext *h, char *line, int line_count,
             p++;
         s->http_code = strtol(p, &end, 10);
 
-        dprintf(NULL, "http_code=%d\n", s->http_code);
+        av_dlog(NULL, "http_code=%d\n", s->http_code);
 
         /* error codes are 4xx and 5xx, but regard 401 as a success, so we
          * don't abort until all headers have been parsed. */
         if (s->http_code >= 400 && s->http_code < 600 && s->http_code != 401) {
             end += strspn(end, SPACE_CHARS);
-            av_log(NULL, AV_LOG_WARNING, "HTTP error %d %s\n",
+            av_log(h, AV_LOG_WARNING, "HTTP error %d %s\n",
                    s->http_code, end);
             return -1;
         }
@@ -245,12 +250,12 @@ static int process_line(URLContext *h, char *line, int line_count,
         p++;
         while (isspace(*p))
             p++;
-        if (!strcmp(tag, "Location")) {
+        if (!strcasecmp(tag, "Location")) {
             strcpy(s->location, p);
             *new_location = 1;
-        } else if (!strcmp (tag, "Content-Length") && s->filesize == -1) {
+        } else if (!strcasecmp (tag, "Content-Length") && s->filesize == -1) {
             s->filesize = atoll(p);
-        } else if (!strcmp (tag, "Content-Range")) {
+        } else if (!strcasecmp (tag, "Content-Range")) {
             /* "bytes $from-$to/$document_size" */
             const char *slash;
             if (!strncmp (p, "bytes ", 6)) {
@@ -260,14 +265,16 @@ static int process_line(URLContext *h, char *line, int line_count,
                     s->filesize = atoll(slash+1);
             }
             h->is_streamed = 0; /* we _can_ in fact seek */
-        } else if (!strcmp (tag, "Transfer-Encoding") && !strncasecmp(p, "chunked", 7)) {
+        } else if (!strcasecmp (tag, "Accept-Ranges") && !strncmp (p, "bytes", 5)) {
+            h->is_streamed = 0;
+        } else if (!strcasecmp (tag, "Transfer-Encoding") && !strncasecmp(p, "chunked", 7)) {
             s->filesize = -1;
             s->chunksize = 0;
-        } else if (!strcmp (tag, "WWW-Authenticate")) {
+        } else if (!strcasecmp (tag, "WWW-Authenticate")) {
             ff_http_auth_handle_header(&s->auth_state, tag, p);
-        } else if (!strcmp (tag, "Authentication-Info")) {
+        } else if (!strcasecmp (tag, "Authentication-Info")) {
             ff_http_auth_handle_header(&s->auth_state, tag, p);
-        } else if (!strcmp (tag, "Connection")) {
+        } else if (!strcasecmp (tag, "Connection")) {
             if (!strcmp(p, "close"))
                 s->willclose = 1;
         }
@@ -294,7 +301,7 @@ static int http_connect(URLContext *h, const char *path, const char *hoststr,
 
 
     /* send http header */
-    post = h->flags & URL_WRONLY;
+    post = h->flags & AVIO_FLAG_WRITE;
     authstr = ff_http_auth_create_response(&s->auth_state, auth, path,
                                         post ? "POST" : "GET");
 
@@ -331,7 +338,7 @@ static int http_connect(URLContext *h, const char *path, const char *hoststr,
              authstr ? authstr : "");
 
     av_freep(&authstr);
-    if (url_write(s->hd, s->buffer, strlen(s->buffer)) < 0)
+    if (ffurl_write(s->hd, s->buffer, strlen(s->buffer)) < 0)
         return AVERROR(EIO);
 
     /* init input buffer */
@@ -355,7 +362,7 @@ static int http_connect(URLContext *h, const char *path, const char *hoststr,
         if (http_get_line(s, line, sizeof(line)) < 0)
             return AVERROR(EIO);
 
-        dprintf(NULL, "header='%s'\n", line);
+        av_dlog(NULL, "header='%s'\n", line);
 
         err = process_line(h, line, s->line_count, new_location);
         if (err < 0)
@@ -386,7 +393,7 @@ static int http_read(URLContext *h, uint8_t *buf, int size)
 
                 s->chunksize = strtoll(line, NULL, 16);
 
-                dprintf(NULL, "Chunked encoding data size: %"PRId64"'\n", s->chunksize);
+                av_dlog(NULL, "Chunked encoding data size: %"PRId64"'\n", s->chunksize);
 
                 if (!s->chunksize)
                     return 0;
@@ -405,7 +412,7 @@ static int http_read(URLContext *h, uint8_t *buf, int size)
     } else {
         if (!s->willclose && s->filesize >= 0 && s->off >= s->filesize)
             return AVERROR_EOF;
-        len = url_read(s->hd, buf, size);
+        len = ffurl_read(s->hd, buf, size);
     }
     if (len > 0) {
         s->off += len;
@@ -425,7 +432,7 @@ static int http_write(URLContext *h, const uint8_t *buf, int size)
 
     if (s->chunksize == -1) {
         /* non-chunked data is sent without any special encoding */
-        return url_write(s->hd, buf, size);
+        return ffurl_write(s->hd, buf, size);
     }
 
     /* silently ignore zero-size data since chunk encoding that would
@@ -434,9 +441,9 @@ static int http_write(URLContext *h, const uint8_t *buf, int size)
         /* upload data using chunked encoding */
         snprintf(temp, sizeof(temp), "%x\r\n", size);
 
-        if ((ret = url_write(s->hd, temp, strlen(temp))) < 0 ||
-            (ret = url_write(s->hd, buf, size)) < 0 ||
-            (ret = url_write(s->hd, crlf, sizeof(crlf) - 1)) < 0)
+        if ((ret = ffurl_write(s->hd, temp, strlen(temp))) < 0 ||
+            (ret = ffurl_write(s->hd, buf, size)) < 0 ||
+            (ret = ffurl_write(s->hd, crlf, sizeof(crlf) - 1)) < 0)
             return ret;
     }
     return size;
@@ -449,13 +456,13 @@ static int http_close(URLContext *h)
     HTTPContext *s = h->priv_data;
 
     /* signal end of chunked encoding if used */
-    if ((h->flags & URL_WRONLY) && s->chunksize != -1) {
-        ret = url_write(s->hd, footer, sizeof(footer) - 1);
+    if ((h->flags & AVIO_FLAG_WRITE) && s->chunksize != -1) {
+        ret = ffurl_write(s->hd, footer, sizeof(footer) - 1);
         ret = ret > 0 ? 0 : ret;
     }
 
     if (s->hd)
-        url_close(s->hd);
+        ffurl_close(s->hd);
     return ret;
 }
 
@@ -491,7 +498,7 @@ static int64_t http_seek(URLContext *h, int64_t off, int whence)
         s->off = old_off;
         return -1;
     }
-    url_close(old_hd);
+    ffurl_close(old_hd);
     return off;
 }
 
@@ -499,17 +506,17 @@ static int
 http_get_file_handle(URLContext *h)
 {
     HTTPContext *s = h->priv_data;
-    return url_get_file_handle(s->hd);
+    return ffurl_get_file_handle(s->hd);
 }
 
-URLProtocol http_protocol = {
-    "http",
-    http_open,
-    http_read,
-    http_write,
-    http_seek,
-    http_close,
+URLProtocol ff_http_protocol = {
+    .name                = "http",
+    .url_open            = http_open,
+    .url_read            = http_read,
+    .url_write           = http_write,
+    .url_seek            = http_seek,
+    .url_close           = http_close,
     .url_get_file_handle = http_get_file_handle,
-    .priv_data_size = sizeof(HTTPContext),
-    .priv_data_class = &httpcontext_class,
+    .priv_data_size      = sizeof(HTTPContext),
+    .priv_data_class     = &httpcontext_class,
 };

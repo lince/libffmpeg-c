@@ -55,6 +55,7 @@ static void fill_vaapi_pic(VAPictureH264 *va_pic,
 {
     if (pic_structure == 0)
         pic_structure = pic->reference;
+    pic_structure &= PICT_FRAME; /* PICT_TOP_FIELD|PICT_BOTTOM_FIELD */
 
     va_pic->picture_id = ff_vaapi_get_surface_id(pic);
     va_pic->frame_idx  = pic->long_ref ? pic->pic_id : pic->frame_num;
@@ -227,7 +228,7 @@ static int start_frame(AVCodecContext          *avctx,
     VAPictureParameterBufferH264 *pic_param;
     VAIQMatrixBufferH264 *iq_matrix;
 
-    dprintf(avctx, "start_frame()\n");
+    av_dlog(avctx, "start_frame()\n");
 
     vactx->slice_param_size = sizeof(VASliceParameterBufferH264);
 
@@ -280,7 +281,8 @@ static int start_frame(AVCodecContext          *avctx,
     if (!iq_matrix)
         return -1;
     memcpy(iq_matrix->ScalingList4x4, h->pps.scaling_matrix4, sizeof(iq_matrix->ScalingList4x4));
-    memcpy(iq_matrix->ScalingList8x8, h->pps.scaling_matrix8, sizeof(iq_matrix->ScalingList8x8));
+    memcpy(iq_matrix->ScalingList8x8[0], h->pps.scaling_matrix8[0], sizeof(iq_matrix->ScalingList8x8[0]));
+    memcpy(iq_matrix->ScalingList8x8[1], h->pps.scaling_matrix8[3], sizeof(iq_matrix->ScalingList8x8[0]));
     return 0;
 }
 
@@ -289,7 +291,7 @@ static int end_frame(AVCodecContext *avctx)
 {
     H264Context * const h = avctx->priv_data;
 
-    dprintf(avctx, "end_frame()\n");
+    av_dlog(avctx, "end_frame()\n");
     return ff_vaapi_common_end_frame(&h->s);
 }
 
@@ -302,7 +304,7 @@ static int decode_slice(AVCodecContext *avctx,
     MpegEncContext * const s = &h->s;
     VASliceParameterBufferH264 *slice_param;
 
-    dprintf(avctx, "decode_slice(): buffer %p, size %d\n", buffer, size);
+    av_dlog(avctx, "decode_slice(): buffer %p, size %d\n", buffer, size);
 
     /* Fill in VASliceParameterBufferH264. */
     slice_param = (VASliceParameterBufferH264 *)ff_vaapi_alloc_slice(avctx->hwaccel_context, buffer, size);
@@ -311,7 +313,7 @@ static int decode_slice(AVCodecContext *avctx,
     slice_param->slice_data_bit_offset          = get_bits_count(&h->s.gb) + 8; /* bit buffer started beyond nal_unit_type */
     slice_param->first_mb_in_slice              = (s->mb_y >> FIELD_OR_MBAFF_PICTURE) * s->mb_width + s->mb_x;
     slice_param->slice_type                     = ff_h264_get_slice_type(h);
-    slice_param->direct_spatial_mv_pred_flag    = h->slice_type == FF_B_TYPE ? h->direct_spatial_mv_pred : 0;
+    slice_param->direct_spatial_mv_pred_flag    = h->slice_type == AV_PICTURE_TYPE_B ? h->direct_spatial_mv_pred : 0;
     slice_param->num_ref_idx_l0_active_minus1   = h->list_count > 0 ? h->ref_count[0] - 1 : 0;
     slice_param->num_ref_idx_l1_active_minus1   = h->list_count > 1 ? h->ref_count[1] - 1 : 0;
     slice_param->cabac_init_idc                 = h->cabac_init_idc;
@@ -334,7 +336,7 @@ static int decode_slice(AVCodecContext *avctx,
     return 0;
 }
 
-AVHWAccel h264_vaapi_hwaccel = {
+AVHWAccel ff_h264_vaapi_hwaccel = {
     .name           = "h264_vaapi",
     .type           = AVMEDIA_TYPE_VIDEO,
     .id             = CODEC_ID_H264,

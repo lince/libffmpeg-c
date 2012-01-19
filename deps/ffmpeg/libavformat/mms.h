@@ -21,7 +21,7 @@
 #ifndef AVFORMAT_MMS_H
 #define AVFORMAT_MMS_H
 
-#include "avformat.h"
+#include "url.h"
 
 typedef struct {
     int id;
@@ -39,7 +39,7 @@ typedef struct {
 
     /** Buffer for incoming packets. */
     /*@{*/
-    uint8_t in_buffer[8192];             ///< Buffer for incoming packets.
+    uint8_t in_buffer[65536];            ///< Buffer for incoming packets.
     uint8_t *read_in_ptr;                ///< Pointer for reading from incoming buffer.
     int remaining_in_len;                ///< Reading length from incoming buffer.
     /*@}*/
@@ -60,4 +60,5 @@ typedef struct {
 int ff_mms_asf_header_parser(MMSContext * mms);
 int ff_mms_read_data(MMSContext *mms, uint8_t *buf, const int size);
 int ff_mms_read_header(MMSContext * mms, uint8_t * buf, const int size);
-#endif
+
+#endif /* AVFORMAT_MMS_H */

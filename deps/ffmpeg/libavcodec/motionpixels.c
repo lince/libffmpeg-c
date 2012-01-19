@@ -61,6 +61,7 @@ static av_cold int mp_decode_init(AVCodecContext *avctx)
     mp->vpt = av_mallocz(avctx->height * sizeof(YuvPixel));
     mp->hpt = av_mallocz(avctx->height * avctx->width / 16 * sizeof(YuvPixel));
     avctx->pix_fmt = PIX_FMT_RGB555;
+    avcodec_get_frame_defaults(&mp->frame);
     return 0;
 }
 
@@ -278,7 +279,8 @@ static int mp_decode_frame(AVCodecContext *avctx,
     if (sz == 0)
         goto end;
 
-    init_vlc(&mp->vlc, mp->max_codes_bits, mp->codes_count, &mp->codes[0].size, sizeof(HuffCode), 1, &mp->codes[0].code, sizeof(HuffCode), 4, 0);
+    if (init_vlc(&mp->vlc, mp->max_codes_bits, mp->codes_count, &mp->codes[0].size, sizeof(HuffCode), 1, &mp->codes[0].code, sizeof(HuffCode), 4, 0))
+        goto end;
     mp_decode_frame_helper(mp, &gb);
     free_vlc(&mp->vlc);
 
@@ -302,7 +304,7 @@ static av_cold int mp_decode_end(AVCodecContext *avctx)
     return 0;
 }
 
-AVCodec motionpixels_decoder = {
+AVCodec ff_motionpixels_decoder = {
     "motionpixels",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_MOTIONPIXELS,

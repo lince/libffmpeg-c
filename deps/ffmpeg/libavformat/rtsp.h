@@ -28,6 +28,8 @@
 #include "network.h"
 #include "httpauth.h"
 
+#include "libavutil/log.h"
+
 /**
  * Network layer over which RTP/etc packet data will be transported.
  */
@@ -193,9 +195,10 @@ enum RTSPServerType {
 /**
  * Private data for the RTSP demuxer.
  *
- * @todo Use ByteIOContext instead of URLContext
+ * @todo Use AVIOContext instead of URLContext
  */
 typedef struct RTSPState {
+    const AVClass *class;             /**< Class for private options. */
     URLContext *rtsp_hd; /* RTSP TCP connection handle */
 
     /** number of items in the 'rtsp_streams' variable */
@@ -218,7 +221,7 @@ typedef struct RTSPState {
     int64_t seek_timestamp;
 
     /* XXX: currently we use unbuffered input */
-    //    ByteIOContext rtsp_gb;
+    //    AVIOContext rtsp_gb;
 
     int seq;                          /**< RTSP command sequence number */
 
@@ -247,6 +250,9 @@ typedef struct RTSPState {
      * Detected based on the value of RTSPMessageHeader->server or the presence
      * of RTSPMessageHeader->real_challenge */
     enum RTSPServerType server_type;
+
+    /** the "RealChallenge1:" field from the server */
+    char real_challenge[64];
 
     /** plaintext authorization line (username:password) */
     char auth[128];
@@ -295,9 +301,6 @@ typedef struct RTSPState {
      * other cases, this is a copy of AVFormatContext->filename. */
     char control_uri[1024];
 
-    /** The synchronized start time of the output streams. */
-    int64_t start_time;
-
     /** Additional output handle, used when input and output are done
      * separately, eg for HTTP tunneling. */
     URLContext *rtsp_hd_out;
@@ -309,6 +312,43 @@ typedef struct RTSPState {
      * An EOF is propagated back if nb_byes == nb_streams.
      * This is reset after a seek. */
     int nb_byes;
+
+    /** Reusable buffer for receiving packets */
+    uint8_t* recvbuf;
+
+    /** Filter incoming UDP packets - receive packets only from the right
+     * source address and port. */
+    int filter_source;
+
+    /**
+     * A mask with all requested transport methods
+     */
+    int lower_transport_mask;
+
+    /**
+     * The number of returned packets
+     */
+    uint64_t packets;
+
+    /**
+     * Polling array for udp
+     */
+    struct pollfd *p;
+
+    /**
+     * Whether the server supports the GET_PARAMETER method.
+     */
+    int get_parameter_supported;
+
+    /**
+     * Do not begin to play the stream immediately.
+     */
+    int initial_pause;
+
+    /**
+     * Option flags for the chained RTP muxer.
+     */
+    int rtp_muxer_flags;
 } RTSPState;
 
 /**
@@ -349,32 +389,11 @@ typedef struct RTSPStream {
 } RTSPStream;
 
 void ff_rtsp_parse_line(RTSPMessageHeader *reply, const char *buf,
-                        HTTPAuthState *auth_state);
+                        RTSPState *rt, const char *method);
 
-#if LIBAVFORMAT_VERSION_INT < (53 << 16)
-extern int rtsp_default_protocols;
-#endif
 extern int rtsp_rtp_port_min;
 extern int rtsp_rtp_port_max;
 
-/**
- * Send a command to the RTSP server without waiting for the reply.
- *
- * @param s RTSP (de)muxer context
- * @param method the method for the request
- * @param url the target url for the request
- * @param headers extra header lines to include in the request
- * @param send_content if non-null, the data to send as request body content
- * @param send_content_length the length of the send_content data, or 0 if
- *                            send_content is null
- *
- * @return zero if success, nonzero otherwise
- */
-int ff_rtsp_send_cmd_with_content_async(AVFormatContext *s,
-                                        const char *method, const char *url,
-                                        const char *headers,
-                                        const unsigned char *send_content,
-                                        int send_content_length);
 /**
  * Send a command to the RTSP server without waiting for the reply.
  *
@@ -433,13 +452,15 @@ int ff_rtsp_send_cmd(AVFormatContext *s, const char *method,
  *                   data packets (if they are encountered), until a reply
  *                   has been fully parsed. If no more data is available
  *                   without parsing a reply, it will return an error.
+ * @param method the RTSP method this is a reply to. This affects how
+ *               some response headers are acted upon. May be NULL.
  *
  * @return 1 if a data packets is ready to be received, -1 on error,
  *          and 0 on success.
  */
 int ff_rtsp_read_reply(AVFormatContext *s, RTSPMessageHeader *reply,
                        unsigned char **content_ptr,
-                       int return_on_interleaved_data);
+                       int return_on_interleaved_data, const char *method);
 
 /**
  * Skip a RTP/TCP interleaved packet.
@@ -470,5 +491,50 @@ void ff_rtsp_close_streams(AVFormatContext *s);
  * @param rt RTSP (de)muxer context
  */
 void ff_rtsp_close_connections(AVFormatContext *rt);
+
+/**
+ * Get the description of the stream and set up the RTSPStream child
+ * objects.
+ */
+int ff_rtsp_setup_input_streams(AVFormatContext *s, RTSPMessageHeader *reply);
+
+/**
+ * Announce the stream to the server and set up the RTSPStream child
+ * objects for each media stream.
+ */
+int ff_rtsp_setup_output_streams(AVFormatContext *s, const char *addr);
+
+/**
+ * Parse an SDP description of streams by populating an RTSPState struct
+ * within the AVFormatContext; also allocate the RTP streams and the
+ * pollfd array used for UDP streams.
+ */
+int ff_sdp_parse(AVFormatContext *s, const char *content);
+
+/**
+ * Receive one RTP packet from an TCP interleaved RTSP stream.
+ */
+int ff_rtsp_tcp_read_packet(AVFormatContext *s, RTSPStream **prtsp_st,
+                            uint8_t *buf, int buf_size);
+
+/**
+ * Receive one packet from the RTSPStreams set up in the AVFormatContext
+ * (which should contain a RTSPState struct as priv_data).
+ */
+int ff_rtsp_fetch_packet(AVFormatContext *s, AVPacket *pkt);
+
+/**
+ * Do the SETUP requests for each stream for the chosen
+ * lower transport mode.
+ * @return 0 on success, <0 on error, 1 if protocol is unavailable
+ */
+int ff_rtsp_make_setup_request(AVFormatContext *s, const char *host, int port,
+                               int lower_transport, const char *real_challenge);
+
+/**
+ * Undo the effect of ff_rtsp_make_setup_request, close the
+ * transport_priv and rtp_handle fields.
+ */
+void ff_rtsp_undo_setup(AVFormatContext *s);
 
 #endif /* AVFORMAT_RTSP_H */

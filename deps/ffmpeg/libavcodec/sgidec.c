@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#include "libavcore/imgutils.h"
+#include "libavutil/imgutils.h"
 #include "avcodec.h"
 #include "bytestream.h"
 #include "sgi.h"
@@ -215,7 +215,7 @@ static int decode_frame(AVCodecContext *avctx,
         return -1;
     }
 
-    p->pict_type = FF_I_TYPE;
+    p->pict_type = AV_PICTURE_TYPE_I;
     p->key_frame = 1;
     out_buf = p->data[0];
 
@@ -259,7 +259,7 @@ static av_cold int sgi_end(AVCodecContext *avctx)
     return 0;
 }
 
-AVCodec sgi_decoder = {
+AVCodec ff_sgi_decoder = {
     "sgi",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_SGI,

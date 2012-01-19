@@ -51,7 +51,7 @@ typedef struct shm_grab_s
 	int shmid;				/**< Id of shared manager */
 	int semid;				/**< Id of the semaphoros */
 	int bytes_per_pixel;	/**< Number of bytes utilized per pixel*/
-    
+
 	void* shmdata;			/**< buffer where the image is */
 } shm_grab_t;
 
@@ -93,7 +93,7 @@ shmgrab_read_header(AVFormatContext *s1, AVFormatParameters *ap)
 		return AVERROR(ENOMEM);
 	}
 
-	info = (DeviceInfo*) shmat(shmdif_info,0,0);  
+	info = (DeviceInfo*) shmat(shmdif_info,0,0);
 
 	width = info->width;
 	height = info->height;
@@ -109,7 +109,7 @@ shmgrab_read_header(AVFormatContext *s1, AVFormatParameters *ap)
 
 	/*cria o e inicializa o semaforo com 1semafaro*/
 
-	if((s->semid=semget(SEMKEY,1,0744|IPC_CREAT)) < 0) { 
+	if((s->semid=semget(SEMKEY,1,0744|IPC_CREAT)) < 0) {
 		av_log(s1, AV_LOG_ERROR, "Error trying to alocate the semaphoros.");
 		return AVERROR(ENOMEM);
 	}
@@ -117,7 +117,7 @@ shmgrab_read_header(AVFormatContext *s1, AVFormatParameters *ap)
 	/* inicializa o semaforo*/
 	sem_un.val = 1;
 	semctl(s->semid,0,SETVAL,sem_un);
-	
+
 	av_log(s1, AV_LOG_INFO, "display width: %d height: %d\n", width, height);
 	 switch(bits_per_pixel){
     case 8:
@@ -152,14 +152,14 @@ shmgrab_read_header(AVFormatContext *s1, AVFormatParameters *ap)
     s->time_frame = av_gettime() / av_q2d(ap->time_base);
 
 	/* Associa a variavel local com o buffer compartilhado */
-    s->shmdata = (unsigned char *) shmat(s->shmid,0,0);  
+    s->shmdata = (unsigned char *) shmat(s->shmid,0,0);
 
     if(s->shmdata == -1){
         av_log(s1, AV_LOG_ERROR, "Error trying to link the shared memory.\n");
         return AVERROR(ENOMEM);
     }
 
-    st->codec->codec_type = CODEC_TYPE_VIDEO;
+    st->codec->codec_type = AVMEDIA_TYPE_VIDEO;
     st->codec->codec_id = CODEC_ID_RAWVIDEO;
     st->codec->width = width;
     st->codec->height = height;
@@ -226,17 +226,17 @@ shmgrab_read_close(AVFormatContext *s1)
 	union semun sem_un;
 	struct shmid_ds shmds;
 	shm_grab_t *shmgrab = s1->priv_data;
-	printf("Saindo na shmgrab_read_close.");
+	//printf("Saindo na shmgrab_read_close.");
 
 	//semctl(shmgrab->semid,0,IPC_RMID,sem_un);
 	//shmdt((char *) shmgrab->shmdata);
-    //shmctl(shmgrab->shmid,IPC_RMID,&shmds); 
-    
+    //shmctl(shmgrab->shmid,IPC_RMID,&shmds);
+
     return 0;
 }
 
 /** fb grabber device demuxer declaration */
-AVInputFormat shm_grab_device_demuxer =
+AVInputFormat ff_shm_grab_device_demuxer =
 {
     "shmgrab",
     NULL_IF_CONFIG_SMALL("shmgrab"),

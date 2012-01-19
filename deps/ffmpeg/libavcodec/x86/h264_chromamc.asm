@@ -17,7 +17,7 @@
 ;*
 ;* You should have received a copy of the GNU Lesser General Public
 ;* License along with FFmpeg; if not, write to the Free Software
-;* 51, Inc., Foundation Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+;* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 ;******************************************************************************
 
 %include "x86inc.asm"
@@ -530,9 +530,8 @@ cglobal %1_%2_chroma_mc8_%3, 6, 7, 8
     add           r4, 8
     sub           r4, r5          ; 255*x+8 = x<<8 | (8-x)
     movd          m7, r4d
-    movq          m6, [rnd_1d_%2]
+    movdqa        m6, [rnd_1d_%2]
     pshuflw       m7, m7, 0
-    movlhps       m6, m6
     movlhps       m7, m7
 
 .next2xrows
@@ -568,9 +567,8 @@ cglobal %1_%2_chroma_mc8_%3, 6, 7, 8
     add           r5, 8
     sub           r5, r4          ; 255*y+8 = y<<8 | (8-y)
     movd          m7, r5d
-    movq          m6, [rnd_1d_%2]
+    movdqa        m6, [rnd_1d_%2]
     pshuflw       m7, m7, 0
-    movlhps       m6, m6
     movlhps       m7, m7
 
 .next2yrows

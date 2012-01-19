@@ -40,6 +40,8 @@
 #include "get_bits.h"
 #include "dsputil.h"
 #include "fft.h"
+#include "libavutil/audioconvert.h"
+#include "sinewin.h"
 
 #include "imcdata.h"
 
@@ -86,7 +88,7 @@ typedef struct {
 
     DSPContext dsp;
     FFTContext fft;
-    DECLARE_ALIGNED(16, FFTComplex, samples)[COEFFS/2];
+    DECLARE_ALIGNED(32, FFTComplex, samples)[COEFFS/2];
     float *out_samples;
 } IMCContext;
 
@@ -156,8 +158,8 @@ static av_cold int imc_decode_init(AVCodecContext * avctx)
 
     ff_fft_init(&q->fft, 7, 1);
     dsputil_init(&q->dsp, avctx);
-    avctx->sample_fmt = SAMPLE_FMT_FLT;
-    avctx->channel_layout = (avctx->channels==2) ? CH_LAYOUT_STEREO : CH_LAYOUT_MONO;
+    avctx->sample_fmt = AV_SAMPLE_FMT_FLT;
+    avctx->channel_layout = (avctx->channels==2) ? AV_CH_LAYOUT_STEREO : AV_CH_LAYOUT_MONO;
     return 0;
 }
 
@@ -563,8 +565,8 @@ static void imc_imdct256(IMCContext *q) {
     }
 
     /* FFT */
-    ff_fft_permute(&q->fft, q->samples);
-    ff_fft_calc (&q->fft, q->samples);
+    q->fft.fft_permute(&q->fft, q->samples);
+    q->fft.fft_calc   (&q->fft, q->samples);
 
     /* postrotation, window and reorder */
     for(i = 0; i < COEFFS/2; i++){
@@ -821,7 +823,7 @@ static av_cold int imc_decode_close(AVCodecContext * avctx)
 }
 
 
-AVCodec imc_decoder = {
+AVCodec ff_imc_decoder = {
     .name = "imc",
     .type = AVMEDIA_TYPE_AUDIO,
     .id = CODEC_ID_IMC,

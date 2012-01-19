@@ -25,7 +25,7 @@
  */
 
 #include "libavutil/intreadwrite.h"
-#include "libavcore/imgutils.h"
+#include "libavutil/imgutils.h"
 #include "avcodec.h"
 
 typedef struct {
@@ -150,6 +150,7 @@ static av_cold int decode_init(AVCodecContext *avctx)
 
     c->avctx = avctx;
     avctx->pix_fmt = PIX_FMT_RGB555;
+    avcodec_get_frame_defaults(&c->pic);
 
     return 0;
 }
@@ -164,7 +165,7 @@ static av_cold int decode_end(AVCodecContext *avctx)
     return 0;
 }
 
-AVCodec kgv1_decoder = {
+AVCodec ff_kgv1_decoder = {
     "kgv1",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_KGV1,
@@ -173,6 +174,5 @@ AVCodec kgv1_decoder = {
     NULL,
     decode_end,
     decode_frame,
-    .max_lowres = 1,
     .long_name = NULL_IF_CONFIG_SMALL("Kega Game Video"),
 };
