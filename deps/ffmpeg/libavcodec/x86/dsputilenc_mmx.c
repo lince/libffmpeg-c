@@ -35,7 +35,7 @@ static void get_pixels_mmx(DCTELEM *block, const uint8_t *pixels, int line_size)
     __asm__ volatile(
         "mov $-128, %%"REG_a"           \n\t"
         "pxor %%mm7, %%mm7              \n\t"
-        ASMALIGN(4)
+        ".p2align 4                     \n\t"
         "1:                             \n\t"
         "movq (%0), %%mm0               \n\t"
         "movq (%0, %2), %%mm2           \n\t"
@@ -61,16 +61,16 @@ static void get_pixels_mmx(DCTELEM *block, const uint8_t *pixels, int line_size)
 static void get_pixels_sse2(DCTELEM *block, const uint8_t *pixels, int line_size)
 {
     __asm__ volatile(
-        "pxor %%xmm7,      %%xmm7         \n\t"
+        "pxor %%xmm4,      %%xmm4         \n\t"
         "movq (%0),        %%xmm0         \n\t"
         "movq (%0, %2),    %%xmm1         \n\t"
         "movq (%0, %2,2),  %%xmm2         \n\t"
         "movq (%0, %3),    %%xmm3         \n\t"
         "lea (%0,%2,4), %0                \n\t"
-        "punpcklbw %%xmm7, %%xmm0         \n\t"
-        "punpcklbw %%xmm7, %%xmm1         \n\t"
-        "punpcklbw %%xmm7, %%xmm2         \n\t"
-        "punpcklbw %%xmm7, %%xmm3         \n\t"
+        "punpcklbw %%xmm4, %%xmm0         \n\t"
+        "punpcklbw %%xmm4, %%xmm1         \n\t"
+        "punpcklbw %%xmm4, %%xmm2         \n\t"
+        "punpcklbw %%xmm4, %%xmm3         \n\t"
         "movdqa %%xmm0,      (%1)         \n\t"
         "movdqa %%xmm1,    16(%1)         \n\t"
         "movdqa %%xmm2,    32(%1)         \n\t"
@@ -79,10 +79,10 @@ static void get_pixels_sse2(DCTELEM *block, const uint8_t *pixels, int line_size
         "movq (%0, %2),    %%xmm1         \n\t"
         "movq (%0, %2,2),  %%xmm2         \n\t"
         "movq (%0, %3),    %%xmm3         \n\t"
-        "punpcklbw %%xmm7, %%xmm0         \n\t"
-        "punpcklbw %%xmm7, %%xmm1         \n\t"
-        "punpcklbw %%xmm7, %%xmm2         \n\t"
-        "punpcklbw %%xmm7, %%xmm3         \n\t"
+        "punpcklbw %%xmm4, %%xmm0         \n\t"
+        "punpcklbw %%xmm4, %%xmm1         \n\t"
+        "punpcklbw %%xmm4, %%xmm2         \n\t"
+        "punpcklbw %%xmm4, %%xmm3         \n\t"
         "movdqa %%xmm0,    64(%1)         \n\t"
         "movdqa %%xmm1,    80(%1)         \n\t"
         "movdqa %%xmm2,    96(%1)         \n\t"
@@ -97,7 +97,7 @@ static inline void diff_pixels_mmx(DCTELEM *block, const uint8_t *s1, const uint
     __asm__ volatile(
         "pxor %%mm7, %%mm7              \n\t"
         "mov $-128, %%"REG_a"           \n\t"
-        ASMALIGN(4)
+        ".p2align 4                     \n\t"
         "1:                             \n\t"
         "movq (%0), %%mm0               \n\t"
         "movq (%1), %%mm2               \n\t"
@@ -1160,14 +1160,10 @@ void dsputilenc_init_mmx(DSPContext* c, AVCodecContext *avctx)
         if(mm_flags & AV_CPU_FLAG_SSE2){
             c->get_pixels = get_pixels_sse2;
             c->sum_abs_dctelem= sum_abs_dctelem_sse2;
-#if HAVE_YASM
+#if HAVE_YASM && HAVE_ALIGNED_STACK
             c->hadamard8_diff[0]= ff_hadamard8_diff16_sse2;
             c->hadamard8_diff[1]= ff_hadamard8_diff_sse2;
 #endif
-        }
-
-        if (CONFIG_LPC && mm_flags & (AV_CPU_FLAG_SSE2|AV_CPU_FLAG_SSE2SLOW)) {
-            c->lpc_compute_autocorr = ff_lpc_compute_autocorr_sse2;
         }
 
 #if HAVE_SSSE3
@@ -1177,7 +1173,7 @@ void dsputilenc_init_mmx(DSPContext* c, AVCodecContext *avctx)
             }
             c->add_8x8basis= add_8x8basis_ssse3;
             c->sum_abs_dctelem= sum_abs_dctelem_ssse3;
-#if HAVE_YASM
+#if HAVE_YASM && HAVE_ALIGNED_STACK
             c->hadamard8_diff[0]= ff_hadamard8_diff16_ssse3;
             c->hadamard8_diff[1]= ff_hadamard8_diff_ssse3;
 #endif

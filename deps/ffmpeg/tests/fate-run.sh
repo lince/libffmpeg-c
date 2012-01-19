@@ -15,6 +15,8 @@ command=$5
 cmp=${6:-diff}
 ref=${7:-"${base}/ref/fate/${test}"}
 fuzz=$8
+threads=${9:-1}
+thread_type=${10:-3}
 
 outdir="tests/data/fate"
 outfile="${outdir}/${test}"
@@ -43,11 +45,12 @@ stddev(){
 }
 
 run(){
+    test "${V:-0}" -gt 0 && echo "$target_exec" $target_path/"$@" >&3
     $target_exec $target_path/"$@"
 }
 
 ffmpeg(){
-    run ffmpeg -v 0 "$@"
+    run ffmpeg -v 0 -threads $threads -thread_type $thread_type "$@"
 }
 
 framecrc(){
@@ -76,7 +79,7 @@ regtest(){
     cleanfiles="$cleanfiles $outfile $errfile"
     outfile=tests/data/regression/$2/$t
     errfile=tests/data/$t.$2.err
-    ${base}/${1}-regression.sh $t $2 $3 "$target_exec" "$target_path"
+    ${base}/${1}-regression.sh $t $2 $3 "$target_exec" "$target_path" "$threads" "$thread_type"
 }
 
 codectest(){
@@ -109,6 +112,7 @@ seektest(){
 
 mkdir -p "$outdir"
 
+exec 3>&2
 $command > "$outfile" 2>$errfile
 err=$?
 

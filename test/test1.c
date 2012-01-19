@@ -1,18 +1,37 @@
-#include <libffmpeg/libffmpeg.h>
+#include "../include/libffmpeg.h"
+
+#include <stdio.h>
 
 int main() {
-	FFMpeg_init();
-	FFMpeg_setFrameSize1(800, 800);
+	FFMpeg_init(5);
+
 	FFMpeg_setFramerate("25");
-	FFMpeg_setFormat("x11grab");
-	FFMpeg_setInputFile(":0.0");
+	FFMpeg_setFormat("mp4");
+	FFMpeg_setInputFile("../../libavencoding/test/videosample.mp4");
 	FFMpeg_setVideoCodec("libx264");
-	FFMpeg_setVideoPreset("ultrafast");
+	FFMpeg_setVideoPreset("baseline");
 	FFMpeg_setOther("crf", "24");
-	FFMpeg_setFormat("mpegts");
-	FFMpeg_setOutputFile("udp://127.0.0.1:1234");
+	FFMpeg_setFrameSize2(400, 300);
+	FFMpeg_setStartTime2(40);
+	//FFMpeg_setDisableAudio(1);
+	FFMpeg_setFormat("mp4");
+	FFMpeg_setOutputFile("saida1.mp4");
 	FFMpeg_transcode();
-	while(1) {
-		sleep(1000);
-	}
+
+	FFMpeg_reset(0);
+	printf("\n\n\n\n\n\n");
+
+	FFMpeg_setFramerate("25");
+	FFMpeg_setFormat("mp4");
+	FFMpeg_setInputFile("../../libavencoding/test/videosample.mp4");
+	FFMpeg_setVideoCodec("libx264");
+	FFMpeg_setVideoPreset("baseline");
+	FFMpeg_setOther("crf", "24");
+	FFMpeg_setFrameSize2(400, 300);
+	FFMpeg_setStartTime2(40);
+	//FFMpeg_setDisableAudio(1);
+	FFMpeg_setFormat("mp4");
+	FFMpeg_setOutputFile("saida2.mp4");
+	FFMpeg_transcode();
+	return 0;
 }

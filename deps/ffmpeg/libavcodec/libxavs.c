@@ -138,14 +138,14 @@ static int XAVS_frame(AVCodecContext *ctx, uint8_t *buf,
     switch (pic_out.i_type) {
     case XAVS_TYPE_IDR:
     case XAVS_TYPE_I:
-        x4->out_pic.pict_type = FF_I_TYPE;
+        x4->out_pic.pict_type = AV_PICTURE_TYPE_I;
         break;
     case XAVS_TYPE_P:
-        x4->out_pic.pict_type = FF_P_TYPE;
+        x4->out_pic.pict_type = AV_PICTURE_TYPE_P;
         break;
     case XAVS_TYPE_B:
     case XAVS_TYPE_BREF:
-        x4->out_pic.pict_type = FF_B_TYPE;
+        x4->out_pic.pict_type = AV_PICTURE_TYPE_B;
         break;
     }
 
@@ -336,9 +336,9 @@ static av_cold int XAVS_init(AVCodecContext *avctx)
     return 0;
 }
 
-AVCodec libxavs_encoder = {
+AVCodec ff_libxavs_encoder = {
     .name           = "libxavs",
-    .type           = CODEC_TYPE_VIDEO,
+    .type           = AVMEDIA_TYPE_VIDEO,
     .id             = CODEC_ID_CAVS,
     .priv_data_size = sizeof(XavsContext),
     .init           = XAVS_init,

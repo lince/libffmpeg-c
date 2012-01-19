@@ -23,7 +23,7 @@
 ;*
 ;* You should have received a copy of the GNU Lesser General Public
 ;* License along with FFmpeg; if not, write to the Free Software
-;* 51, Inc., Foundation Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+;* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 ;*****************************************************************************
 
 %include "x86inc.asm"
@@ -32,14 +32,18 @@
 SECTION_RODATA
 
 ; FIXME this table is a duplicate from h264data.h, and will be removed once the tables from, h264 have been split
-scan8_mem: db 4+1*8, 5+1*8, 4+2*8, 5+2*8
-           db 6+1*8, 7+1*8, 6+2*8, 7+2*8
-           db 4+3*8, 5+3*8, 4+4*8, 5+4*8
-           db 6+3*8, 7+3*8, 6+4*8, 7+4*8
-           db 1+1*8, 2+1*8
-           db 1+2*8, 2+2*8
-           db 1+4*8, 2+4*8
-           db 1+5*8, 2+5*8
+scan8_mem: db  4+ 1*8, 5+ 1*8, 4+ 2*8, 5+ 2*8
+           db  6+ 1*8, 7+ 1*8, 6+ 2*8, 7+ 2*8
+           db  4+ 3*8, 5+ 3*8, 4+ 4*8, 5+ 4*8
+           db  6+ 3*8, 7+ 3*8, 6+ 4*8, 7+ 4*8
+           db  4+ 6*8, 5+ 6*8, 4+ 7*8, 5+ 7*8
+           db  6+ 6*8, 7+ 6*8, 6+ 7*8, 7+ 7*8
+           db  4+ 8*8, 5+ 8*8, 4+ 9*8, 5+ 9*8
+           db  6+ 8*8, 7+ 8*8, 6+ 9*8, 7+ 9*8
+           db  4+11*8, 5+11*8, 4+12*8, 5+12*8
+           db  6+11*8, 7+11*8, 6+12*8, 7+12*8
+           db  4+13*8, 5+13*8, 4+14*8, 5+14*8
+           db  6+13*8, 7+13*8, 6+14*8, 7+14*8
 %ifdef PIC
 %define scan8 r11
 %else
@@ -47,6 +51,7 @@ scan8_mem: db 4+1*8, 5+1*8, 4+2*8, 5+2*8
 %endif
 
 cextern pw_32
+cextern pw_1
 
 SECTION .text
 
@@ -58,11 +63,11 @@ SECTION .text
     movq         m2, [%2+16]
     movq         m3, [%2+24]
 
-    IDCT4_1D      0, 1, 2, 3, 4, 5
+    IDCT4_1D      w, 0, 1, 2, 3, 4, 5
     mova         m6, [pw_32]
     TRANSPOSE4x4W 0, 1, 2, 3, 4
     paddw        m0, m6
-    IDCT4_1D      0, 1, 2, 3, 4, 5
+    IDCT4_1D      w, 0, 1, 2, 3, 4, 5
     pxor         m7, m7
 
     STORE_DIFFx2 m0, m1, m4, m5, m7, 6, %1, %3
@@ -72,7 +77,7 @@ SECTION .text
 
 INIT_MMX
 ; ff_h264_idct_add_mmx(uint8_t *dst, int16_t *block, int stride)
-cglobal h264_idct_add_mmx, 3, 3, 0
+cglobal h264_idct_add_8_mmx, 3, 3, 0
     IDCT4_ADD    r0, r1, r2
     RET
 
@@ -117,14 +122,14 @@ cglobal h264_idct_add_mmx, 3, 3, 0
 
     mova         m2, %1
     mova         m5, %2
-    SUMSUB_BA    m5, m2
-    SUMSUB_BA    m6, m5
-    SUMSUB_BA    m4, m2
-    SUMSUB_BA    m7, m6
-    SUMSUB_BA    m0, m4
-    SUMSUB_BA    m3, m2
-    SUMSUB_BA    m1, m5
-    SWAP          7, 6, 4, 5, 2, 3, 1, 0 ; 70315246 -> 01234567
+    SUMSUB_BA    w, 5, 2
+    SUMSUB_BA    w, 6, 5
+    SUMSUB_BA    w, 4, 2
+    SUMSUB_BA    w, 7, 6
+    SUMSUB_BA    w, 0, 4
+    SUMSUB_BA    w, 3, 2
+    SUMSUB_BA    w, 1, 5
+    SWAP         7, 6, 4, 5, 2, 3, 1, 0 ; 70315246 -> 01234567
 %endmacro
 
 %macro IDCT8_1D_FULL 1
@@ -176,7 +181,7 @@ cglobal h264_idct_add_mmx, 3, 3, 0
 
 INIT_MMX
 ; ff_h264_idct8_add_mmx(uint8_t *dst, int16_t *block, int stride)
-cglobal h264_idct8_add_mmx, 3, 4, 0
+cglobal h264_idct8_add_8_mmx, 3, 4, 0
     %assign pad 128+4-(stack_offset&7)
     SUB         rsp, pad
 
@@ -236,7 +241,7 @@ cglobal h264_idct8_add_mmx, 3, 4, 0
 
 INIT_XMM
 ; ff_h264_idct8_add_sse2(uint8_t *dst, int16_t *block, int stride)
-cglobal h264_idct8_add_sse2, 3, 4, 10
+cglobal h264_idct8_add_8_sse2, 3, 4, 10
     IDCT8_ADD_SSE r0, r1, r2, r3
     RET
 
@@ -245,12 +250,12 @@ cglobal h264_idct8_add_sse2, 3, 4, 10
     movsx        %1, word [%1]
     add          %1, 32
     sar          %1, 6
-    movd         m0, %1
+    movd         m0, %1d
     lea          %1, [%2*3]
 %else
     add          %3, 32
     sar          %3, 6
-    movd         m0, %3
+    movd         m0, %3d
     lea          %3, [%2*3]
 %endif
     pshufw       m0, m0, 0
@@ -260,7 +265,7 @@ cglobal h264_idct8_add_sse2, 3, 4, 10
     packuswb     m1, m1
 %endmacro
 
-%macro DC_ADD_MMX2_OP 3-4
+%macro DC_ADD_MMX2_OP 4
     %1           m2, [%2     ]
     %1           m3, [%2+%3  ]
     %1           m4, [%2+%3*2]
@@ -281,13 +286,13 @@ cglobal h264_idct8_add_sse2, 3, 4, 10
 
 INIT_MMX
 ; ff_h264_idct_dc_add_mmx2(uint8_t *dst, int16_t *block, int stride)
-cglobal h264_idct_dc_add_mmx2, 3, 3, 0
+cglobal h264_idct_dc_add_8_mmx2, 3, 3, 0
     DC_ADD_MMX2_INIT r1, r2
     DC_ADD_MMX2_OP movh, r0, r2, r1
     RET
 
 ; ff_h264_idct8_dc_add_mmx2(uint8_t *dst, int16_t *block, int stride)
-cglobal h264_idct8_dc_add_mmx2, 3, 3, 0
+cglobal h264_idct8_dc_add_8_mmx2, 3, 3, 0
     DC_ADD_MMX2_INIT r1, r2
     DC_ADD_MMX2_OP mova, r0, r2, r1
     lea          r0, [r0+r2*4]
@@ -296,7 +301,7 @@ cglobal h264_idct8_dc_add_mmx2, 3, 3, 0
 
 ; ff_h264_idct_add16_mmx(uint8_t *dst, const int *block_offset,
 ;             DCTELEM *block, int stride, const uint8_t nnzc[6*8])
-cglobal h264_idct_add16_mmx, 5, 7, 0
+cglobal h264_idct_add16_8_mmx, 5, 7, 0
     xor          r5, r5
 %ifdef PIC
     lea         r11, [scan8_mem]
@@ -318,7 +323,7 @@ cglobal h264_idct_add16_mmx, 5, 7, 0
 
 ; ff_h264_idct8_add4_mmx(uint8_t *dst, const int *block_offset,
 ;                        DCTELEM *block, int stride, const uint8_t nnzc[6*8])
-cglobal h264_idct8_add4_mmx, 5, 7, 0
+cglobal h264_idct8_add4_8_mmx, 5, 7, 0
     %assign pad 128+4-(stack_offset&7)
     SUB         rsp, pad
 
@@ -350,7 +355,7 @@ cglobal h264_idct8_add4_mmx, 5, 7, 0
 
 ; ff_h264_idct_add16_mmx2(uint8_t *dst, const int *block_offset,
 ;                         DCTELEM *block, int stride, const uint8_t nnzc[6*8])
-cglobal h264_idct_add16_mmx2, 5, 7, 0
+cglobal h264_idct_add16_8_mmx2, 5, 7, 0
     xor          r5, r5
 %ifdef PIC
     lea         r11, [scan8_mem]
@@ -397,7 +402,7 @@ cglobal h264_idct_add16_mmx2, 5, 7, 0
 
 ; ff_h264_idct_add16intra_mmx(uint8_t *dst, const int *block_offset,
 ;                             DCTELEM *block, int stride, const uint8_t nnzc[6*8])
-cglobal h264_idct_add16intra_mmx, 5, 7, 0
+cglobal h264_idct_add16intra_8_mmx, 5, 7, 0
     xor          r5, r5
 %ifdef PIC
     lea         r11, [scan8_mem]
@@ -420,7 +425,7 @@ cglobal h264_idct_add16intra_mmx, 5, 7, 0
 
 ; ff_h264_idct_add16intra_mmx2(uint8_t *dst, const int *block_offset,
 ;                              DCTELEM *block, int stride, const uint8_t nnzc[6*8])
-cglobal h264_idct_add16intra_mmx2, 5, 7, 0
+cglobal h264_idct_add16intra_8_mmx2, 5, 7, 0
     xor          r5, r5
 %ifdef PIC
     lea         r11, [scan8_mem]
@@ -465,7 +470,7 @@ cglobal h264_idct_add16intra_mmx2, 5, 7, 0
 
 ; ff_h264_idct8_add4_mmx2(uint8_t *dst, const int *block_offset,
 ;                         DCTELEM *block, int stride, const uint8_t nnzc[6*8])
-cglobal h264_idct8_add4_mmx2, 5, 7, 0
+cglobal h264_idct8_add4_8_mmx2, 5, 7, 0
     %assign pad 128+4-(stack_offset&7)
     SUB         rsp, pad
 
@@ -528,7 +533,7 @@ cglobal h264_idct8_add4_mmx2, 5, 7, 0
 INIT_XMM
 ; ff_h264_idct8_add4_sse2(uint8_t *dst, const int *block_offset,
 ;                         DCTELEM *block, int stride, const uint8_t nnzc[6*8])
-cglobal h264_idct8_add4_sse2, 5, 7, 10
+cglobal h264_idct8_add4_8_sse2, 5, 7, 10
     xor          r5, r5
 %ifdef PIC
     lea         r11, [scan8_mem]
@@ -606,7 +611,7 @@ h264_idct_add8_mmx_plane:
 
 ; ff_h264_idct_add8_mmx(uint8_t **dest, const int *block_offset,
 ;                       DCTELEM *block, int stride, const uint8_t nnzc[6*8])
-cglobal h264_idct_add8_mmx, 5, 7, 0
+cglobal h264_idct_add8_8_mmx, 5, 7, 0
     mov          r5, 16
     add          r2, 512
 %ifdef PIC
@@ -616,6 +621,8 @@ cglobal h264_idct_add8_mmx, 5, 7, 0
     mov         r10, r0
 %endif
     call         h264_idct_add8_mmx_plane
+    mov          r5, 32
+    add          r2, 384
 %ifdef ARCH_X86_64
     add         r10, gprsize
 %else
@@ -667,7 +674,7 @@ h264_idct_add8_mmx2_plane
 
 ; ff_h264_idct_add8_mmx2(uint8_t **dest, const int *block_offset,
 ;                        DCTELEM *block, int stride, const uint8_t nnzc[6*8])
-cglobal h264_idct_add8_mmx2, 5, 7, 0
+cglobal h264_idct_add8_8_mmx2, 5, 7, 0
     mov          r5, 16
     add          r2, 512
 %ifdef ARCH_X86_64
@@ -677,6 +684,8 @@ cglobal h264_idct_add8_mmx2, 5, 7, 0
     lea         r11, [scan8_mem]
 %endif
     call h264_idct_add8_mmx2_plane
+    mov          r5, 32
+    add          r2, 384
 %ifdef ARCH_X86_64
     add         r10, gprsize
 %else
@@ -714,10 +723,10 @@ x264_add8x4_idct_sse2:
     movhps m1, [r2+40]
     movhps m2, [r2+48]
     movhps m3, [r2+56]
-    IDCT4_1D 0,1,2,3,4,5
+    IDCT4_1D w,0,1,2,3,4,5
     TRANSPOSE2x4x4W 0,1,2,3,4
     paddw m0, [pw_32]
-    IDCT4_1D 0,1,2,3,4,5
+    IDCT4_1D w,0,1,2,3,4,5
     pxor  m7, m7
     STORE_DIFFx2 m0, m1, m4, m5, m7, 6, r0, r3
     lea   r0, [r0+r3*2]
@@ -743,7 +752,7 @@ x264_add8x4_idct_sse2:
 
 ; ff_h264_idct_add16_sse2(uint8_t *dst, const int *block_offset,
 ;                         DCTELEM *block, int stride, const uint8_t nnzc[6*8])
-cglobal h264_idct_add16_sse2, 5, 5, 8
+cglobal h264_idct_add16_8_sse2, 5, 5, 8
 %ifdef ARCH_X86_64
     mov        r10, r0
 %endif
@@ -759,107 +768,253 @@ cglobal h264_idct_add16_sse2, 5, 5, 8
     add16_sse2_cycle 7, 0x26
     RET
 
+%macro add16intra_sse2_cycle 2
+    movzx       r0, word [r4+%2]
+    test        r0, r0
+    jz .try%1dc
+    mov        r0d, dword [r1+%1*8]
+%ifdef ARCH_X86_64
+    add         r0, r10
+%else
+    add         r0, r0m
+%endif
+    call        x264_add8x4_idct_sse2
+    jmp .cycle%1end
+.try%1dc
+    movsx       r0, word [r2   ]
+    or         r0w, word [r2+32]
+    jz .cycle%1end
+    mov        r0d, dword [r1+%1*8]
+%ifdef ARCH_X86_64
+    add         r0, r10
+%else
+    add         r0, r0m
+%endif
+    call        h264_idct_dc_add8_mmx2
+.cycle%1end
+%if %1 < 7
+    add         r2, 64
+%endif
+%endmacro
+
 ; ff_h264_idct_add16intra_sse2(uint8_t *dst, const int *block_offset,
 ;                              DCTELEM *block, int stride, const uint8_t nnzc[6*8])
-cglobal h264_idct_add16intra_sse2, 5, 7, 8
-    xor         r5, r5
+cglobal h264_idct_add16intra_8_sse2, 5, 7, 8
 %ifdef ARCH_X86_64
     mov        r10, r0
 %endif
-%ifdef PIC
-    lea        r11, [scan8_mem]
-%endif
-.next2blocks
-    movzx       r0, byte [scan8+r5]
-    movzx       r0, word [r4+r0]
-    test        r0, r0
-    jz .try_dc
-    mov        r0d, dword [r1+r5*4]
-%ifdef ARCH_X86_64
-    add         r0, r10
-%else
-    add         r0, r0m
-%endif
-    call        x264_add8x4_idct_sse2
-    add         r5, 2
-    add         r2, 64
-    cmp         r5, 16
-    jl .next2blocks
-    REP_RET
-.try_dc
-    movsx       r0, word [r2   ]
-    or         r0w, word [r2+32]
-    jz .skip2blocks
-    mov        r0d, dword [r1+r5*4]
-%ifdef ARCH_X86_64
-    add         r0, r10
-%else
-    add         r0, r0m
-%endif
-    call        h264_idct_dc_add8_mmx2
-.skip2blocks
-    add         r5, 2
-    add         r2, 64
-    cmp         r5, 16
-    jl .next2blocks
-    REP_RET
+    add16intra_sse2_cycle 0, 0xc
+    add16intra_sse2_cycle 1, 0x14
+    add16intra_sse2_cycle 2, 0xe
+    add16intra_sse2_cycle 3, 0x16
+    add16intra_sse2_cycle 4, 0x1c
+    add16intra_sse2_cycle 5, 0x24
+    add16intra_sse2_cycle 6, 0x1e
+    add16intra_sse2_cycle 7, 0x26
+    RET
 
-h264_idct_add8_sse2_plane:
-.next2blocks
-    movzx       r0, byte [scan8+r5]
-    movzx       r0, word [r4+r0]
+%macro add8_sse2_cycle 2
+    movzx       r0, word [r4+%2]
     test        r0, r0
-    jz .try_dc
+    jz .try%1dc
 %ifdef ARCH_X86_64
-    mov        r0d, dword [r1+r5*4]
+    mov        r0d, dword [r1+(%1&1)*8+64*(1+(%1>>1))]
     add         r0, [r10]
 %else
-    mov         r0, r1m ; XXX r1m here is actually r0m of the calling func
+    mov         r0, r0m
     mov         r0, [r0]
-    add         r0, dword [r1+r5*4]
+    add         r0, dword [r1+(%1&1)*8+64*(1+(%1>>1))]
 %endif
     call        x264_add8x4_idct_sse2
-    add         r5, 2
-    add         r2, 64
-    test        r5, 3
-    jnz .next2blocks
-    rep ret
-.try_dc
+    jmp .cycle%1end
+.try%1dc
     movsx       r0, word [r2   ]
     or         r0w, word [r2+32]
-    jz .skip2blocks
+    jz .cycle%1end
 %ifdef ARCH_X86_64
-    mov        r0d, dword [r1+r5*4]
+    mov        r0d, dword [r1+(%1&1)*8+64*(1+(%1>>1))]
     add         r0, [r10]
 %else
-    mov         r0, r1m ; XXX r1m here is actually r0m of the calling func
+    mov         r0, r0m
     mov         r0, [r0]
-    add         r0, dword [r1+r5*4]
+    add         r0, dword [r1+(%1&1)*8+64*(1+(%1>>1))]
 %endif
     call        h264_idct_dc_add8_mmx2
-.skip2blocks
-    add         r5, 2
+.cycle%1end
+%if %1 == 1
+    add         r2, 384+64
+%elif %1 < 3
     add         r2, 64
-    test        r5, 3
-    jnz .next2blocks
-    rep ret
+%endif
+%endmacro
 
 ; ff_h264_idct_add8_sse2(uint8_t **dest, const int *block_offset,
 ;                        DCTELEM *block, int stride, const uint8_t nnzc[6*8])
-cglobal h264_idct_add8_sse2, 5, 7, 8
-    mov          r5, 16
+cglobal h264_idct_add8_8_sse2, 5, 7, 8
     add          r2, 512
-%ifdef PIC
-    lea        r11, [scan8_mem]
-%endif
 %ifdef ARCH_X86_64
     mov         r10, r0
 %endif
-    call h264_idct_add8_sse2_plane
+    add8_sse2_cycle 0, 0x34
+    add8_sse2_cycle 1, 0x3c
 %ifdef ARCH_X86_64
     add         r10, gprsize
 %else
     add        r0mp, gprsize
 %endif
-    call h264_idct_add8_sse2_plane
+    add8_sse2_cycle 2, 0x5c
+    add8_sse2_cycle 3, 0x64
     RET
+
+;void ff_h264_luma_dc_dequant_idct_mmx(DCTELEM *output, DCTELEM *input, int qmul)
+
+%macro WALSH4_1D 5
+    SUMSUB_BADC w, %4, %3, %2, %1, %5
+    SUMSUB_BADC w, %4, %2, %3, %1, %5
+    SWAP %1, %4, %3
+%endmacro
+
+%macro DEQUANT_MMX 3
+    mova        m7, [pw_1]
+    mova        m4, %1
+    punpcklwd   %1, m7
+    punpckhwd   m4, m7
+    mova        m5, %2
+    punpcklwd   %2, m7
+    punpckhwd   m5, m7
+    movd        m7, t3d
+    punpckldq   m7, m7
+    pmaddwd     %1, m7
+    pmaddwd     %2, m7
+    pmaddwd     m4, m7
+    pmaddwd     m5, m7
+    psrad       %1, %3
+    psrad       %2, %3
+    psrad       m4, %3
+    psrad       m5, %3
+    packssdw    %1, m4
+    packssdw    %2, m5
+%endmacro
+
+%macro STORE_WORDS_MMX 5
+    movd  t0d, %1
+    psrlq  %1, 32
+    movd  t1d, %1
+    mov [t2+%2*32], t0w
+    mov [t2+%4*32], t1w
+    shr   t0d, 16
+    shr   t1d, 16
+    mov [t2+%3*32], t0w
+    mov [t2+%5*32], t1w
+%endmacro
+
+%macro DEQUANT_STORE_MMX 1
+    DEQUANT_MMX m0, m1, %1
+    STORE_WORDS_MMX m0,  0,  1,  4,  5
+    STORE_WORDS_MMX m1,  2,  3,  6,  7
+
+    DEQUANT_MMX m2, m3, %1
+    STORE_WORDS_MMX m2,  8,  9, 12, 13
+    STORE_WORDS_MMX m3, 10, 11, 14, 15
+%endmacro
+
+%macro STORE_WORDS_SSE 9
+    movd  t0d, %1
+    psrldq  %1, 4
+    movd  t1d, %1
+    psrldq  %1, 4
+    mov [t2+%2*32], t0w
+    mov [t2+%4*32], t1w
+    shr   t0d, 16
+    shr   t1d, 16
+    mov [t2+%3*32], t0w
+    mov [t2+%5*32], t1w
+    movd  t0d, %1
+    psrldq  %1, 4
+    movd  t1d, %1
+    mov [t2+%6*32], t0w
+    mov [t2+%8*32], t1w
+    shr   t0d, 16
+    shr   t1d, 16
+    mov [t2+%7*32], t0w
+    mov [t2+%9*32], t1w
+%endmacro
+
+%macro DEQUANT_STORE_SSE2 1
+    movd      xmm4, t3d
+    movq      xmm5, [pw_1]
+    pshufd    xmm4, xmm4, 0
+    movq2dq   xmm0, m0
+    movq2dq   xmm1, m1
+    movq2dq   xmm2, m2
+    movq2dq   xmm3, m3
+    punpcklwd xmm0, xmm5
+    punpcklwd xmm1, xmm5
+    punpcklwd xmm2, xmm5
+    punpcklwd xmm3, xmm5
+    pmaddwd   xmm0, xmm4
+    pmaddwd   xmm1, xmm4
+    pmaddwd   xmm2, xmm4
+    pmaddwd   xmm3, xmm4
+    psrad     xmm0, %1
+    psrad     xmm1, %1
+    psrad     xmm2, %1
+    psrad     xmm3, %1
+    packssdw  xmm0, xmm1
+    packssdw  xmm2, xmm3
+    STORE_WORDS_SSE xmm0,  0,  1,  4,  5,  2,  3,  6,  7
+    STORE_WORDS_SSE xmm2,  8,  9, 12, 13, 10, 11, 14, 15
+%endmacro
+
+%macro IDCT_DC_DEQUANT 2
+cglobal h264_luma_dc_dequant_idct_%1, 3,4,%2
+    movq        m3, [r1+24]
+    movq        m2, [r1+16]
+    movq        m1, [r1+ 8]
+    movq        m0, [r1+ 0]
+    WALSH4_1D    0,1,2,3,4
+    TRANSPOSE4x4W 0,1,2,3,4
+    WALSH4_1D    0,1,2,3,4
+
+; shift, tmp, output, qmul
+%ifdef WIN64
+    DECLARE_REG_TMP 0,3,1,2
+    ; we can't avoid this, because r0 is the shift register (ecx) on win64
+    xchg        r0, t2
+%elifdef ARCH_X86_64
+    DECLARE_REG_TMP 3,1,0,2
+%else
+    DECLARE_REG_TMP 1,3,0,2
+%endif
+
+    cmp        t3d, 32767
+    jg .big_qmul
+    add        t3d, 128 << 16
+%ifidn %1,mmx
+    DEQUANT_STORE_MMX 8
+%else
+    DEQUANT_STORE_SSE2 8
+%endif
+    RET
+.big_qmul:
+    bsr        t0d, t3d
+    add        t3d, 128 << 16
+    mov        t1d, 7
+    cmp        t0d, t1d
+    cmovg      t0d, t1d
+    inc        t1d
+    shr        t3d, t0b
+    sub        t1d, t0d
+%ifidn %1,mmx
+    movd        m6, t1d
+    DEQUANT_STORE_MMX m6
+%else
+    movd      xmm6, t1d
+    DEQUANT_STORE_SSE2 xmm6
+%endif
+    RET
+%endmacro
+
+INIT_MMX
+IDCT_DC_DEQUANT mmx, 0
+IDCT_DC_DEQUANT sse2, 7

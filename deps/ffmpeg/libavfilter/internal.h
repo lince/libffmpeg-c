@@ -25,13 +25,37 @@
  */
 
 #include "avfilter.h"
+#include "avfiltergraph.h"
 
-void ff_dprintf_ref(void *ctx, AVFilterBufferRef *ref, int end);
+#define POOL_SIZE 32
+typedef struct AVFilterPool {
+    AVFilterBufferRef *pic[POOL_SIZE];
+    int count;
+} AVFilterPool;
 
-char *ff_get_ref_perms_string(char *buf, size_t buf_size, int perms);
+/**
+ * Check for the validity of graph.
+ *
+ * A graph is considered valid if all its input and output pads are
+ * connected.
+ *
+ * @return 0 in case of success, a negative value otherwise
+ */
+int ff_avfilter_graph_check_validity(AVFilterGraph *graphctx, AVClass *log_ctx);
 
-void ff_dprintf_link(void *ctx, AVFilterLink *link, int end);
+/**
+ * Configure all the links of graphctx.
+ *
+ * @return 0 in case of success, a negative value otherwise
+ */
+int ff_avfilter_graph_config_links(AVFilterGraph *graphctx, AVClass *log_ctx);
 
-#define FF_DPRINTF_START(ctx, func) dprintf(NULL, "%-16s: ", #func)
+/**
+ * Configure the formats of all the links in the graph.
+ */
+int ff_avfilter_graph_config_formats(AVFilterGraph *graphctx, AVClass *log_ctx);
 
-#endif  /* AVFILTER_INTERNAL_H */
+/** default handler for freeing audio/video buffer when there are no references left */
+void ff_avfilter_default_free_buffer(AVFilterBuffer *buf);
+
+#endif /* AVFILTER_INTERNAL_H */

@@ -26,14 +26,13 @@
  */
 
 #include "parser.h"
-#include "h264_parser.h"
 #include "h264data.h"
 #include "golomb.h"
 
 #include <assert.h>
 
 
-int ff_h264_find_frame_end(H264Context *h, const uint8_t *buf, int buf_size)
+static int ff_h264_find_frame_end(H264Context *h, const uint8_t *buf, int buf_size)
 {
     int i;
     uint32_t state;
@@ -118,7 +117,7 @@ static inline int parse_nal_units(AVCodecParserContext *s,
     const uint8_t *ptr;
 
     /* set some sane default values */
-    s->pict_type = FF_I_TYPE;
+    s->pict_type = AV_PICTURE_TYPE_I;
     s->key_frame = 0;
 
     h->s.avctx= avctx;
@@ -188,7 +187,7 @@ static inline int parse_nal_units(AVCodecParserContext *s,
             h->sps = *h->sps_buffers[h->pps.sps_id];
             h->frame_num = get_bits(&h->s.gb, h->sps.log2_max_frame_num);
 
-            avctx->profile = h->sps.profile_idc;
+            avctx->profile = ff_h264_get_profile(&h->sps);
             avctx->level   = h->sps.level_idc;
 
             if(h->sps.frame_mbs_only_flag){
@@ -271,21 +270,22 @@ static int h264_parse(AVCodecParserContext *s,
             assert(pc->last_index + next >= 0 );
             ff_h264_find_frame_end(h, &pc->buffer[pc->last_index + next], -next); //update state
         }
+    }
 
-        parse_nal_units(s, avctx, buf, buf_size);
+    parse_nal_units(s, avctx, buf, buf_size);
 
-        if (h->sei_cpb_removal_delay >= 0) {
-            s->dts_sync_point    = h->sei_buffering_period_present;
-            s->dts_ref_dts_delta = h->sei_cpb_removal_delay;
-            s->pts_dts_delta     = h->sei_dpb_output_delay;
-        } else {
-            s->dts_sync_point    = INT_MIN;
-            s->dts_ref_dts_delta = INT_MIN;
-            s->pts_dts_delta     = INT_MIN;
-        }
-        if (s->flags & PARSER_FLAG_ONCE) {
-            s->flags &= PARSER_FLAG_COMPLETE_FRAMES;
-        }
+    if (h->sei_cpb_removal_delay >= 0) {
+        s->dts_sync_point    = h->sei_buffering_period_present;
+        s->dts_ref_dts_delta = h->sei_cpb_removal_delay;
+        s->pts_dts_delta     = h->sei_dpb_output_delay;
+    } else {
+        s->dts_sync_point    = INT_MIN;
+        s->dts_ref_dts_delta = INT_MIN;
+        s->pts_dts_delta     = INT_MIN;
+    }
+
+    if (s->flags & PARSER_FLAG_ONCE) {
+        s->flags &= PARSER_FLAG_COMPLETE_FRAMES;
     }
 
     *poutbuf = buf;
@@ -333,7 +333,7 @@ static int init(AVCodecParserContext *s)
     return 0;
 }
 
-AVCodecParser h264_parser = {
+AVCodecParser ff_h264_parser = {
     { CODEC_ID_H264 },
     sizeof(H264Context),
     init,

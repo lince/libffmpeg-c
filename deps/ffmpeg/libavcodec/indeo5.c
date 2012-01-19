@@ -629,7 +629,7 @@ static int decode_band(IVI5DecContext *ctx, int plane_num,
         FFSWAP(int16_t, band->rv_map->valtab[idx1], band->rv_map->valtab[idx2]);
     }
 
-#if IVI_DEBUG
+#ifdef DEBUG
     if (band->checksum_present) {
         uint16_t chksum = ivi_calc_band_checksum(band);
         if (chksum != band->checksum) {
@@ -712,6 +712,8 @@ static av_cold int decode_init(AVCodecContext *avctx)
     ctx->pic_conf.tile_width    = avctx->width;
     ctx->pic_conf.tile_height   = avctx->height;
     ctx->pic_conf.luma_bands    = ctx->pic_conf.chroma_bands = 1;
+
+    avcodec_get_frame_defaults(&ctx->frame);
 
     result = ff_ivi_init_planes(ctx->planes, &ctx->pic_conf);
     if (result) {
@@ -818,7 +820,7 @@ static av_cold int decode_close(AVCodecContext *avctx)
 }
 
 
-AVCodec indeo5_decoder = {
+AVCodec ff_indeo5_decoder = {
     .name           = "indeo5",
     .type           = AVMEDIA_TYPE_VIDEO,
     .id             = CODEC_ID_INDEO5,

@@ -231,10 +231,12 @@ while(<$inf>) {
 
     # Single line command handlers.
 
-    /^\@(?:section|unnumbered|unnumberedsec|center)\s+(.+)$/
+    /^\@(?:section|unnumbered|unnumberedsec|center|heading)\s+(.+)$/
         and $_ = "\n=head2 $1\n";
-    /^\@subsection\s+(.+)$/
+    /^\@(?:subsection|subheading)\s+(.+)$/
         and $_ = "\n=head3 $1\n";
+    /^\@(?:subsubsection|subsubheading)\s+(.+)$/
+        and $_ = "\n=head4 $1\n";
 
     # Block command handlers:
     /^\@itemize\s*(\@[a-z]+|\*|-)?/ and do {
@@ -346,6 +348,7 @@ sub postprocess
     # @* is also impossible in .pod; we discard it and any newline that
     # follows it.  Similarly, our macro @gol must be discarded.
 
+    s/\@anchor{(?:[^\}]*)\}//g;
     s/\(?\@xref\{(?:[^\}]*)\}(?:[^.<]|(?:<[^<>]*>))*\.\)?//g;
     s/\s+\(\@pxref\{(?:[^\}]*)\}\)//g;
     s/;\s+\@pxref\{(?:[^\}]*)\}//g;

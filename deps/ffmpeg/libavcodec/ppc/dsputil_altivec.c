@@ -230,7 +230,7 @@ static int sad16_altivec(void *v, uint8_t *pix1, uint8_t *pix2, int line_size, i
     int i;
     int s;
     const vector unsigned int zero = (const vector unsigned int)vec_splat_u32(0);
-    vector unsigned char perm1, perm2, *pix1v, *pix2v;
+    vector unsigned char perm1, perm2, pix1v_low, pix1v_high, pix2v_low, pix2v_high;
     vector unsigned char t1, t2, t3,t4, t5;
     vector unsigned int sad;
     vector signed int sumdiffs;
@@ -241,11 +241,13 @@ static int sad16_altivec(void *v, uint8_t *pix1, uint8_t *pix2, int line_size, i
     for (i = 0; i < h; i++) {
         /* Read potentially unaligned pixels into t1 and t2 */
         perm1 = vec_lvsl(0, pix1);
-        pix1v = (vector unsigned char *) pix1;
+        pix1v_high = vec_ld( 0, pix1);
+        pix1v_low  = vec_ld(15, pix1);
         perm2 = vec_lvsl(0, pix2);
-        pix2v = (vector unsigned char *) pix2;
-        t1 = vec_perm(pix1v[0], pix1v[1], perm1);
-        t2 = vec_perm(pix2v[0], pix2v[1], perm2);
+        pix2v_high = vec_ld( 0, pix2);
+        pix2v_low  = vec_ld(15, pix2);
+        t1 = vec_perm(pix1v_high, pix1v_low, perm1);
+        t2 = vec_perm(pix2v_high, pix2v_low, perm2);
 
         /* Calculate a sum of abs differences vector */
         t3 = vec_max(t1, t2);
@@ -1382,6 +1384,8 @@ static void avg_pixels8_xy2_altivec(uint8_t *block, const uint8_t *pixels, int l
 
 void dsputil_init_altivec(DSPContext* c, AVCodecContext *avctx)
 {
+    const int high_bit_depth = avctx->codec_id == CODEC_ID_H264 && avctx->bits_per_raw_sample > 8;
+
     c->pix_abs[0][1] = sad16_x2_altivec;
     c->pix_abs[0][2] = sad16_y2_altivec;
     c->pix_abs[0][3] = sad16_xy2_altivec;
@@ -1395,8 +1399,10 @@ void dsputil_init_altivec(DSPContext* c, AVCodecContext *avctx)
     c->pix_sum = pix_sum_altivec;
     c->diff_pixels = diff_pixels_altivec;
     c->get_pixels = get_pixels_altivec;
+    if (!high_bit_depth)
     c->clear_block = clear_block_altivec;
     c->add_bytes= add_bytes_altivec;
+    if (!high_bit_depth) {
     c->put_pixels_tab[0][0] = put_pixels16_altivec;
     /* the two functions do the same thing, so use the same code */
     c->put_no_rnd_pixels_tab[0][0] = put_pixels16_altivec;
@@ -1407,6 +1413,7 @@ void dsputil_init_altivec(DSPContext* c, AVCodecContext *avctx)
     c->put_no_rnd_pixels_tab[1][3] = put_no_rnd_pixels8_xy2_altivec;
     c->put_pixels_tab[0][3] = put_pixels16_xy2_altivec;
     c->put_no_rnd_pixels_tab[0][3] = put_no_rnd_pixels16_xy2_altivec;
+    }
 
     c->hadamard8_diff[0] = hadamard8_diff16_altivec;
     c->hadamard8_diff[1] = hadamard8_diff8x8_altivec;

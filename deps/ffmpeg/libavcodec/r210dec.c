@@ -54,7 +54,7 @@ static int decode_frame(AVCodecContext *avctx, void *data, int *data_size,
     if (avctx->get_buffer(avctx, pic) < 0)
         return -1;
 
-    pic->pict_type = FF_I_TYPE;
+    pic->pict_type = AV_PICTURE_TYPE_I;
     pic->key_frame = 1;
     dst_line = pic->data[0];
 
@@ -97,7 +97,7 @@ static av_cold int decode_close(AVCodecContext *avctx)
 }
 
 #if CONFIG_R210_DECODER
-AVCodec r210_decoder = {
+AVCodec ff_r210_decoder = {
     "r210",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_R210,
@@ -111,7 +111,7 @@ AVCodec r210_decoder = {
 };
 #endif
 #if CONFIG_R10K_DECODER
-AVCodec r10k_decoder = {
+AVCodec ff_r10k_decoder = {
     "r10k",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_R10K,

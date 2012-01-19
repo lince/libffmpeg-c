@@ -92,7 +92,7 @@ static av_cold int qcelp_decode_init(AVCodecContext *avctx)
     QCELPContext *q = avctx->priv_data;
     int i;
 
-    avctx->sample_fmt = SAMPLE_FMT_FLT;
+    avctx->sample_fmt = AV_SAMPLE_FMT_FLT;
 
     for(i=0; i<10; i++)
         q->prev_lspf[i] = (i+1)/11.;
@@ -839,10 +839,10 @@ erasure:
 
     *data_size = 160 * sizeof(*outbuffer);
 
-    return *data_size;
+    return buf_size;
 }
 
-AVCodec qcelp_decoder =
+AVCodec ff_qcelp_decoder =
 {
     .name   = "qcelp",
     .type   = AVMEDIA_TYPE_AUDIO,

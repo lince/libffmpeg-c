@@ -260,6 +260,23 @@ static void init_mv(FourXContext *f){
     }
 }
 
+#if HAVE_BIGENDIAN
+#define LE_CENTRIC_MUL(dst, src, scale, dc) \
+    { \
+        unsigned tmpval = AV_RN32(src);                 \
+        tmpval = (tmpval <<  16) | (tmpval >>  16);     \
+        tmpval = tmpval * (scale) + (dc);               \
+        tmpval = (tmpval <<  16) | (tmpval >>  16);     \
+        AV_WN32A(dst, tmpval);                          \
+    }
+#else
+#define LE_CENTRIC_MUL(dst, src, scale, dc) \
+    { \
+        unsigned tmpval = AV_RN32(src) * (scale) + (dc); \
+        AV_WN32A(dst, tmpval);                           \
+    }
+#endif
+
 static inline void mcdc(uint16_t *dst, uint16_t *src, int log2w, int h, int stride, int scale, int dc){
    int i;
    dc*= 0x10001;
@@ -274,25 +291,25 @@ static inline void mcdc(uint16_t *dst, uint16_t *src, int log2w, int h, int stri
         break;
     case 1:
         for(i=0; i<h; i++){
-            ((uint32_t*)dst)[0] = scale*((uint32_t*)src)[0] + dc;
+            LE_CENTRIC_MUL(dst, src, scale, dc);
             if(scale) src += stride;
             dst += stride;
         }
         break;
     case 2:
         for(i=0; i<h; i++){
-            ((uint32_t*)dst)[0] = scale*((uint32_t*)src)[0] + dc;
-            ((uint32_t*)dst)[1] = scale*((uint32_t*)src)[1] + dc;
+            LE_CENTRIC_MUL(dst,     src,     scale, dc);
+            LE_CENTRIC_MUL(dst + 2, src + 2, scale, dc);
             if(scale) src += stride;
             dst += stride;
         }
         break;
     case 3:
         for(i=0; i<h; i++){
-            ((uint32_t*)dst)[0] = scale*((uint32_t*)src)[0] + dc;
-            ((uint32_t*)dst)[1] = scale*((uint32_t*)src)[1] + dc;
-            ((uint32_t*)dst)[2] = scale*((uint32_t*)src)[2] + dc;
-            ((uint32_t*)dst)[3] = scale*((uint32_t*)src)[3] + dc;
+            LE_CENTRIC_MUL(dst,     src,     scale, dc);
+            LE_CENTRIC_MUL(dst + 2, src + 2, scale, dc);
+            LE_CENTRIC_MUL(dst + 4, src + 4, scale, dc);
+            LE_CENTRIC_MUL(dst + 6, src + 6, scale, dc);
             if(scale) src += stride;
             dst += stride;
         }
@@ -756,25 +773,30 @@ static int decode_frame(AVCodecContext *avctx,
 
     avctx->flags |= CODEC_FLAG_EMU_EDGE; // alternatively we would have to use our own buffer management
 
-    if(p->data[0])
-        avctx->release_buffer(avctx, p);
-
     p->reference= 1;
-    if(avctx->get_buffer(avctx, p) < 0){
-        av_log(avctx, AV_LOG_ERROR, "get_buffer() failed\n");
+    if (avctx->reget_buffer(avctx, p) < 0) {
+        av_log(avctx, AV_LOG_ERROR, "reget_buffer() failed\n");
         return -1;
     }
 
     if(frame_4cc == AV_RL32("ifr2")){
-        p->pict_type= FF_I_TYPE;
+        p->pict_type= AV_PICTURE_TYPE_I;
         if(decode_i2_frame(f, buf-4, frame_size) < 0)
             return -1;
     }else if(frame_4cc == AV_RL32("ifrm")){
-        p->pict_type= FF_I_TYPE;
+        p->pict_type= AV_PICTURE_TYPE_I;
         if(decode_i_frame(f, buf, frame_size) < 0)
             return -1;
     }else if(frame_4cc == AV_RL32("pfrm") || frame_4cc == AV_RL32("pfr2")){
-        p->pict_type= FF_P_TYPE;
+        if(!f->last_picture.data[0]){
+            f->last_picture.reference= 1;
+            if(avctx->get_buffer(avctx, &f->last_picture) < 0){
+                av_log(avctx, AV_LOG_ERROR, "get_buffer() failed\n");
+                return -1;
+            }
+        }
+
+        p->pict_type= AV_PICTURE_TYPE_P;
         if(decode_p_frame(f, buf, frame_size) < 0)
             return -1;
     }else if(frame_4cc == AV_RL32("snd_")){
@@ -783,7 +805,7 @@ static int decode_frame(AVCodecContext *avctx,
         av_log(avctx, AV_LOG_ERROR, "ignoring unknown chunk length:%d\n", buf_size);
     }
 
-    p->key_frame= p->pict_type == FF_I_TYPE;
+    p->key_frame= p->pict_type == AV_PICTURE_TYPE_I;
 
     *picture= *p;
     *data_size = sizeof(AVPicture);
@@ -810,6 +832,8 @@ static av_cold int decode_init(AVCodecContext *avctx){
         return 1;
     }
 
+    avcodec_get_frame_defaults(&f->current_picture);
+    avcodec_get_frame_defaults(&f->last_picture);
     f->version= AV_RL32(avctx->extradata)>>16;
     common_init(avctx);
     init_vlcs(f);
@@ -840,7 +864,7 @@ static av_cold int decode_end(AVCodecContext *avctx){
     return 0;
 }
 
-AVCodec fourxm_decoder = {
+AVCodec ff_fourxm_decoder = {
     "4xm",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_4XM,

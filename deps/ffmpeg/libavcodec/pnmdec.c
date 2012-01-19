@@ -33,7 +33,7 @@ static int pnm_decode_frame(AVCodecContext *avctx, void *data,
     PNMContext * const s = avctx->priv_data;
     AVFrame *picture     = data;
     AVFrame * const p    = (AVFrame*)&s->picture;
-    int i, j, n, linesize, h, upgrade = 0;
+    int i, j, n, linesize, h, upgrade = 0, is_mono = 0;
     unsigned char *ptr;
     int components, sample_len;
 
@@ -52,7 +52,7 @@ static int pnm_decode_frame(AVCodecContext *avctx, void *data,
         av_log(avctx, AV_LOG_ERROR, "get_buffer() failed\n");
         return -1;
     }
-    p->pict_type = FF_I_TYPE;
+    p->pict_type = AV_PICTURE_TYPE_I;
     p->key_frame = 1;
 
     switch (avctx->pix_fmt) {
@@ -88,6 +88,7 @@ static int pnm_decode_frame(AVCodecContext *avctx, void *data,
         n = (avctx->width + 7) >> 3;
         components=1;
         sample_len=1;
+        is_mono = 1;
     do_read:
         ptr      = p->data[0];
         linesize = p->linesize[0];
@@ -104,10 +105,16 @@ static int pnm_decode_frame(AVCodecContext *avctx, void *data,
                         s->bytestream++;
                     if(s->bytestream >= s->bytestream_end)
                         return -1;
-                    do{
-                        v= 10*v + c;
-                        c= (*s->bytestream++) - '0';
-                    }while(c <= 9);
+                    if (is_mono) {
+                        /* read a single digit */
+                        v = (*s->bytestream++) - '0';
+                    } else {
+                        /* read a sequence of digits */
+                        do {
+                            v = 10*v + c;
+                            c = (*s->bytestream++) - '0';
+                        } while (c <= 9);
+                    }
                     put_bits(&pb, sample_len, (((1<<sample_len)-1)*v + (s->maxval>>1))/s->maxval);
                 }
                 flush_put_bits(&pb);
@@ -188,7 +195,7 @@ static int pnm_decode_frame(AVCodecContext *avctx, void *data,
 
 
 #if CONFIG_PGM_DECODER
-AVCodec pgm_decoder = {
+AVCodec ff_pgm_decoder = {
     "pgm",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_PGM,
@@ -199,13 +206,12 @@ AVCodec pgm_decoder = {
     pnm_decode_frame,
     CODEC_CAP_DR1,
     .pix_fmts  = (const enum PixelFormat[]){PIX_FMT_GRAY8, PIX_FMT_GRAY16BE, PIX_FMT_NONE},
-    .max_lowres = 5,
     .long_name = NULL_IF_CONFIG_SMALL("PGM (Portable GrayMap) image"),
 };
 #endif
 
 #if CONFIG_PGMYUV_DECODER
-AVCodec pgmyuv_decoder = {
+AVCodec ff_pgmyuv_decoder = {
     "pgmyuv",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_PGMYUV,
@@ -216,13 +222,12 @@ AVCodec pgmyuv_decoder = {
     pnm_decode_frame,
     CODEC_CAP_DR1,
     .pix_fmts  = (const enum PixelFormat[]){PIX_FMT_YUV420P, PIX_FMT_NONE},
-    .max_lowres = 5,
     .long_name = NULL_IF_CONFIG_SMALL("PGMYUV (Portable GrayMap YUV) image"),
 };
 #endif
 
 #if CONFIG_PPM_DECODER
-AVCodec ppm_decoder = {
+AVCodec ff_ppm_decoder = {
     "ppm",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_PPM,
@@ -233,13 +238,12 @@ AVCodec ppm_decoder = {
     pnm_decode_frame,
     CODEC_CAP_DR1,
     .pix_fmts  = (const enum PixelFormat[]){PIX_FMT_RGB24, PIX_FMT_RGB48BE, PIX_FMT_NONE},
-    .max_lowres = 5,
     .long_name = NULL_IF_CONFIG_SMALL("PPM (Portable PixelMap) image"),
 };
 #endif
 
 #if CONFIG_PBM_DECODER
-AVCodec pbm_decoder = {
+AVCodec ff_pbm_decoder = {
     "pbm",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_PBM,
@@ -250,13 +254,12 @@ AVCodec pbm_decoder = {
     pnm_decode_frame,
     CODEC_CAP_DR1,
     .pix_fmts  = (const enum PixelFormat[]){PIX_FMT_MONOWHITE, PIX_FMT_NONE},
-    .max_lowres = 5,
     .long_name = NULL_IF_CONFIG_SMALL("PBM (Portable BitMap) image"),
 };
 #endif
 
 #if CONFIG_PAM_DECODER
-AVCodec pam_decoder = {
+AVCodec ff_pam_decoder = {
     "pam",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_PAM,
@@ -267,7 +270,6 @@ AVCodec pam_decoder = {
     pnm_decode_frame,
     CODEC_CAP_DR1,
     .pix_fmts  = (const enum PixelFormat[]){PIX_FMT_RGB24, PIX_FMT_RGB32, PIX_FMT_GRAY8, PIX_FMT_MONOWHITE, PIX_FMT_NONE},
-    .max_lowres = 5,
     .long_name = NULL_IF_CONFIG_SMALL("PAM (Portable AnyMap) image"),
 };
 #endif

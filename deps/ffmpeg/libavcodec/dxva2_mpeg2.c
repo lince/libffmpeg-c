@@ -44,11 +44,11 @@ static void fill_picture_parameters(AVCodecContext *avctx,
     memset(pp, 0, sizeof(*pp));
     pp->wDecodedPictureIndex         = ff_dxva2_get_surface_index(ctx, current_picture);
     pp->wDeblockedPictureIndex       = 0;
-    if (s->pict_type != FF_I_TYPE)
+    if (s->pict_type != AV_PICTURE_TYPE_I)
         pp->wForwardRefPictureIndex  = ff_dxva2_get_surface_index(ctx, &s->last_picture);
     else
         pp->wForwardRefPictureIndex  = 0xffff;
-    if (s->pict_type == FF_B_TYPE)
+    if (s->pict_type == AV_PICTURE_TYPE_B)
         pp->wBackwardRefPictureIndex = ff_dxva2_get_surface_index(ctx, &s->next_picture);
     else
         pp->wBackwardRefPictureIndex = 0xffff;
@@ -61,8 +61,8 @@ static void fill_picture_parameters(AVCodecContext *avctx,
     pp->bBPPminus1                   = 7;
     pp->bPicStructure                = s->picture_structure;
     pp->bSecondField                 = is_field && !s->first_field;
-    pp->bPicIntra                    = s->pict_type == FF_I_TYPE;
-    pp->bPicBackwardPrediction       = s->pict_type == FF_B_TYPE;
+    pp->bPicIntra                    = s->pict_type == AV_PICTURE_TYPE_I;
+    pp->bPicBackwardPrediction       = s->pict_type == AV_PICTURE_TYPE_B;
     pp->bBidirectionalAveragingMode  = 0;
     pp->bMVprecisionAndChromaRelation= 0; /* FIXME */
     pp->bChromaFormat                = s->chroma_format;
@@ -260,7 +260,7 @@ static int end_frame(AVCodecContext *avctx)
                                      commit_bitstream_and_slice_buffer);
 }
 
-AVHWAccel mpeg2_dxva2_hwaccel = {
+AVHWAccel ff_mpeg2_dxva2_hwaccel = {
     .name           = "mpeg2_dxva2",
     .type           = AVMEDIA_TYPE_VIDEO,
     .id             = CODEC_ID_MPEG2VIDEO,

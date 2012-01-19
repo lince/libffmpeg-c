@@ -34,7 +34,7 @@
 #include "aandcttab.h"
 #include "mpeg12.h"
 #include "mpeg12data.h"
-#include "libavcore/imgutils.h"
+#include "libavutil/imgutils.h"
 
 #define EA_PREAMBLE_SIZE    8
 #define MADk_TAG MKTAG('M', 'A', 'D', 'k')    /* MAD i-frame */
@@ -306,7 +306,7 @@ static av_cold int decode_end(AVCodecContext *avctx)
     return 0;
 }
 
-AVCodec eamad_decoder = {
+AVCodec ff_eamad_decoder = {
     "eamad",
     AVMEDIA_TYPE_VIDEO,
     CODEC_ID_MAD,
