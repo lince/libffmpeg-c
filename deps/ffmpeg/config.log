@@ -1,4 +1,4 @@
-# ./configure --enable-shared --enable-gpl --enable-version3 --enable-x11grab --enable-libfaac --enable-libfreetype --enable-libmp3lame --enable-libtheora --enable-libx264 --enable-libxvid --enable-libopenjpeg --enable-muxer=alsa --enable-demuxer=alsa --enable-avfilter --enable-nonfree
+# ./configure --enable-shared --enable-gpl --enable-version3 --enable-x11grab --enable-libfaac --enable-libmp3lame --enable-libtheora --enable-libx264 --enable-libxvid --enable-libopenjpeg --enable-muxer=alsa --enable-demuxer=alsa --enable-avfilter --enable-nonfree --enable-librtmp --enable-libvorbis --enable-pthreads --enable-shmgrab --enable-postproc --enable-libvpx
 ACODEC_TESTS='ac3_fixed_test
 adpcm_ima_qt_test
 adpcm_ima_wav_test
@@ -348,7 +348,7 @@ CONFIG_LIST='
     shmgrab
     zlib
 '
-DBUS_SESSION_BUS_ADDRESS='unix:abstract=/tmp/dbus-wVGWvBPLot,guid=4a5db72e753e6b399bca08850000004e'
+DBUS_SESSION_BUS_ADDRESS='unix:abstract=/tmp/dbus-sEPDofmGJF,guid=b8fb4f395c39e12bcdafd81e00000636'
 DECODER_LIST='aasc_decoder
 amv_decoder
 anm_decoder
@@ -917,7 +917,7 @@ libvpx_encoder
 libx264_encoder
 libxavs_encoder
 libxvid_encoder'
-FFMPEG_CONFIGURATION='--enable-shared --enable-gpl --enable-version3 --enable-x11grab --enable-libfaac --enable-libfreetype --enable-libmp3lame --enable-libtheora --enable-libx264 --enable-libxvid --enable-libopenjpeg --enable-muxer=alsa --enable-demuxer=alsa --enable-avfilter --enable-nonfree'
+FFMPEG_CONFIGURATION='--enable-shared --enable-gpl --enable-version3 --enable-x11grab --enable-libfaac --enable-libmp3lame --enable-libtheora --enable-libx264 --enable-libxvid --enable-libopenjpeg --enable-muxer=alsa --enable-demuxer=alsa --enable-avfilter --enable-nonfree --enable-librtmp --enable-libvorbis --enable-pthreads --enable-shmgrab --enable-postproc --enable-libvpx'
 FFSERVERLDFLAGS='-Wl,-E'
 FILTER_LIST='anull_filter
 anullsrc_filter
@@ -970,9 +970,9 @@ nullsink_filter'
 FULLNAME='$(NAME)$(BUILDSUF)'
 GDMSESSION='ubuntu'
 GNOME_DESKTOP_SESSION_ID='this-is-deprecated'
-GNOME_KEYRING_CONTROL='/tmp/keyring-QyuvZA'
-GNOME_KEYRING_PID='1500'
-GPG_AGENT_INFO='/tmp/keyring-QyuvZA/gpg:0:1'
+GNOME_KEYRING_CONTROL='/tmp/keyring-yz9Zrg'
+GNOME_KEYRING_PID='1820'
+GPG_AGENT_INFO='/tmp/keyring-yz9Zrg/gpg:0:1'
 GTK_MODULES='canberra-gtk-module:canberra-gtk-module'
 HAVE_LIST='
     
@@ -1134,6 +1134,7 @@ vfwcap_indev
 x11_grab_device_indev
 shm_grab_device_indev
 libdc1394_indev'
+JAVA_HOME='/opt/java'
 LANG='en_US.UTF-8'
 LAVFI_TESTS='crop_test
 crop_scale_test
@@ -1193,13 +1194,14 @@ voc_s16_test
 wav_test
 yuv4mpeg_test'
 LC_ALL='C'
-LD_LIBRARY_PATH='/usr/local/xuggler/lib:/usr/local:'
+LD_LIBRARY_PATH='/usr/local/xuggler/lib::/usr/local/lib'
 LESSCLOSE='/usr/bin/lesspipe %s %s'
 LESSOPEN='| /usr/bin/lesspipe %s'
 LIBNAME='$(LIBPREF)$(FULLNAME)$(LIBSUF)'
 LIBPREF='lib'
 LIBSUF='.a'
 LIB_INSTALL_EXTRA_CMD='$$(RANLIB) "$(LIBDIR)/$(LIBNAME)"'
+LOGNAME='caioviel'
 LS_COLORS='rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36:'
 MANDATORY_PATH='/usr/share/gconf/ubuntu.mandatory.path'
 MUXER_LIST='a64_muxer
@@ -1306,8 +1308,7 @@ wav_muxer
 webm_muxer
 yuv4mpegpipe_muxer
 libnut_muxer'
-NOX_CORE_DIR='/home/caioviel/noxcore/build/src'
-OLDPWD='/home/caioviel/git'
+OLDPWD='/home/caioviel/git/libffmpeg-c/deps'
 OPTIND='1'
 OUTDEV_LIST='alsa_outdev
 oss_outdev
@@ -1335,7 +1336,7 @@ pnm_parser
 vc1_parser
 vp3_parser
 vp8_parser'
-PATH='/usr/local/xuggler/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games'
+PATH='/usr/local/xuggler/bin:/usr/local/xuggler/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games://opt/java/bin'
 PATHS_LIST='
     bindir
     datadir
@@ -1345,7 +1346,7 @@ PATHS_LIST='
     prefix
     shlibdir
 '
-PPID='15506'
+PPID='14460'
 PROTOCOL_LIST='applehttp_protocol
 concat_protocol
 crypto_protocol
@@ -1368,6 +1369,7 @@ PS1='$ '
 PS2='> '
 PS4='+ '
 PWD='/home/caioviel/git/libffmpeg-c/deps/ffmpeg'
+PYTHONPATH='/home/caioviel/git/CastFlow/CastFlow/'
 SEEK_TESTS='seek_ac3_rm_test
 seek_adpcm_ima_wav_test
 seek_adpcm_ms_wav_test
@@ -1481,7 +1483,7 @@ seek_wmav2_asf_test
 seek_wmv1_avi_test
 seek_wmv2_avi_test
 seek_yuv_avi_test'
-SESSION_MANAGER='local/caioviel-desktop:@/tmp/.ICE-unix/1509,unix/caioviel-desktop:/tmp/.ICE-unix/1509'
+SESSION_MANAGER='local/maggi:@/tmp/.ICE-unix/1829,unix/maggi:/tmp/.ICE-unix/1829'
 SHELL='/bin/bash'
 SHFLAGS='-shared -Wl,-soname,$$(@F)'
 SHLVL='1'
@@ -1490,8 +1492,8 @@ SLIBNAME_WITH_MAJOR='$(SLIBNAME).$(LIBMAJOR)'
 SLIBNAME_WITH_VERSION='$(SLIBNAME).$(LIBVERSION)'
 SLIBPREF='lib'
 SLIBSUF='.so'
-SSH_AGENT_PID='1547'
-SSH_AUTH_SOCK='/tmp/keyring-QyuvZA/ssh'
+SSH_AGENT_PID='1865'
+SSH_AUTH_SOCK='/tmp/keyring-yz9Zrg/ssh'
 TERM='xterm'
 THREADS_LIST='
     pthreads
@@ -1544,13 +1546,13 @@ vref_test
 wmv1_test
 wmv2_test
 yuv_test'
-WINDOWID='67108870'
+WINDOWID='75497478'
 XAUTHORITY='/home/caioviel/.Xauthority'
 XDG_CONFIG_DIRS='/etc/xdg/xdg-ubuntu:/etc/xdg'
 XDG_CURRENT_DESKTOP='Unity'
 XDG_DATA_DIRS='/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/'
 XDG_SEAT_PATH='/org/freedesktop/DisplayManager/Seat0'
-XDG_SESSION_COOKIE='a1b2e028e3c8b6c910fe0ba300000009-1319798088.394882-864501278'
+XDG_SESSION_COOKIE='e8e74addac293c9baf637ffc00000007-1329301192.75952-1025886885'
 XDG_SESSION_PATH='/org/freedesktop/DisplayManager/Session0'
 XUGGLE_HOME='/usr/local/xuggler'
 _='./configure'
@@ -2736,7 +2738,6 @@ libdirac_encoder_deps='libdirac'
 libfaac='yes'
 libfaac_encoder='yes'
 libfaac_encoder_deps='libfaac'
-libfreetype='yes'
 libgsm_decoder='yes'
 libgsm_decoder_deps='libgsm'
 libgsm_encoder='yes'
@@ -2761,6 +2762,7 @@ libopencore_amrwb_decoder_deps='libopencore_amrwb'
 libopenjpeg='yes'
 libopenjpeg_decoder='yes'
 libopenjpeg_decoder_deps='libopenjpeg'
+librtmp='yes'
 libschroedinger_decoder='yes'
 libschroedinger_decoder_deps='libschroedinger'
 libschroedinger_encoder='yes'
@@ -2776,8 +2778,10 @@ libvo_aacenc_encoder='yes'
 libvo_aacenc_encoder_deps='libvo_aacenc'
 libvo_amrwbenc_encoder='yes'
 libvo_amrwbenc_encoder_deps='libvo_amrwbenc'
+libvorbis='yes'
 libvorbis_encoder='yes'
 libvorbis_encoder_deps='libvorbis'
+libvpx='yes'
 libvpx_decoder='yes'
 libvpx_decoder_deps='libvpx'
 libvpx_encoder='yes'
@@ -3303,10 +3307,10 @@ ogg_test='yes'
 ogg_test_deps='ogg_muxer ogg_demuxer'
 oma_demuxer='yes'
 op='='
-opt='--enable-nonfree'
+opt='--enable-libvpx'
 optimizations='yes'
-option='nonfree'
-optval='--enable-nonfree'
+option='libvpx'
+optval='--enable-libvpx'
 oss_indev='yes'
 oss_indev_deps_any='soundcard_h sys_soundcard_h'
 oss_outdev='yes'
@@ -3540,6 +3544,7 @@ tcp_protocol
 udp_protocol'
 psp_muxer='yes'
 psp_muxer_select='mov_muxer'
+pthreads='yes'
 ptx_decoder='yes'
 pva_demuxer='yes'
 qcelp_decoder='yes'
@@ -3554,7 +3559,7 @@ qtrle_encoder='yes'
 qtrle_test='yes'
 qtrlegray_test='yes'
 quotes='""'
-r='--enable-nonfree'
+r='--enable-libvpx'
 r10k_decoder='yes'
 r210_decoder='yes'
 r3d_demuxer='yes'
@@ -3763,6 +3768,7 @@ shared='yes'
 shlibdir_default='${prefix}/lib'
 shm_grab_device_indev='yes'
 shm_grab_device_indev_deps='shmgrab'
+shmgrab='yes'
 shorten_decoder='yes'
 shorten_decoder_select='golomb'
 shorten_demuxer='yes'
@@ -3896,7 +3902,7 @@ v4l_indev='yes'
 v4l_indev_deps='linux_videodev_h'
 vaapi_deps='va_va_h'
 value='yes'
-var='nonfree'
+var='libvpx'
 vb_decoder='yes'
 vc1_crystalhd_decoder='yes'
 vc1_crystalhd_decoder_select='crystalhd'
@@ -4041,97 +4047,97 @@ zmbv_decoder_select='zlib'
 zmbv_encoder='yes'
 zmbv_encoder_select='zlib'
 mktemp -u XXXXXX
-hoieLS
+ZmqySi
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int main(void){ return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
+END /tmp/ffconf.UJKBwKvW.c
+gcc -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
 check_cflags -std=c99
 check_cc -std=c99
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -std=c99 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -std=c99 -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cc -D_FILE_OFFSET_BITS=64
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <stdlib.h>
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -std=c99 -D_FILE_OFFSET_BITS=64 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -std=c99 -D_FILE_OFFSET_BITS=64 -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cc -D_LARGEFILE_SOURCE
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <stdlib.h>
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -D_LARGEFILE_SOURCE -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -std=c99 -D_LARGEFILE_SOURCE -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_host_cflags -std=c99
 check_host_cc -std=c99
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -O3 -g -std=c99 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -O3 -g -std=c99 -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_host_cflags -Wall
 check_host_cc -Wall
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -O3 -g -std=c99 -Wall -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -O3 -g -std=c99 -Wall -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	        int test[(int)sizeof(char*) - 7];
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -std=c99 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:13: error: size of array 'test' is negative
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -std=c99 -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:13: error: size of array 'test' is negative
 check_cpp_condition stdlib.h defined(__PIC__) || defined(__pic__) || defined(PIC)
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <stdlib.h>
     2	#if !(defined(__PIC__) || defined(__pic__) || defined(PIC))
     3	#error "unsatisfied condition: defined(__PIC__) || defined(__pic__) || defined(PIC)"
     4	#endif
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:3:2: error: #error "unsatisfied condition: defined(__PIC__) || defined(__pic__) || defined(PIC)"
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:3:2: error: #error "unsatisfied condition: defined(__PIC__) || defined(__pic__) || defined(PIC)"
 check_cflags -fomit-frame-pointer
 check_cc -fomit-frame-pointer
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int ff_extern;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	void foo(void) { __asm__ volatile ("" ::); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	void foo(char * restrict p);
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	struct { int x; } __attribute__((packed)) x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	union { int x; } __attribute__((may_alias)) x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	unsigned int endian = 'B' << 24 | 'I' << 16 | 'G' << 8 | 'E';
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <signal.h>
     2	static void sighandler(int sig){
     3	    raise(SIGTERM);
@@ -4149,32 +4155,32 @@ BEGIN /tmp/ffconf.4RHq3IBa.c
    15	    ::: "%ebp");
    16	    return i; }
    17	}
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c: In function 'main':
-/tmp/ffconf.4RHq3IBa.c:17:1: error: bp cannot be used in asm here
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c: In function 'main':
+/tmp/ffconf.UJKBwKvW.c:17:1: error: bp cannot be used in asm here
 check_asm ebx_available ""::"b"(0)
 check_as
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	void foo(void){ __asm__ volatile(""::"b"(0)); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_asm ebx_available "":::"%ebx"
 check_as
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	void foo(void){ __asm__ volatile("":::"%ebx"); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_asm xmm_clobbers "":::"%xmm0"
 check_as
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	void foo(void){ __asm__ volatile("":::"%xmm0"); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c: In function 'foo':
-/tmp/ffconf.4RHq3IBa.c:1:17: error: unknown register name '%xmm0' in 'asm'
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c: In function 'foo':
+/tmp/ffconf.UJKBwKvW.c:1:17: error: unknown register name '%xmm0' in 'asm'
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int main(void) {
     2	    int x=0;
     3	    __asm__ volatile(
@@ -4183,1193 +4189,1234 @@ BEGIN /tmp/ffconf.4RHq3IBa.c
     6	    );
     7	    return 0;
     8	}
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_asm ssse3 "pabsw %xmm0, %xmm0"
 check_as
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	void foo(void){ __asm__ volatile("pabsw %xmm0, %xmm0"); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_asm mmx2 "pmaxub %mm0, %mm1"
 check_as
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	void foo(void){ __asm__ volatile("pmaxub %mm0, %mm1"); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_asm bswap "bswap %%eax" ::: "%eax"
 check_as
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	void foo(void){ __asm__ volatile("bswap %%eax" ::: "%eax"); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 yasm --version
 yasm 1.1.0.2352
 Compiled on Jun 10 2011.
 Copyright (c) 2001-2010 Peter Johnson and other Yasm developers.
 Run yasm --license for licensing overview and summary.
 check_yasm pextrd [eax], xmm0, 1
-BEGIN /tmp/ffconf.TmVJVK5d.S
+BEGIN /tmp/ffconf.MO7vKofA.S
     1	pextrd [eax], xmm0, 1
-END /tmp/ffconf.TmVJVK5d.S
-yasm -f elf -g dwarf2 -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.TmVJVK5d.S
+END /tmp/ffconf.MO7vKofA.S
+yasm -f elf -g dwarf2 -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.MO7vKofA.S
 check_yasm vextractf128 xmm0, ymm0, 0
-BEGIN /tmp/ffconf.TmVJVK5d.S
+BEGIN /tmp/ffconf.MO7vKofA.S
     1	vextractf128 xmm0, ymm0, 0
-END /tmp/ffconf.TmVJVK5d.S
-yasm -f elf -g dwarf2 -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.TmVJVK5d.S
+END /tmp/ffconf.MO7vKofA.S
+yasm -f elf -g dwarf2 -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.MO7vKofA.S
 check_asm gnu_as ".macro m n
 \n:.int 0
 .endm
 m x"
 check_as
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	void foo(void){ __asm__ volatile(".macro m n\n\\n:.int 0\n.endm\nm x"); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_ldflags -Wl,--as-needed
 test_ldflags -Wl,--as-needed
 check_ld -Wl,--as-needed
 check_cc -Wl,--as-needed
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int main(void){ return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -Wl,--as-needed -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -Wl,--as-needed -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
 check_func dlopen
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int dlopen();
     2	int main(void){ dlopen(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
-/tmp/ffconf.SMSZIU9Y.o: In function `main':
-ffconf.4RHq3IBa.c:(.text+0x7): undefined reference to `dlopen'
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
+/tmp/ffconf.9hK5m6U5.o: In function `main':
+ffconf.UJKBwKvW.c:(.text+0x7): undefined reference to `dlopen'
 collect2: ld returned 1 exit status
 check_func dlopen -ldl
 check_ld -ldl
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int dlopen();
     2	int main(void){ dlopen(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -ldl
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -ldl
 check_type sys/types.h sys/socket.h socklen_t
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	
     2	#include <sys/types.h>
     3	#include <sys/socket.h>
     4	socklen_t v;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_type netdb.h struct addrinfo
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	
     2	#include <netdb.h>
     3	struct addrinfo v;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_type netinet/in.h struct ipv6_mreq -D_DARWIN_C_SOURCE
 check_cc -D_DARWIN_C_SOURCE
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	
     2	#include <netinet/in.h>
     3	struct ipv6_mreq v;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -D_DARWIN_C_SOURCE -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -D_DARWIN_C_SOURCE -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_type netinet/in.h struct sockaddr_in6
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	
     2	#include <netinet/in.h>
     3	struct sockaddr_in6 v;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_type sys/types.h sys/socket.h struct sockaddr_storage
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	
     2	#include <sys/types.h>
     3	#include <sys/socket.h>
     4	struct sockaddr_storage v;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_type sys/types.h sys/socket.h struct sockaddr sa_len
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	
     2	#include <sys/types.h>
     3	#include <sys/socket.h>
     4	const void *p = &((struct sockaddr *)0)->sa_len;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:4:40: error: 'struct sockaddr' has no member named 'sa_len'
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:4:40: error: 'struct sockaddr' has no member named 'sa_len'
 check_header arpa/inet.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <arpa/inet.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_func closesocket
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int closesocket();
     2	int main(void){ closesocket(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
-/tmp/ffconf.SMSZIU9Y.o: In function `main':
-ffconf.4RHq3IBa.c:(.text+0x7): undefined reference to `closesocket'
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
+/tmp/ffconf.9hK5m6U5.o: In function `main':
+ffconf.UJKBwKvW.c:(.text+0x7): undefined reference to `closesocket'
 collect2: ld returned 1 exit status
 check_func nanosleep
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int nanosleep();
     2	int main(void){ nanosleep(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
 check_func fcntl
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int fcntl();
     2	int main(void){ fcntl(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
 check_func fork
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int fork();
     2	int main(void){ fork(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
 check_func getaddrinfo
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int getaddrinfo();
     2	int main(void){ getaddrinfo(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
 check_func gethrtime
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int gethrtime();
     2	int main(void){ gethrtime(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
-/tmp/ffconf.SMSZIU9Y.o: In function `main':
-ffconf.4RHq3IBa.c:(.text+0x7): undefined reference to `gethrtime'
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
+/tmp/ffconf.9hK5m6U5.o: In function `main':
+ffconf.UJKBwKvW.c:(.text+0x7): undefined reference to `gethrtime'
 collect2: ld returned 1 exit status
 check_func getrusage
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int getrusage();
     2	int main(void){ getrusage(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
 check_type sys/time.h sys/resource.h struct rusage ru_maxrss
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	
     2	#include <sys/time.h>
     3	#include <sys/resource.h>
     4	const void *p = &((struct rusage *)0)->ru_maxrss;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_func inet_aton
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int inet_aton();
     2	int main(void){ inet_aton(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
 check_func isatty
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int isatty();
     2	int main(void){ isatty(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
 check_func localtime_r
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int localtime_r();
     2	int main(void){ localtime_r(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
 check_func memalign
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int memalign();
     2	int main(void){ memalign(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
 check_func mkstemp
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int mkstemp();
     2	int main(void){ mkstemp(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
 check_func mmap
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int mmap();
     2	int main(void){ mmap(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
 check_func posix_memalign
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int posix_memalign();
     2	int main(void){ posix_memalign(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
 check_func setrlimit
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int setrlimit();
     2	int main(void){ setrlimit(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
 check_func strerror_r
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int strerror_r();
     2	int main(void){ strerror_r(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
 check_func strtok_r
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int strtok_r();
     2	int main(void){ strtok_r(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o
 check_func_headers conio.h kbhit
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <conio.h>
     2	long check_kbhit(void) { return (long) kbhit; }
     3	int main(void) { return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:19: fatal error: conio.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:19: fatal error: conio.h: No such file or directory
 compilation terminated.
 check_func_headers io.h setmode
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <io.h>
     2	long check_setmode(void) { return (long) setmode; }
     3	int main(void) { return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:16: fatal error: io.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:16: fatal error: io.h: No such file or directory
 compilation terminated.
 check_func_headers lzo/lzo1x.h lzo1x_999_compress
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <lzo/lzo1x.h>
     2	long check_lzo1x_999_compress(void) { return (long) lzo1x_999_compress; }
     3	int main(void) { return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:23: fatal error: lzo/lzo1x.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:23: fatal error: lzo/lzo1x.h: No such file or directory
 compilation terminated.
 check_lib2 windows.h psapi.h GetProcessMemoryInfo -lpsapi
 check_func_headers windows.h psapi.h GetProcessMemoryInfo -lpsapi
 check_ld -lpsapi
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <windows.h>
     2	#include <psapi.h>
     3	long check_GetProcessMemoryInfo(void) { return (long) GetProcessMemoryInfo; }
     4	int main(void) { return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:21: fatal error: windows.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:21: fatal error: windows.h: No such file or directory
 compilation terminated.
 check_func_headers windows.h GetProcessTimes
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <windows.h>
     2	long check_GetProcessTimes(void) { return (long) GetProcessTimes; }
     3	int main(void) { return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:21: fatal error: windows.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:21: fatal error: windows.h: No such file or directory
 compilation terminated.
 check_func_headers windows.h MapViewOfFile
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <windows.h>
     2	long check_MapViewOfFile(void) { return (long) MapViewOfFile; }
     3	int main(void) { return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:21: fatal error: windows.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:21: fatal error: windows.h: No such file or directory
 compilation terminated.
 check_func_headers windows.h VirtualAlloc
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <windows.h>
     2	long check_VirtualAlloc(void) { return (long) VirtualAlloc; }
     3	int main(void) { return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:21: fatal error: windows.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:21: fatal error: windows.h: No such file or directory
 compilation terminated.
 check_header dlfcn.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <dlfcn.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_header dxva2api.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <dxva2api.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:22: fatal error: dxva2api.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:22: fatal error: dxva2api.h: No such file or directory
 compilation terminated.
 check_header libcrystalhd/libcrystalhd_if.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <libcrystalhd/libcrystalhd_if.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:42: fatal error: libcrystalhd/libcrystalhd_if.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:42: fatal error: libcrystalhd/libcrystalhd_if.h: No such file or directory
 compilation terminated.
 check_header malloc.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <malloc.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_header poll.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <poll.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_header sys/mman.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <sys/mman.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_header sys/resource.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <sys/resource.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_header sys/select.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <sys/select.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_header termios.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <termios.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_header vdpau/vdpau.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <vdpau/vdpau.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:25: fatal error: vdpau/vdpau.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:25: fatal error: vdpau/vdpau.h: No such file or directory
 compilation terminated.
 check_header vdpau/vdpau_x11.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <vdpau/vdpau_x11.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:29: fatal error: vdpau/vdpau_x11.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:29: fatal error: vdpau/vdpau_x11.h: No such file or directory
 compilation terminated.
 check_header X11/extensions/XvMClib.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <X11/extensions/XvMClib.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_type dxva2api.h DXVA_PictureParameters wDecodedPictureIndex
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	
     2	#include <dxva2api.h>
     3	const void *p = &((DXVA_PictureParameters *)0)->wDecodedPictureIndex;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:2:22: fatal error: dxva2api.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:2:22: fatal error: dxva2api.h: No such file or directory
 compilation terminated.
 check_lib zlib.h zlibVersion -lz
 check_header zlib.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <zlib.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_func zlibVersion -lz
 check_ld -lz
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int zlibVersion();
     2	int main(void){ zlibVersion(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lz
 check_lib2 bzlib.h BZ2_bzlibVersion -lbz2
 check_func_headers bzlib.h BZ2_bzlibVersion -lbz2
 check_ld -lbz2
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <bzlib.h>
     2	long check_BZ2_bzlibVersion(void) { return (long) BZ2_bzlibVersion; }
     3	int main(void) { return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:19: fatal error: bzlib.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:19: fatal error: bzlib.h: No such file or directory
 compilation terminated.
 check_func pthread_create
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int pthread_create();
     2	int main(void){ pthread_create(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lz
-/tmp/ffconf.SMSZIU9Y.o: In function `main':
-ffconf.4RHq3IBa.c:(.text+0x7): undefined reference to `pthread_create'
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lz
+/tmp/ffconf.9hK5m6U5.o: In function `main':
+ffconf.UJKBwKvW.c:(.text+0x7): undefined reference to `pthread_create'
 collect2: ld returned 1 exit status
 check_func pthread_create -pthread
 check_ld -pthread
 check_cc -pthread
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int pthread_create();
     2	int main(void){ pthread_create(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -pthread -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -pthread -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lz
 check_lib math.h sin -lm
 check_header math.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <math.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_func sin -lm
 check_ld -lm
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int sin();
     2	int main(void){ sin(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:12: warning: conflicting types for built-in function 'sin' [enabled by default]
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:12: warning: conflicting types for built-in function 'sin' [enabled by default]
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lm -pthread -lz
 check_lib libcrystalhd/libcrystalhd_if.h DtsCrystalHDVersion -lcrystalhd
 check_header libcrystalhd/libcrystalhd_if.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <libcrystalhd/libcrystalhd_if.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:42: fatal error: libcrystalhd/libcrystalhd_if.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:42: fatal error: libcrystalhd/libcrystalhd_if.h: No such file or directory
 compilation terminated.
 check_mathfunc exp2
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <math.h>
     2	float foo(float f) { return exp2(f); }
     3	int main(void){ return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lm -pthread -lz
 check_mathfunc exp2f
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <math.h>
     2	float foo(float f) { return exp2f(f); }
     3	int main(void){ return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lm -pthread -lz
 check_mathfunc llrint
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <math.h>
     2	float foo(float f) { return llrint(f); }
     3	int main(void){ return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lm -pthread -lz
 check_mathfunc llrintf
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <math.h>
     2	float foo(float f) { return llrintf(f); }
     3	int main(void){ return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lm -pthread -lz
 check_mathfunc log2
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <math.h>
     2	float foo(float f) { return log2(f); }
     3	int main(void){ return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lm -pthread -lz
 check_mathfunc log2f
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <math.h>
     2	float foo(float f) { return log2f(f); }
     3	int main(void){ return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lm -pthread -lz
 check_mathfunc lrint
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <math.h>
     2	float foo(float f) { return lrint(f); }
     3	int main(void){ return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lm -pthread -lz
 check_mathfunc lrintf
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <math.h>
     2	float foo(float f) { return lrintf(f); }
     3	int main(void){ return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lm -pthread -lz
 check_mathfunc round
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <math.h>
     2	float foo(float f) { return round(f); }
     3	int main(void){ return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lm -pthread -lz
 check_mathfunc roundf
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <math.h>
     2	float foo(float f) { return roundf(f); }
     3	int main(void){ return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lm -pthread -lz
 check_mathfunc trunc
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <math.h>
     2	float foo(float f) { return trunc(f); }
     3	int main(void){ return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lm -pthread -lz
 check_mathfunc truncf
 check_ld
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <math.h>
     2	float foo(float f) { return truncf(f); }
     3	int main(void){ return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lm -pthread -lz
 check_lib2 stdint.h faac.h faacEncGetVersion -lfaac
 check_func_headers stdint.h faac.h faacEncGetVersion -lfaac
 check_ld -lfaac
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <stdint.h>
     2	#include <faac.h>
     3	long check_faacEncGetVersion(void) { return (long) faacEncGetVersion; }
     4	int main(void) { return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lfaac -lm -pthread -lz
-check_pkg_config freetype2 ft2build.h freetype/freetype.h FT_Init_FreeType
-check_func_headers ft2build.h freetype/freetype.h FT_Init_FreeType -I/usr/include/freetype2 -lfreetype
-check_ld -I/usr/include/freetype2 -lfreetype
-check_cc -I/usr/include/freetype2
-BEGIN /tmp/ffconf.4RHq3IBa.c
-    1	#include <ft2build.h>
-    2	#include <freetype/freetype.h>
-    3	long check_FT_Init_FreeType(void) { return (long) FT_Init_FreeType; }
-    4	int main(void) { return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -I/usr/include/freetype2 -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lfreetype -lfaac -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lfaac -lm -pthread -lz
 check_lib lame/lame.h lame_set_VBR_quality -lmp3lame
 check_header lame/lame.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <lame/lame.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_func lame_set_VBR_quality -lmp3lame
 check_ld -lmp3lame
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int lame_set_VBR_quality();
     2	int main(void){ lame_set_VBR_quality(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lmp3lame -lfreetype -lfaac -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lmp3lame -lfaac -lm -pthread -lz
 check_lib openjpeg.h opj_version -lopenjpeg
 check_header openjpeg.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <openjpeg.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_func opj_version -lopenjpeg
 check_ld -lopenjpeg
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int opj_version();
     2	int main(void){ opj_version(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lopenjpeg -lmp3lame -lfreetype -lfaac -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lopenjpeg -lmp3lame -lfaac -lm -pthread -lz
+check_pkg_config librtmp librtmp/rtmp.h RTMP_Socket
+check_func_headers librtmp/rtmp.h RTMP_Socket -lrtmp -lz -lgnutls
+check_ld -lrtmp -lz -lgnutls
+check_cc
+BEGIN /tmp/ffconf.UJKBwKvW.c
+    1	#include <librtmp/rtmp.h>
+    2	long check_RTMP_Socket(void) { return (long) RTMP_Socket; }
+    3	int main(void) { return 0; }
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lrtmp -lz -lgnutls -lopenjpeg -lmp3lame -lfaac -lm -pthread -lz
 check_lib theora/theoraenc.h th_info_init -ltheoraenc -ltheoradec -logg
 check_header theora/theoraenc.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <theora/theoraenc.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_func th_info_init -ltheoraenc -ltheoradec -logg
 check_ld -ltheoraenc -ltheoradec -logg
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int th_info_init();
     2	int main(void){ th_info_init(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -ltheoraenc -ltheoradec -logg -lopenjpeg -lmp3lame -lfreetype -lfaac -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -ltheoraenc -ltheoradec -logg -lrtmp -lz -lgnutls -lopenjpeg -lmp3lame -lfaac -lm -pthread -lz
+check_lib vorbis/vorbisenc.h vorbis_info_init -lvorbisenc -lvorbis -logg
+check_header vorbis/vorbisenc.h
+check_cpp
+BEGIN /tmp/ffconf.UJKBwKvW.c
+    1	#include <vorbis/vorbisenc.h>
+    2	int x;
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+check_func vorbis_info_init -lvorbisenc -lvorbis -logg
+check_ld -lvorbisenc -lvorbis -logg
+check_cc
+BEGIN /tmp/ffconf.UJKBwKvW.c
+    1	extern int vorbis_info_init();
+    2	int main(void){ vorbis_info_init(); }
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lvorbisenc -lvorbis -logg -ltheoraenc -ltheoradec -logg -lrtmp -lz -lgnutls -lopenjpeg -lmp3lame -lfaac -lm -pthread -lz
+check_lib2 vpx/vpx_decoder.h vpx/vp8dx.h vpx_codec_dec_init_ver -lvpx
+check_func_headers vpx/vpx_decoder.h vpx/vp8dx.h vpx_codec_dec_init_ver -lvpx
+check_ld -lvpx
+check_cc
+BEGIN /tmp/ffconf.UJKBwKvW.c
+    1	#include <vpx/vpx_decoder.h>
+    2	#include <vpx/vp8dx.h>
+    3	long check_vpx_codec_dec_init_ver(void) { return (long) vpx_codec_dec_init_ver; }
+    4	int main(void) { return 0; }
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lvpx -lvorbisenc -lvorbis -logg -ltheoraenc -ltheoradec -logg -lrtmp -lz -lgnutls -lopenjpeg -lmp3lame -lfaac -lm -pthread -lz
+check_lib2 vpx/vpx_encoder.h vpx/vp8cx.h vpx_codec_enc_init_ver VPX_CQ -lvpx
+check_func_headers vpx/vpx_encoder.h vpx/vp8cx.h vpx_codec_enc_init_ver VPX_CQ -lvpx
+check_ld -lvpx
+check_cc
+BEGIN /tmp/ffconf.UJKBwKvW.c
+    1	#include <vpx/vpx_encoder.h>
+    2	#include <vpx/vp8cx.h>
+    3	long check_vpx_codec_enc_init_ver(void) { return (long) vpx_codec_enc_init_ver; }
+    4	long check_VPX_CQ(void) { return (long) VPX_CQ; }
+    5	int main(void) { return 0; }
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lvpx -lvpx -lvorbisenc -lvorbis -logg -ltheoraenc -ltheoradec -logg -lrtmp -lz -lgnutls -lopenjpeg -lmp3lame -lfaac -lm -pthread -lz
 check_lib x264.h x264_encoder_encode -lx264
 check_header x264.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <x264.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-In file included from /tmp/ffconf.4RHq3IBa.c:1:0:
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+In file included from /tmp/ffconf.UJKBwKvW.c:1:0:
 /usr/local/include/x264.h:36:4: warning: #warning You must include stdint.h or inttypes.h before x264.h [-Wcpp]
 check_func x264_encoder_encode -lx264
 check_ld -lx264
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int x264_encoder_encode();
     2	int main(void){ x264_encoder_encode(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lx264 -ltheoraenc -ltheoradec -logg -lopenjpeg -lmp3lame -lfreetype -lfaac -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lx264 -lvpx -lvpx -lvorbisenc -lvorbis -logg -ltheoraenc -ltheoradec -logg -lrtmp -lz -lgnutls -lopenjpeg -lmp3lame -lfaac -lm -pthread -lz
 check_cpp_condition x264.h X264_BUILD >= 115
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <x264.h>
     2	#if !(X264_BUILD >= 115)
     3	#error "unsatisfied condition: X264_BUILD >= 115"
     4	#endif
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-In file included from /tmp/ffconf.4RHq3IBa.c:1:0:
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+In file included from /tmp/ffconf.UJKBwKvW.c:1:0:
 /usr/local/include/x264.h:36:4: warning: #warning You must include stdint.h or inttypes.h before x264.h [-Wcpp]
 check_lib xvid.h xvid_global -lxvidcore
 check_header xvid.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <xvid.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_func xvid_global -lxvidcore
 check_ld -lxvidcore
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int xvid_global();
     2	int main(void){ xvid_global(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lxvidcore -lx264 -ltheoraenc -ltheoradec -logg -lopenjpeg -lmp3lame -lfreetype -lfaac -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lxvidcore -lx264 -lvpx -lvpx -lvorbisenc -lvorbis -logg -ltheoraenc -ltheoradec -logg -lrtmp -lz -lgnutls -lopenjpeg -lmp3lame -lfaac -lm -pthread -lz
 check_pkg_config sdl SDL_version.h SDL_Linked_Version
 check_header linux/fb.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <linux/fb.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_header linux/videodev.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <linux/videodev.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:28: fatal error: linux/videodev.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:28: fatal error: linux/videodev.h: No such file or directory
 compilation terminated.
 check_header linux/videodev2.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <linux/videodev2.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_header sys/videoio.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <sys/videoio.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:25: fatal error: sys/videoio.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:25: fatal error: sys/videoio.h: No such file or directory
 compilation terminated.
 check_func_headers windows.h vfw.h capCreateCaptureWindow -lavicap32
 check_ld -lavicap32
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <windows.h>
     2	#include <vfw.h>
     3	long check_capCreateCaptureWindow(void) { return (long) capCreateCaptureWindow; }
     4	int main(void) { return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:21: fatal error: windows.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:21: fatal error: windows.h: No such file or directory
 compilation terminated.
 check_cpp_condition vfw.h WM_CAP_DRIVER_CONNECT > WM_USER
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <vfw.h>
     2	#if !(WM_CAP_DRIVER_CONNECT > WM_USER)
     3	#error "unsatisfied condition: WM_CAP_DRIVER_CONNECT > WM_USER"
     4	#endif
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:17: fatal error: vfw.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:17: fatal error: vfw.h: No such file or directory
 compilation terminated.
 check_type dshow.h IBaseFilter
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	
     2	#include <dshow.h>
     3	IBaseFilter v;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:2:19: fatal error: dshow.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:2:19: fatal error: dshow.h: No such file or directory
 compilation terminated.
 check_header dev/bktr/ioctl_meteor.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <dev/bktr/ioctl_meteor.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:35: fatal error: dev/bktr/ioctl_meteor.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:35: fatal error: dev/bktr/ioctl_meteor.h: No such file or directory
 compilation terminated.
 check_header machine/ioctl_meteor.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <machine/ioctl_meteor.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:34: fatal error: machine/ioctl_meteor.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:34: fatal error: machine/ioctl_meteor.h: No such file or directory
 compilation terminated.
 check_header dev/video/meteor/ioctl_meteor.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <dev/video/meteor/ioctl_meteor.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:43: fatal error: dev/video/meteor/ioctl_meteor.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:43: fatal error: dev/video/meteor/ioctl_meteor.h: No such file or directory
 compilation terminated.
 check_header dev/ic/bt8xx.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <dev/ic/bt8xx.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:26: fatal error: dev/ic/bt8xx.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:26: fatal error: dev/ic/bt8xx.h: No such file or directory
 compilation terminated.
 check_header sndio.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <sndio.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:19: fatal error: sndio.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:19: fatal error: sndio.h: No such file or directory
 compilation terminated.
 check_type sys/soundcard.h audio_buf_info bytes
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	
     2	#include <sys/soundcard.h>
     3	const void *p = &((audio_buf_info *)0)->bytes;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_header soundcard.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <soundcard.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:23: fatal error: soundcard.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:23: fatal error: soundcard.h: No such file or directory
 compilation terminated.
 check_lib2 alsa/asoundlib.h snd_pcm_htimestamp -lasound
 check_func_headers alsa/asoundlib.h snd_pcm_htimestamp -lasound
 check_ld -lasound
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <alsa/asoundlib.h>
     2	long check_snd_pcm_htimestamp(void) { return (long) snd_pcm_htimestamp; }
     3	int main(void) { return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lasound -lxvidcore -lx264 -ltheoraenc -ltheoradec -logg -lopenjpeg -lmp3lame -lfreetype -lfaac -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lasound -lxvidcore -lx264 -lvpx -lvpx -lvorbisenc -lvorbis -logg -ltheoraenc -ltheoradec -logg -lrtmp -lz -lgnutls -lopenjpeg -lmp3lame -lfaac -lm -pthread -lz
 check_lib2 jack/jack.h jack_client_open -ljack
 check_func_headers jack/jack.h jack_client_open -ljack
 check_ld -ljack
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <jack/jack.h>
     2	long check_jack_client_open(void) { return (long) jack_client_open; }
     3	int main(void) { return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:23: fatal error: jack/jack.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:23: fatal error: jack/jack.h: No such file or directory
 compilation terminated.
 check_lib2 sndio.h sio_open -lsndio
 check_func_headers sndio.h sio_open -lsndio
 check_ld -lsndio
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <sndio.h>
     2	long check_sio_open(void) { return (long) sio_open; }
     3	int main(void) { return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:19: fatal error: sndio.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:19: fatal error: sndio.h: No such file or directory
 compilation terminated.
 check_header X11/Xlib.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <X11/Xlib.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_header X11/extensions/XShm.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <X11/extensions/XShm.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_header X11/extensions/Xfixes.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <X11/extensions/Xfixes.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_func XOpenDisplay -lX11
 check_ld -lX11
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int XOpenDisplay();
     2	int main(void){ XOpenDisplay(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lX11 -lasound -lxvidcore -lx264 -ltheoraenc -ltheoradec -logg -lopenjpeg -lmp3lame -lfreetype -lfaac -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lX11 -lasound -lxvidcore -lx264 -lvpx -lvpx -lvorbisenc -lvorbis -logg -ltheoraenc -ltheoradec -logg -lrtmp -lz -lgnutls -lopenjpeg -lmp3lame -lfaac -lm -pthread -lz
 check_func XShmCreateImage -lX11 -lXext
 check_ld -lX11 -lXext
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int XShmCreateImage();
     2	int main(void){ XShmCreateImage(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lX11 -lXext -lasound -lxvidcore -lx264 -ltheoraenc -ltheoradec -logg -lopenjpeg -lmp3lame -lfreetype -lfaac -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lX11 -lXext -lasound -lxvidcore -lx264 -lvpx -lvpx -lvorbisenc -lvorbis -logg -ltheoraenc -ltheoradec -logg -lrtmp -lz -lgnutls -lopenjpeg -lmp3lame -lfaac -lm -pthread -lz
 check_func XFixesGetCursorImage -lX11 -lXext -lXfixes
 check_ld -lX11 -lXext -lXfixes
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	extern int XFixesGetCursorImage();
     2	int main(void){ XFixesGetCursorImage(); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lX11 -lXext -lXfixes -lasound -lxvidcore -lx264 -ltheoraenc -ltheoradec -logg -lopenjpeg -lmp3lame -lfreetype -lfaac -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lX11 -lXext -lXfixes -lasound -lxvidcore -lx264 -lvpx -lvpx -lvorbisenc -lvorbis -logg -ltheoraenc -ltheoradec -logg -lrtmp -lz -lgnutls -lopenjpeg -lmp3lame -lfaac -lm -pthread -lz
 check_lib va/va.h vaInitialize -lva
 check_header va/va.h
 check_cpp
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	#include <va/va.h>
     2	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -E -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:1:19: fatal error: va/va.h: No such file or directory
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -E -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:1:19: fatal error: va/va.h: No such file or directory
 compilation terminated.
 check_cflags -Wdeclaration-after-statement
 check_cc -Wdeclaration-after-statement
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cflags -Wall
 check_cc -Wall
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cflags -Wno-parentheses
 check_cc -Wno-parentheses
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cflags -Wno-switch
 check_cc -Wno-switch
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cflags -Wdisabled-optimization
 check_cc -Wdisabled-optimization
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cflags -Wpointer-arith
 check_cc -Wpointer-arith
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cflags -Wredundant-decls
 check_cc -Wredundant-decls
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cflags -Wno-pointer-sign
 check_cc -Wno-pointer-sign
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cflags -Wcast-qual
 check_cc -Wcast-qual
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cflags -Wwrite-strings
 check_cc -Wwrite-strings
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cflags -Wtype-limits
 check_cc -Wtype-limits
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cflags -Wundef
 check_cc -Wundef
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cflags -Wmissing-prototypes
 check_cc -Wmissing-prototypes
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cflags -Wno-pointer-to-int-cast
 check_cc -Wno-pointer-to-int-cast
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_ldflags -Wl,--warn-common
 test_ldflags -Wl,--warn-common
 check_ld -Wl,--warn-common
 check_cc -Wl,--warn-common
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int main(void){ return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -Wl,--warn-common -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -Wl,--warn-common -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lasound -lxvidcore -lx264 -ltheoraenc -ltheoradec -logg -lopenjpeg -lmp3lame -lfreetype -lfaac -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -Wl,--warn-common -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -Wl,--warn-common -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lasound -lxvidcore -lx264 -lvpx -lvpx -lvorbisenc -lvorbis -logg -ltheoraenc -ltheoradec -logg -lrtmp -lz -lgnutls -lopenjpeg -lmp3lame -lfaac -lm -pthread -lz
 check_ldflags -Wl,-rpath-link,libpostproc -Wl,-rpath-link,libswscale -Wl,-rpath-link,libavfilter -Wl,-rpath-link,libavdevice -Wl,-rpath-link,libavformat -Wl,-rpath-link,libavcodec -Wl,-rpath-link,libavutil
 test_ldflags -Wl,-rpath-link,libpostproc -Wl,-rpath-link,libswscale -Wl,-rpath-link,libavfilter -Wl,-rpath-link,libavdevice -Wl,-rpath-link,libavformat -Wl,-rpath-link,libavcodec -Wl,-rpath-link,libavutil
 check_ld -Wl,-rpath-link,libpostproc -Wl,-rpath-link,libswscale -Wl,-rpath-link,libavfilter -Wl,-rpath-link,libavdevice -Wl,-rpath-link,libavformat -Wl,-rpath-link,libavcodec -Wl,-rpath-link,libavutil
 check_cc -Wl,-rpath-link,libpostproc -Wl,-rpath-link,libswscale -Wl,-rpath-link,libavfilter -Wl,-rpath-link,libavdevice -Wl,-rpath-link,libavformat -Wl,-rpath-link,libavcodec -Wl,-rpath-link,libavutil
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int main(void){ return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -Wl,-rpath-link,libpostproc -Wl,-rpath-link,libswscale -Wl,-rpath-link,libavfilter -Wl,-rpath-link,libavdevice -Wl,-rpath-link,libavformat -Wl,-rpath-link,libavcodec -Wl,-rpath-link,libavutil -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -Wl,--warn-common -Wl,-rpath-link,libpostproc -Wl,-rpath-link,libswscale -Wl,-rpath-link,libavfilter -Wl,-rpath-link,libavdevice -Wl,-rpath-link,libavformat -Wl,-rpath-link,libavcodec -Wl,-rpath-link,libavutil -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lasound -lxvidcore -lx264 -ltheoraenc -ltheoradec -logg -lopenjpeg -lmp3lame -lfreetype -lfaac -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -Wl,-rpath-link,libpostproc -Wl,-rpath-link,libswscale -Wl,-rpath-link,libavfilter -Wl,-rpath-link,libavdevice -Wl,-rpath-link,libavformat -Wl,-rpath-link,libavcodec -Wl,-rpath-link,libavutil -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -Wl,--warn-common -Wl,-rpath-link,libpostproc -Wl,-rpath-link,libswscale -Wl,-rpath-link,libavfilter -Wl,-rpath-link,libavdevice -Wl,-rpath-link,libavformat -Wl,-rpath-link,libavcodec -Wl,-rpath-link,libavutil -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lasound -lxvidcore -lx264 -lvpx -lvpx -lvorbisenc -lvorbis -logg -ltheoraenc -ltheoradec -logg -lrtmp -lz -lgnutls -lopenjpeg -lmp3lame -lfaac -lm -pthread -lz
 test_ldflags -Wl,-Bsymbolic
 check_ld -Wl,-Bsymbolic
 check_cc -Wl,-Bsymbolic
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int main(void){ return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -Wl,-Bsymbolic -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -Wl,--warn-common -Wl,-rpath-link,libpostproc -Wl,-rpath-link,libswscale -Wl,-rpath-link,libavfilter -Wl,-rpath-link,libavdevice -Wl,-rpath-link,libavformat -Wl,-rpath-link,libavcodec -Wl,-rpath-link,libavutil -Wl,-Bsymbolic -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lasound -lxvidcore -lx264 -ltheoraenc -ltheoradec -logg -lopenjpeg -lmp3lame -lfreetype -lfaac -lm -pthread -lz
-test_ldflags -Wl,--version-script,/tmp/ffconf.CYdXAJUb.ver
-check_ld -Wl,--version-script,/tmp/ffconf.CYdXAJUb.ver
-check_cc -Wl,--version-script,/tmp/ffconf.CYdXAJUb.ver
-BEGIN /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -Wl,-Bsymbolic -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -Wl,--warn-common -Wl,-rpath-link,libpostproc -Wl,-rpath-link,libswscale -Wl,-rpath-link,libavfilter -Wl,-rpath-link,libavdevice -Wl,-rpath-link,libavformat -Wl,-rpath-link,libavcodec -Wl,-rpath-link,libavutil -Wl,-Bsymbolic -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lasound -lxvidcore -lx264 -lvpx -lvpx -lvorbisenc -lvorbis -logg -ltheoraenc -ltheoradec -logg -lrtmp -lz -lgnutls -lopenjpeg -lmp3lame -lfaac -lm -pthread -lz
+test_ldflags -Wl,--version-script,/tmp/ffconf.uvnUTfLn.ver
+check_ld -Wl,--version-script,/tmp/ffconf.uvnUTfLn.ver
+check_cc -Wl,--version-script,/tmp/ffconf.uvnUTfLn.ver
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int main(void){ return 0; }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -Wl,--version-script,/tmp/ffconf.CYdXAJUb.ver -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-gcc -Wl,--as-needed -Wl,--warn-common -Wl,-rpath-link,libpostproc -Wl,-rpath-link,libswscale -Wl,-rpath-link,libavfilter -Wl,-rpath-link,libavdevice -Wl,-rpath-link,libavformat -Wl,-rpath-link,libavcodec -Wl,-rpath-link,libavutil -Wl,--version-script,/tmp/ffconf.CYdXAJUb.ver -o /tmp/ffconf.SW7kdNG3 /tmp/ffconf.SMSZIU9Y.o -lasound -lxvidcore -lx264 -ltheoraenc -ltheoradec -logg -lopenjpeg -lmp3lame -lfreetype -lfaac -lm -pthread -lz
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -Wl,--version-script,/tmp/ffconf.uvnUTfLn.ver -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+gcc -Wl,--as-needed -Wl,--warn-common -Wl,-rpath-link,libpostproc -Wl,-rpath-link,libswscale -Wl,-rpath-link,libavfilter -Wl,-rpath-link,libavdevice -Wl,-rpath-link,libavformat -Wl,-rpath-link,libavcodec -Wl,-rpath-link,libavutil -Wl,--version-script,/tmp/ffconf.uvnUTfLn.ver -o /tmp/ffconf.lKhQ2S09 /tmp/ffconf.9hK5m6U5.o -lasound -lxvidcore -lx264 -lvpx -lvpx -lvorbisenc -lvorbis -logg -ltheoraenc -ltheoradec -logg -lrtmp -lz -lgnutls -lopenjpeg -lmp3lame -lfaac -lm -pthread -lz
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	void ff_foo(void) __asm__ ("av_foo@VERSION");
     2	void ff_foo(void) { __asm__(""); }
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/cc7Ejg9H.s: Assembler messages:
-/tmp/cc7Ejg9H.s:4: Error: junk at end of line, first unrecognized character is `@'
-/tmp/cc7Ejg9H.s:5: Error: unrecognized symbol type "VERSION"
-/tmp/cc7Ejg9H.s:5: Error: junk at end of line, first unrecognized character is `,'
-/tmp/cc7Ejg9H.s:6: Error: invalid character '@' in mnemonic
-/tmp/cc7Ejg9H.s:15: Error: expected comma after name `av_foo' in .size directive
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/cctO3oPK.s: Assembler messages:
+/tmp/cctO3oPK.s:4: Error: junk at end of line, first unrecognized character is `@'
+/tmp/cctO3oPK.s:5: Error: unrecognized symbol type "VERSION"
+/tmp/cctO3oPK.s:5: Error: junk at end of line, first unrecognized character is `,'
+/tmp/cctO3oPK.s:6: Error: invalid character '@' in mnemonic
+/tmp/cctO3oPK.s:15: Error: expected comma after name `av_foo' in .size directive
 check_cc
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	__asm__(".symver ff_foo,av_foo@VERSION");
     2	void ff_foo(void) {}
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
-/tmp/ffconf.4RHq3IBa.c:2:6: warning: no previous prototype for 'ff_foo' [-Wmissing-prototypes]
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
+/tmp/ffconf.UJKBwKvW.c:2:6: warning: no previous prototype for 'ff_foo' [-Wmissing-prototypes]
 check_cflags -fno-math-errno
 check_cc -fno-math-errno
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -O3 -fno-math-errno -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -O3 -fno-math-errno -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cflags -fno-signed-zeros
 check_cc -fno-signed-zeros
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -O3 -fno-math-errno -fno-signed-zeros -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -O3 -fno-math-errno -fno-signed-zeros -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cflags -fno-tree-vectorize
 check_cc -fno-tree-vectorize
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -O3 -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -O3 -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cflags -Werror=implicit-function-declaration
 check_cc -Werror=implicit-function-declaration
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -O3 -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -O3 -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
 check_cflags -Werror=missing-prototypes
 check_cc -Werror=missing-prototypes
-BEGIN /tmp/ffconf.4RHq3IBa.c
+BEGIN /tmp/ffconf.UJKBwKvW.c
     1	int x;
-END /tmp/ffconf.4RHq3IBa.c
-gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -I/usr/include/freetype2 -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -O3 -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration -Werror=missing-prototypes -c -o /tmp/ffconf.SMSZIU9Y.o /tmp/ffconf.4RHq3IBa.c
+END /tmp/ffconf.UJKBwKvW.c
+gcc -D_ISOC99_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -std=c99 -fomit-frame-pointer -pthread -g -Wdeclaration-after-statement -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wno-pointer-sign -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef -Wmissing-prototypes -Wno-pointer-to-int-cast -O3 -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration -Werror=missing-prototypes -c -o /tmp/ffconf.9hK5m6U5.o /tmp/ffconf.UJKBwKvW.c
