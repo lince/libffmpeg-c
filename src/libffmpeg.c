@@ -3672,6 +3672,7 @@ int FFMpeg_setInputFile(const char* filename) {
 	if (last_asked_format) {
 		if (!(file_iformat = av_find_input_format(last_asked_format))) {
 			sprintf(error_str, "Unknown input format: '%s'\n", last_asked_format);
+			last_asked_format = NULL;
 			FFMpeg_reset(__LINE__);
 			return FFMpeg_ERROR;
 		}
