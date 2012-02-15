@@ -1,0 +1,83 @@
+# Library FFMpeg C
+
+The libffmpeg-c is a c-written library that wraps the functionalities of the ffmpeg.The library does not provide access to all functionalities of libavcodec or others ffmpeg-libraries, just the audio and video transcoding functionality. With libffmpeg-c, you can do virtually anything you can do with ffmpeg command line.
+
+## Compiling
+
+The libffmpeg-c has as its main dependency the ffmpeg. For compatibility issues, the library comes with it yours ffmpeg version in the diretory libffmpeg-c/deps/ffmpeg. You can try to use another version of ffmpeg in your compilations, but you will probably get compilations errors if the ffmpeg used is too different. Actually, the current version of libffmpeg-c uses the ffmpeg 0.8.4 with few modifications (detailed below).
+
+The fist -- and complexer -- step to build the libffmpeg-c is compiling the ffmpeg, and this step is described below.
+
+### Installing FFMpeg
+
+We will use several external libraries in your compilation of FFMpeg. If you know what you are doing, you can omit some dependencies without problem.
+
+The dependencies to compile ffmpeg are:
+
+* libfaac-dev
+* libfreetype6-dev
+* libmp3lame-dev
+* libxvidcore-dev
+* libopenjpeg-dev
+* libtheora-dev
+* libasound2-dev
+* libx11-dev
+* libxvmc-dev
+* libxext-dev
+* libxfixes-dev
+* yasm
+* librtmp-dev 
+* libvorbis-dev 
+* libvpx-dev
+* libx264
+
+If you are using a Debian-based OS (like Ubuntu), you can easily obtain all the decencies but the last one using:
+
+    $ sudo apt-get install libfaac-dev libfreetype6-dev libmp3lame-dev libxvidcore-dev libopenjpeg-dev libtheora-dev libasound2-dev yasm libxvmc-dev libx11-dev librtmp-dev libvorbis-dev libxext-dev libxfixes-dev libvpx-dev
+
+The libx264 must be manually compiled:
+
+    $ git clone git://git.videolan.org/x264.git libx264
+    $ cd libx264
+    $ ./configure --enable-shared
+    $ make
+    $ sudo make install
+    $ cd ..
+
+After get the dependencies, let's configure the build of ffmpeg.
+
+    $ ./configure --enable-shared --enable-gpl --enable-version3 --enable-x11grab --enable-libfaac --enable-libmp3lame --enable-libtheora --enable-libx264 --enable-libxvid  --enable-libopenjpeg --enable-muxer=alsa --enable-demuxer=alsa --enable-avfilter --enable-nonfree --enable-librtmp --enable-libvorbis --enable-pthreads --enable-shmgrab --enable-postproc --enable-libvpx
+
+Finally, you can build the FFMpeg. This is a very very long process. So get some coffee and go on:
+
+   $ make
+   $ sudo make install
+
+
+### Instaling libffmpeg-c
+
+After FFMpeg has been installed, you almost finished. Go to the libffmpeg-c root directory and type:
+
+    $ git clone git://github.com/lince/libffmpeg-c.git libffmpeg-c
+    $ cd libffmpeg-c
+    $ make
+    $ sudo make install
+
+## Using
+
+Actually, the libffmpeg-c was projected to be just a low-level interface with FFMpeg for the [libavencoding](https://github.com/lince/libavencoding). So we encourage no-one to use it alone. But, if you really wish, you need to link the library libffmpeg-c (with a -lffmpeg) and include the headers of the library to your code.
+
+    #include <libffmpeg/libffmpeg.h>
+
+## Modified FFMpeg
+
+The FFMpeg code that is shipped with libffmpeg-c has some customization. So, if you wish to use a different version of FFMpeg, you should modify this code too. The modifications needed are:
+
+* In file _ffmpeg/configure_:
+    + In code block '_show_help()_', after the line '_--enable-x11grab, ..._', add '_--enable-shmhgrab	enable shm grabbing [no]_'
+    + In code block _CONFIG_LIS""_, after the line '_x11grab_', add '_shmgrab_'
+    + In code blocl '_#indevs / outdevs_', after the line '_x11_grab_device_indev_deps="x11grab xShmCreateImage"_', add '_shm_grab_device_indev_deps="shmgrab"_'
+* In directory ffmpeg/libavdevice copy the file shmgrab.c.
+* In file _ffmpeg/libavdevice/alldevices.h_, after the line '_REGISTER_INDEV    (X11_GRAB_DEVICE, x11_grab_device)_;', add '_REGISTER_INDEV    (SHM_GRAB_DEVICE, shm_grab_device);_'
+* In file _ffmpeg/libavdevice/Makefile_, after the line '_OBJS-$(CONFIG_X11_GRAB_DEVICE_INDEV)     += x11grab.o_', add '_OBJS-$(CONFIG_SHM_GRAB_DEVICE_INDEV)      += shmgrab.o_'
+

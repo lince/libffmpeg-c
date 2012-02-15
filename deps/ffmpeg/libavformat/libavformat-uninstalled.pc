@@ -8,5 +8,5 @@ Description: FFmpeg container format library
 Version: 53.4.0
 Requires: libavcodec = 53.7.0
 Conflicts:
-Libs: ${libdir}/libavformat.a -ldl -lX11 -lXext -lXfixes -lasound -lxvidcore -lx264 -ltheoraenc -ltheoradec -logg -lopenjpeg -lmp3lame -lfreetype -lfaac -lm -pthread -lz 
+Libs: ${libdir}/libavformat.a -ldl -lX11 -lXext -lXfixes -lasound -lxvidcore -lx264 -lvpx -lvpx -lvorbisenc -lvorbis -logg -ltheoraenc -ltheoradec -logg -lrtmp -lz -lgnutls -lopenjpeg -lmp3lame -lfaac -lm -pthread -lz 
 Cflags: -I${includedir}
