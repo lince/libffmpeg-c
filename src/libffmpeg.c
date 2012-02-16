@@ -3657,6 +3657,7 @@ void FFMpeg_stop() {
 
 int FFMpeg_setFormat (char* arg) {
     last_asked_format = arg;
+    logger(LOGGER_DEBUG, last_asked_format);
     return FFMpeg_SUCCESS;
 }
 
@@ -5087,7 +5088,11 @@ int FFMpeg_setOutputFile(char* filename) {
 	if (!strcmp(filename, "-"))
 		filename = "pipe:";
 
+	/*last_asked_format = "webm\0";
+	logger(LOGGER_DEBUG, last_asked_format);
+	logger(LOGGER_DEBUG, filename);*/
 	err = avformat_alloc_output_context2(&oc, NULL, last_asked_format, filename);
+	//logger(LOGGER_DEBUG, last_asked_format);
 	last_asked_format = NULL;
 	if (!oc) {
         sprint_error(error_str, filename, err);
